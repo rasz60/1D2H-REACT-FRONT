@@ -1,0 +1,25 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css");
+
+$font-stack:
+  "Pretendard",
+  -apple-system,
+  BlinkMacSystemFont,
+  system-ui,
+  Roboto,
+  "Helvetica Neue",
+  "Segoe UI",
+  "Apple SD Gothic Neo",
+  "Noto Sans KR",
+  "Malgun Gothic",
+  sans-serif;
+
+body {
+  margin: 0;
+  font-family: $font-stack;
+}
+
+#root {
+  width: 100%;
+}
+
+@import url(_header.scss);
