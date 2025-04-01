@@ -24,3 +24,8 @@ npm i prettier --no-fund // code formatter
 - App.js 테스트 코드 작성, 페이지 로드 시 /api/auth/login 호출
   - login 성공 시 : access token 리턴
   - login 실패 시 : 403, 아이디/패스워드 오류 리턴
+
+
+#### 3. Main, Header 작업
+- VUE3 블로그 UI REACT로 전환 작업
+- index.js, App.js, assets/Main.jsx , Header.jsx 작업 중
