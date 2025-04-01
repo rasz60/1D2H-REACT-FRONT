@@ -2,11 +2,13 @@
 
 #### 1. React 프로젝트 생성
 
+- React 프로젝트 생성
+
 ```
 npx create-react-app ${path}
 ```
 
-#### 2. 필요 라이브러리 설치
+- 필요 라이브러리 설치
 
 ```
 
@@ -17,7 +19,7 @@ npm i prettier --no-fund // code formatter
 
 ```
 
-#### 3. login API 호출 테스트
+#### 2. login API 호출 테스트
 
 - App.js 테스트 코드 작성, 페이지 로드 시 /api/auth/login 호출
   - login 성공 시 : access token 리턴
