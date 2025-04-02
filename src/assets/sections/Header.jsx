@@ -1,10 +1,24 @@
 import { useEffect, useState } from "react";
-import { AppBar, Toolbar, Grid2, IconButton, Avatar } from "@mui/material";
+import { Link } from "react-router-dom";
+import {
+  AppBar,
+  Toolbar,
+  Grid2,
+  IconButton,
+  Avatar,
+  Backdrop,
+  Box,
+  List,
+  ListItem,
+} from "@mui/material";
 import { Menu, Login, AccountCircle } from "@mui/icons-material";
 const Header = () => {
-  const [isScroll, setIsScroll] = useState(
-    document.scrollingElement.scrollTop > 0
-  );
+  const [isScroll, setIsScroll] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <AppBar id="header-wrapper" position="static" color="secondary">
@@ -15,7 +29,7 @@ const Header = () => {
           className={isScroll ? "scrolled" : "notScrolled"}
         >
           <Grid2 size={4} id="col-menu">
-            <IconButton size="large">
+            <IconButton size="large" onClick={handleMenu}>
               <Menu />
             </IconButton>
           </Grid2>
@@ -36,6 +50,22 @@ const Header = () => {
           </Grid2>
         </Grid2>
       </Toolbar>
+      <Backdrop id="slide-menu-backdrop" open={isMenuOpen} onClick={handleMenu}>
+        <Box id="slide-menu-box">
+          <List id="slide-menu-list">
+            <ListItem component={Link} to="/test" className="slide-menu-item">
+              <Grid2 container className="slide-menu-item-row">
+                <Grid2 size={1} className="slide-menu-item-col icon">
+                  123
+                </Grid2>
+                <Grid2 size={11} className="slide-menu-item-col name">
+                  123
+                </Grid2>
+              </Grid2>
+            </ListItem>
+          </List>
+        </Box>
+      </Backdrop>
     </AppBar>
   );
 };
