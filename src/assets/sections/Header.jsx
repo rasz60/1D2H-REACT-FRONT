@@ -12,12 +12,24 @@ import {
   ListItem,
 } from "@mui/material";
 import { Menu, Login, AccountCircle } from "@mui/icons-material";
+
+import SlideMenu from "../components/SlideMenu";
+import LoginModal from "../components/LoginModal";
 const Header = () => {
   const [isScroll, setIsScroll] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isBackdrop, setIsBackdrop] = useState({
+    open: false,
+    menu: false,
+    login: false,
+  });
 
-  const handleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const handleBackdrop = (type) => {
+    let backdrop = {
+      open: !isBackdrop.open,
+      menu: type === "menu",
+      login: type === "login",
+    };
+    setIsBackdrop(backdrop);
   };
 
   return (
@@ -29,12 +41,14 @@ const Header = () => {
           className={isScroll ? "scrolled" : "notScrolled"}
         >
           <Grid2 size={4} id="col-menu">
-            <IconButton size="large" onClick={handleMenu}>
+            <IconButton size="large" onClick={() => handleBackdrop("menu")}>
               <Menu />
             </IconButton>
           </Grid2>
           <Grid2 size={4} id="col-logo">
             <Avatar
+              component={Link}
+              to="/"
               id="logo"
               alt="devsixt"
               src="https://avatars.githubusercontent.com/u/96821067?v=4"
@@ -44,27 +58,15 @@ const Header = () => {
             <IconButton size="large">
               <AccountCircle />
             </IconButton>
-            <IconButton size="large">
+            <IconButton size="large" onClick={() => handleBackdrop("login")}>
               <Login />
             </IconButton>
           </Grid2>
         </Grid2>
       </Toolbar>
-      <Backdrop id="slide-menu-backdrop" open={isMenuOpen} onClick={handleMenu}>
-        <Box id="slide-menu-box">
-          <List id="slide-menu-list">
-            <ListItem component={Link} to="/test" className="slide-menu-item">
-              <Grid2 container className="slide-menu-item-row">
-                <Grid2 size={1} className="slide-menu-item-col icon">
-                  123
-                </Grid2>
-                <Grid2 size={11} className="slide-menu-item-col name">
-                  123
-                </Grid2>
-              </Grid2>
-            </ListItem>
-          </List>
-        </Box>
+      <Backdrop id="header-backdrop" open={isBackdrop.open}>
+        {isBackdrop.menu && <SlideMenu />}
+        {isBackdrop.login && <LoginModal />}
       </Backdrop>
     </AppBar>
   );

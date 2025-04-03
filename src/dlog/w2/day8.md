@@ -1,4 +1,4 @@
-## Day8. Header 작업
+## Day8. 기본 화면 구성 (Main, Header, Login)
 
 #### 1. Header 퍼블리싱 & script 작업
 
@@ -13,10 +13,8 @@
   - 로그인 완료되었을 때 : 로그인 유저 정보 상세, 로그아웃 버튼 노출
   - 로그인 버튼 클릭 시 모달 창 호출
 
-#### 2. Login Modal 화면
+#### 2. 상세 메뉴 화면
 
-- id / pw 입력 시 검증 결과 출력
-- 로그인 버튼 클릭 시 backend login API 호출
-- 로그인 성공 시, 메인 페이지 리로드
-- 로그인 실패 시, 모달 창에 에러 메시지 출력
-- 닫기 버튼 클릭 시 모달창 close
+- 메뉴 버튼 클릭 시 상세 메뉴 화면 출력
+- MUI BackDrop Component 활용 클릭 방지
+- 메뉴 클릭 시 react-router-dom.Link component 활용 router 링크 이동

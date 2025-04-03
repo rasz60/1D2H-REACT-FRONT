@@ -82,7 +82,7 @@
   }
 }
 
-#slide-menu-backdrop {
+#header-backdrop {
   display: flex;
   justify-content: flex-start;
   z-index: 2;
@@ -113,5 +113,15 @@
         }
       }
     }
+  }
+
+  #login-modal-box {
+    margin: 0 auto;
+    padding: 1em;
+    background-color: whitesmoke;
+    width: 30em;
+    height: 15em;
+    color: black;
+    text-align: center;
   }
 }
