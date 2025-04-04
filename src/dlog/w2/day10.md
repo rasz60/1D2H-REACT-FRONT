@@ -1,4 +1,4 @@
-## Day8. Login, Logout 구현
+## Day10. Login, Logout 구현
 
 #### 1. Login 구현
 
