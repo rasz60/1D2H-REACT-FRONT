@@ -1,4 +1,4 @@
-## Day8. Header 작업 - 1
+## Day9. Header 작업
 
 #### 1. Menu, Login 버튼 클릭 시
 
