@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Box, Button, FormControl, TextField } from "@mui/material";
 import { VpnKey } from "@mui/icons-material";
-import axios from "axios";
+import axiosInstance from "../../utils/axiosInstance";
+import { useAuth } from "../../context/AuthContext";
+
 const LoginModal = () => {
+  const { loginCallback } = useAuth();
   const [loginInfo, setLoginInfo] = useState({ userId: "", userPwd: "" });
   const handleChng = (event) => {
     const { name, value } = event.target;
@@ -23,9 +26,12 @@ const LoginModal = () => {
       return false;
     }
 
-    axios
-      .post("/api/auth/login", loginInfo)
-      .then((res) => {})
+    axiosInstance
+      .post("auth/login", loginInfo)
+      .then((res) => {
+        loginCallback(res.data.token);
+        window.location.href = "/";
+      })
       .catch((err) => {
         alert(err.response.data.message);
       });

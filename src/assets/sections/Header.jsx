@@ -7,22 +7,23 @@ import {
   IconButton,
   Avatar,
   Backdrop,
-  Box,
-  List,
-  ListItem,
 } from "@mui/material";
-import { Menu, Login, AccountCircle } from "@mui/icons-material";
+import { Menu, Login, Logout, AccountCircle } from "@mui/icons-material";
 
 import SlideMenu from "../components/SlideMenu";
 import LoginModal from "../components/LoginModal";
-const Header = () => {
-  const [isScroll, setIsScroll] = useState(false);
+
+import { useAuth } from "../../context/AuthContext";
+
+const Header = ({ isScroll }) => {
   const [isBackdrop, setIsBackdrop] = useState({
     open: false,
     menu: false,
     login: false,
   });
 
+  const { getIsAuthentication, logoutCallback } = useAuth();
+  const isAuthentication = getIsAuthentication();
   const handleBackdrop = (type) => {
     let backdrop = {
       open: !isBackdrop.open,
@@ -30,6 +31,13 @@ const Header = () => {
       login: type === "login",
     };
     setIsBackdrop(backdrop);
+  };
+
+  const handleLogout = () => {
+    if (window.confirm("로그아웃 할까요?")) {
+      logoutCallback();
+      window.location.href = "/";
+    }
   };
 
   return (
@@ -55,12 +63,22 @@ const Header = () => {
             />
           </Grid2>
           <Grid2 size={4} id="col-button">
-            <IconButton size="large">
-              <AccountCircle />
-            </IconButton>
-            <IconButton size="large" onClick={() => handleBackdrop("login")}>
-              <Login />
-            </IconButton>
+            {isAuthentication && (
+              <IconButton size="large">
+                <AccountCircle />
+              </IconButton>
+            )}
+            {isAuthentication && (
+              <IconButton size="large" onClick={handleLogout}>
+                <Logout />
+              </IconButton>
+            )}
+
+            {!isAuthentication && (
+              <IconButton size="large" onClick={() => handleBackdrop("login")}>
+                <Login />
+              </IconButton>
+            )}
           </Grid2>
         </Grid2>
       </Toolbar>
