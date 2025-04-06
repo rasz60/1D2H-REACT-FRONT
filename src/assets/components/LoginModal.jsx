@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Box, Button, FormControl, TextField } from "@mui/material";
-import { VpnKey } from "@mui/icons-material";
+import { VpnKey, PersonAdd } from "@mui/icons-material";
 import axiosInstance from "../../utils/axiosInstance";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-const LoginModal = () => {
+const LoginModal = ({ setBackdrop }) => {
+  const navigate = useNavigate();
   const { loginCallback } = useAuth();
   const [loginInfo, setLoginInfo] = useState({ userId: "", userPwd: "" });
   const handleChng = (event) => {
@@ -37,6 +39,11 @@ const LoginModal = () => {
       });
   };
 
+  const handleSignUp = () => {
+    setBackdrop(false);
+    navigate("/signup");
+  };
+
   return (
     <Box id="login-modal-box">
       <Box id="login-modal-input-box">
@@ -67,8 +74,19 @@ const LoginModal = () => {
           variant="contained"
           startIcon={<VpnKey />}
           onClick={handleLogin}
+          sx={{ ml: 1, mr: 1 }}
         >
           Login
+        </Button>
+
+        <Button
+          color="secondary"
+          variant="outlined"
+          startIcon={<PersonAdd />}
+          onClick={handleSignUp}
+          sx={{ ml: 1, mr: 1 }}
+        >
+          Sign Up
         </Button>
       </Box>
     </Box>

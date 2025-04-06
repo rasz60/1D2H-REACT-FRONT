@@ -26,5 +26,6 @@ body {
     padding: 0;
   }
 }
-
+@import url(_backdrop.scss);
 @import url(_header.scss);
+@import url(_main.scss);

@@ -1,5 +1,26 @@
 import axios from "axios";
 
+const getDeviceInfo = () => {
+  const userAgent = navigator.userAgent;
+
+  let os = "Unknown OS";
+  if (userAgent.includes("Win")) os = "Windows";
+  else if (userAgent.includes("Mac")) os = "MacOS";
+  else if (userAgent.includes("X11")) os = "UNIX";
+  else if (userAgent.includes("Linux")) os = "Linux";
+  else if (/Android/.test(userAgent)) os = "Android";
+  else if (/iPhone|iPad|iPod/.test(userAgent)) os = "iOS";
+
+  let browser = "Unknown Browser";
+  if (userAgent.includes("Chrome")) browser = "Chrome";
+  else if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) browser = "Safari";
+  else if (userAgent.includes("Firefox")) browser = "Firefox";
+  else if (userAgent.includes("MSIE") || userAgent.includes("Trident")) browser = "Internet Explorer";
+  else if (userAgent.includes("Edg")) browser = "Edge";
+
+  return `${os} - ${browser}`;
+};
+
 // Axios 인스턴스 생성
 const axiosInstance = axios.create({
   baseURL: "/api",
@@ -12,6 +33,9 @@ axiosInstance.interceptors.request.use(
     if (token) {
       config.headers["Authorization"] = "Bearer " + token;
     }
+    config.headers["X-device-info"] = getDeviceInfo();
+
+
     return config;
   },
   (error) => {

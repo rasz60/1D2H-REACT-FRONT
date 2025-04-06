@@ -35,6 +35,11 @@ export const AuthProvider = ({ children }) => {
     return isAuthenticated;
   };
 
+  // token 조회
+  const getToken = () => {
+    return token;
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -43,6 +48,7 @@ export const AuthProvider = ({ children }) => {
         loginCallback,
         logoutCallback,
         getIsAuthentication,
+        getToken,
       }}
     >
       {children}

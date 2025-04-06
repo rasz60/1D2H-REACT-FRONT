@@ -1,42 +1,30 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import {
-  AppBar,
-  Toolbar,
-  Grid2,
-  IconButton,
-  Avatar,
-  Backdrop,
-} from "@mui/material";
+import { AppBar, Toolbar, Grid2, IconButton, Avatar } from "@mui/material";
 import { Menu, Login, Logout, AccountCircle } from "@mui/icons-material";
 
-import SlideMenu from "../components/SlideMenu";
-import LoginModal from "../components/LoginModal";
+import axiosInstance from "../../utils/axiosInstance";
 
 import { useAuth } from "../../context/AuthContext";
 
-const Header = ({ isScroll }) => {
-  const [isBackdrop, setIsBackdrop] = useState({
-    open: false,
-    menu: false,
-    login: false,
-  });
-
+const Header = ({ isScroll, setBackdrop }) => {
   const { getIsAuthentication, logoutCallback } = useAuth();
   const isAuthentication = getIsAuthentication();
-  const handleBackdrop = (type) => {
-    let backdrop = {
-      open: !isBackdrop.open,
-      menu: type === "menu",
-      login: type === "login",
-    };
-    setIsBackdrop(backdrop);
+  const handleBackdrop = (layout) => {
+    setBackdrop(true, layout);
   };
-
+  const handleMoveHome = () => {
+    window.location.href = "/";
+  };
   const handleLogout = () => {
     if (window.confirm("로그아웃 할까요?")) {
-      logoutCallback();
-      window.location.href = "/";
+      axiosInstance
+        .post("/auth/logout")
+        .then(() => {
+          logoutCallback();
+          window.location.href = "/";
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        });
     }
   };
 
@@ -55,8 +43,7 @@ const Header = ({ isScroll }) => {
           </Grid2>
           <Grid2 size={4} id="col-logo">
             <Avatar
-              component={Link}
-              to="/"
+              onClick={handleMoveHome}
               id="logo"
               alt="devsixt"
               src="https://avatars.githubusercontent.com/u/96821067?v=4"
@@ -82,10 +69,6 @@ const Header = ({ isScroll }) => {
           </Grid2>
         </Grid2>
       </Toolbar>
-      <Backdrop id="header-backdrop" open={isBackdrop.open}>
-        {isBackdrop.menu && <SlideMenu />}
-        {isBackdrop.login && <LoginModal />}
-      </Backdrop>
     </AppBar>
   );
 };
