@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Grid2,
@@ -19,6 +19,7 @@ const Signup = () => {
   const { validate, errors } = Validation();
   const [isStepTwo, setIsStepTwo] = useState(false);
   const [userInfo, setUserInfo] = useState({
+    lastChng: "",
     userId: "",
     userIdDupChk: false,
     userPwd: "",
@@ -60,11 +61,14 @@ const Signup = () => {
 
     setUserInfo({
       ...userInfo,
+      lastChng: name,
       [name]: value,
     });
-
-    validate(name, value);
   };
+
+  useEffect(() => {
+    validate(userInfo);
+  }, [userInfo]);
 
   return (
     <Box id="signup-wrapper">
@@ -155,10 +159,13 @@ const Signup = () => {
         <Grid2 size={12}>
           <FormControl fullWidth>
             <TextField
+              type="password"
               label="비밀번호 확인(Password Check)"
               name="userPwdChk"
               value={userInfo.userPwdChk}
               onChange={handleUserInfo}
+              error={errors.userPwdChk}
+              helperText={errors.userPwdChkMsg}
             ></TextField>
           </FormControl>
         </Grid2>
