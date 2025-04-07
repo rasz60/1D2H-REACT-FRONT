@@ -8,12 +8,15 @@ import { useAuth } from "../../context/AuthContext";
 const Header = ({ isScroll, setBackdrop }) => {
   const { getIsAuthentication, logoutCallback } = useAuth();
   const isAuthentication = getIsAuthentication();
+
   const handleBackdrop = (layout) => {
     setBackdrop(true, layout);
   };
+
   const handleMoveHome = () => {
     window.location.href = "/";
   };
+
   const handleLogout = () => {
     if (window.confirm("로그아웃 할까요?")) {
       axiosInstance
