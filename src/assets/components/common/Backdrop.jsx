@@ -1,7 +1,7 @@
 import { Backdrop, Box, IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import SlideMenu from "../SlideMenu";
-import LoginModal from "../LoginModal";
+import SlideMenu from "../header/SlideMenu";
+import LoginModal from "../header/LoginModal";
 
 const BackdropWapper = ({ isBackdrop, setBackdrop }) => {
   return (

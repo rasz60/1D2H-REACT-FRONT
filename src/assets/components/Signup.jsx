@@ -13,15 +13,20 @@ import {
   Checkbox,
 } from "@mui/material";
 import { AlternateEmail, Search, Check } from "@mui/icons-material";
+import Validation from "../js/validation";
+
 const Signup = () => {
+  const { validate, errors } = Validation();
   const [isStepTwo, setIsStepTwo] = useState(false);
   const [userInfo, setUserInfo] = useState({
     userId: "",
+    userIdDupChk: false,
     userPwd: "",
     userPwdChk: "",
     userEmailId: "",
     userEmailDomain: "",
     userEmailDomainSelect: "",
+    domainSelf: false,
     userPhone: "",
     userBirth: "",
     userNation: "",
@@ -29,7 +34,6 @@ const Signup = () => {
     userAddr: "",
     userAddrDesc: "",
     alarmYn: false,
-    domainSelf: false,
   });
 
   const handleOpenStepTwo = () => {
@@ -53,11 +57,13 @@ const Signup = () => {
         userInfo.domainSelf = true;
       }
     }
-    console.log(name, value);
+
     setUserInfo({
       ...userInfo,
       [name]: value,
     });
+
+    validate(name, value);
   };
 
   return (
@@ -116,6 +122,8 @@ const Signup = () => {
               name="userId"
               value={userInfo.userId}
               onChange={handleUserInfo}
+              error={errors.userId}
+              helperText={errors.userIdMsg}
             ></TextField>
           </FormControl>
         </Grid2>
@@ -134,10 +142,13 @@ const Signup = () => {
         <Grid2 size={12}>
           <FormControl fullWidth>
             <TextField
+              type="password"
               label="비밀번호(Password)"
               name="userPwd"
               value={userInfo.userPwd}
               onChange={handleUserInfo}
+              error={errors.userPwd}
+              helperText={errors.userPwdMsg}
             ></TextField>
           </FormControl>
         </Grid2>
