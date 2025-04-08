@@ -1,16 +1,22 @@
+import { useState } from "react";
 import { AppBar, Toolbar, Grid2, IconButton, Avatar } from "@mui/material";
 import { Menu, Login, Logout, AccountCircle } from "@mui/icons-material";
+import BackdropWrapper from "@compo/common/Backdrop";
+import BackdropMethods from "@js/backdrop";
+import axiosInstance from "@utils/axiosInstance";
 
-import axiosInstance from "../../utils/axiosInstance";
+import { useAuth } from "@context/AuthContext";
 
-import { useAuth } from "../../context/AuthContext";
-
-const Header = ({ isScroll, setBackdrop }) => {
+const Header = ({ isScroll }) => {
+  const { isBackdrop, setBackdrop } = BackdropMethods();
   const { getIsAuthentication, logoutCallback } = useAuth();
   const isAuthentication = getIsAuthentication();
-
   const handleBackdrop = (layout) => {
-    setBackdrop(true, layout);
+    setBackdrop({
+      ...isBackdrop,
+      type: true,
+      layout: layout,
+    });
   };
 
   const handleMoveHome = () => {
@@ -72,6 +78,7 @@ const Header = ({ isScroll, setBackdrop }) => {
           </Grid2>
         </Grid2>
       </Toolbar>
+      <BackdropWrapper isBackdrop={isBackdrop} setBackdrop={setBackdrop} />
     </AppBar>
   );
 };

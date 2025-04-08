@@ -10,13 +10,13 @@ const Validation = () => {
     let chk = name === "";
 
     /*-- UserId --*/
-    if (name === "userId" || chk) {
-      validUserId(userInfo.userId);
+    if (name === "signupUserId" || chk) {
+      validUserId(userInfo.signupUserId);
     }
 
     /*-- UserPwd --*/
-    if (name === "userPwd" || chk) {
-      validUserPwd(userInfo.userPwd);
+    if (name === "signupUserPwd" || chk) {
+      validUserPwd(userInfo.signupUserPwd);
 
       if (userInfo.userPwdChk) {
         name = "userPwdChk";
@@ -76,8 +76,8 @@ const Validation = () => {
     //Return
     setErrors({
       ...errors,
-      userId: flag,
-      userIdMsg: msg,
+      signupUserId: flag,
+      signupUserIdMsg: msg,
     });
   };
 
@@ -103,8 +103,8 @@ const Validation = () => {
     //Return
     setErrors({
       ...errors,
-      userPwd: flag,
-      userPwdMsg: msg,
+      signupUserPwd: flag,
+      signupUserPwdMsg: msg,
     });
   };
 
@@ -118,7 +118,7 @@ const Validation = () => {
     if (flag) msg = "비밀번호를 한 번 더 입력해주세요.";
 
     if (!flag) {
-      flag = userInfo.userPwd !== userInfo.userPwdChk;
+      flag = userInfo.signupUserPwd !== userInfo.userPwdChk;
       if (flag) msg = "비밀번호와 일치하지 않습니다.";
     }
     setErrors({

@@ -13,17 +13,21 @@ import {
   Checkbox,
 } from "@mui/material";
 import { AlternateEmail, Search, Check } from "@mui/icons-material";
-import axiosInstance from "../../utils/axiosInstance";
+import axiosInstance from "@utils/axiosInstance";
 import Validation from "../js/validation";
 
+import BackdropWrapper from "@compo/common/Backdrop";
+import BackdropMethods from "@js/backdrop";
+
 const Signup = () => {
+  const { isBackdrop, setBackdrop } = BackdropMethods();
   const { validate, errors } = Validation();
   const [isStepTwo, setIsStepTwo] = useState(false);
-  const [userInfo, setUserInfo] = useState({
+  const [signupInfo, setSignupInfo] = useState({
     lastChng: "",
-    userId: "",
+    signupUserId: "",
     userIdDupChk: false,
-    userPwd: "",
+    signupUserPwd: "",
     userPwdChk: "",
     userEmailId: "",
     userEmailDomain: "",
@@ -42,29 +46,29 @@ const Signup = () => {
     setIsStepTwo(true);
   };
 
-  const handleUserInfo = (event) => {
+  const handleSignupInfo = (event) => {
     let { name, value } = event.target;
 
     if (name === "userEmailDomainSelect") {
       if (value === "self") {
-        userInfo.domainSelf = true;
+        signupInfo.domainSelf = true;
       } else {
-        userInfo.domainSelf = false;
+        signupInfo.domainSelf = false;
       }
     }
 
-    setUserInfo({
-      ...userInfo,
+    setSignupInfo({
+      ...signupInfo,
       lastChng: name,
       [name]: value,
     });
   };
 
   useEffect(() => {
-    validate(userInfo);
+    validate(signupInfo);
     let event = null;
 
-    if (userInfo.lastChng === "userId") {
+    if (signupInfo.lastChng === "signupUserId") {
       event = {
         target: {
           name: "userIdDupChk",
@@ -73,28 +77,28 @@ const Signup = () => {
       };
     }
 
-    if (userInfo.lastChng === "userEmailDomainSelect") {
+    if (signupInfo.lastChng === "userEmailDomainSelect") {
       event = {
         target: {
           name: "userEmailDomain",
-          value: userInfo.domainSelf ? "" : userInfo.userEmailDomainSelect,
+          value: signupInfo.domainSelf ? "" : signupInfo.userEmailDomainSelect,
         },
       };
     }
 
-    if (event != null) handleUserInfo(event);
-  }, [userInfo]);
+    if (event != null) handleSignupInfo(event);
+  }, [signupInfo]);
 
   const handleIdDupChk = () => {
-    let chkValue = userInfo.userId;
+    let chkValue = signupInfo.signupUserId;
 
-    if (chkValue && !errors.userId) {
+    if (chkValue && !errors.signupUserId) {
       axiosInstance
         .get("/auth/idDupChk/" + chkValue)
         .then((res) => {
           let cnt = res.data;
-          setUserInfo({
-            ...userInfo,
+          setSignupInfo({
+            ...signupInfo,
             userIdDupChk: cnt === 0,
           });
           if (cnt > 0) {
@@ -106,6 +110,24 @@ const Signup = () => {
         .catch((err) => {
           alert(err.response.data.message);
         });
+    }
+  };
+
+  const handleAddrAPI = () => {
+    setBackdrop({
+      ...isBackdrop,
+      type: true,
+      layout: "addrAPI",
+    });
+  };
+
+  const onAddrSelect = (addr) => {
+    if (addr.address && addr.zonecode) {
+      setSignupInfo({
+        ...signupInfo,
+        userAddr: addr.address,
+        userZipCode: addr.zonecode,
+      });
     }
   };
 
@@ -162,11 +184,11 @@ const Signup = () => {
           <FormControl fullWidth>
             <TextField
               label="아이디(ID)"
-              name="userId"
-              value={userInfo.userId}
-              onChange={handleUserInfo}
-              error={errors.userId}
-              helperText={errors.userIdMsg}
+              name="signupUserId"
+              value={signupInfo.signupUserId}
+              onChange={handleSignupInfo}
+              error={errors.signupUserId}
+              helperText={errors.signupUserIdMsg}
             ></TextField>
           </FormControl>
         </Grid2>
@@ -188,11 +210,11 @@ const Signup = () => {
             <TextField
               type="password"
               label="비밀번호(Password)"
-              name="userPwd"
-              value={userInfo.userPwd}
-              onChange={handleUserInfo}
-              error={errors.userPwd}
-              helperText={errors.userPwdMsg}
+              name="signupUserPwd"
+              value={signupInfo.signupUserPwd}
+              onChange={handleSignupInfo}
+              error={errors.signupUserPwd}
+              helperText={errors.signupUserPwdMsg}
             ></TextField>
           </FormControl>
         </Grid2>
@@ -202,8 +224,8 @@ const Signup = () => {
               type="password"
               label="비밀번호 확인(Password Check)"
               name="userPwdChk"
-              value={userInfo.userPwdChk}
-              onChange={handleUserInfo}
+              value={signupInfo.userPwdChk}
+              onChange={handleSignupInfo}
               error={errors.userPwdChk}
               helperText={errors.userPwdChkMsg}
             ></TextField>
@@ -216,8 +238,8 @@ const Signup = () => {
             <TextField
               label="이메일 아이디(E-mail ID)"
               name="userEmailId"
-              value={userInfo.userEmailId}
-              onChange={handleUserInfo}
+              value={signupInfo.userEmailId}
+              onChange={handleSignupInfo}
               error={errors.userEmailId}
               helperText={errors.userEmailIdMsg}
             ></TextField>
@@ -238,13 +260,13 @@ const Signup = () => {
             <TextField
               name="userEmailDomain"
               label="이메일 주소(E-mail Domain)"
-              value={userInfo.userEmailDomain}
+              value={signupInfo.userEmailDomain}
               slotProps={{
                 input: {
-                  readOnly: !userInfo.domainSelf,
+                  readOnly: !signupInfo.domainSelf,
                 },
               }}
-              onChange={handleUserInfo}
+              onChange={handleSignupInfo}
               error={errors.userEmailDomain}
               helperText={errors.userEmailDomainMsg}
             ></TextField>
@@ -256,9 +278,9 @@ const Signup = () => {
             <Select
               labelId="email-domain-label"
               name="userEmailDomainSelect"
-              value={userInfo.userEmailDomainSelect}
+              value={signupInfo.userEmailDomainSelect}
               label="선택(Choose)"
-              onChange={handleUserInfo}
+              onChange={handleSignupInfo}
             >
               <MenuItem value={""}>선택...</MenuItem>
               <MenuItem value={"gmail.com"}>구글(Google)</MenuItem>
@@ -276,8 +298,8 @@ const Signup = () => {
               type="text"
               label="핸드폰번호"
               name="userPhone"
-              value={userInfo.userPhone}
-              onChange={handleUserInfo}
+              value={signupInfo.userPhone}
+              onChange={handleSignupInfo}
               error={errors.userPhone}
               helperText={errors.userPhoneMsg}
             ></TextField>
@@ -290,8 +312,8 @@ const Signup = () => {
             <TextField
               label="우편번호(Zip Code)"
               name="userZipCode"
-              value={userInfo.userZipCode}
-              onChange={handleUserInfo}
+              value={signupInfo.userZipCode}
+              onChange={handleSignupInfo}
               slotProps={{
                 input: {
                   readOnly: true,
@@ -305,8 +327,8 @@ const Signup = () => {
             <TextField
               label="주소(Address)"
               name="userAddr"
-              value={userInfo.userAddr}
-              onChange={handleUserInfo}
+              value={signupInfo.userAddr}
+              onChange={handleSignupInfo}
               slotProps={{
                 input: {
                   readOnly: true,
@@ -321,6 +343,7 @@ const Signup = () => {
             startIcon={<Search />}
             fullWidth
             sx={{ height: "100%" }}
+            onClick={handleAddrAPI}
           >
             Find
           </Button>
@@ -330,8 +353,8 @@ const Signup = () => {
             <TextField
               label="주소상세(Address Details)"
               name="userAddrDesc"
-              value={userInfo.userAddrDesc}
-              onChange={handleUserInfo}
+              value={signupInfo.userAddrDesc}
+              onChange={handleSignupInfo}
             ></TextField>
           </FormControl>
         </Grid2>
@@ -342,14 +365,19 @@ const Signup = () => {
             control={
               <Checkbox
                 name="alarmYn"
-                value={userInfo.alarmYn}
-                onChange={handleUserInfo}
+                value={signupInfo.alarmYn}
+                onChange={handleSignupInfo}
               />
             }
             label="devsixt에서 보내는 알림을 수신하는데 동의합니다. (메일, 문자)"
           />
         </Grid2>
       </Grid2>
+      <BackdropWrapper
+        isBackdrop={isBackdrop}
+        setBackdrop={setBackdrop}
+        onAddrSelect={onAddrSelect}
+      />
     </Box>
   );
 };

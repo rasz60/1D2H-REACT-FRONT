@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Box, Button, FormControl, TextField } from "@mui/material";
 import { VpnKey, PersonAdd } from "@mui/icons-material";
-import axiosInstance from "../../../utils/axiosInstance";
-import { useAuth } from "../../../context/AuthContext";
+import axiosInstance from "@utils/axiosInstance";
+import { useAuth } from "@context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const LoginModal = ({ setBackdrop }) => {

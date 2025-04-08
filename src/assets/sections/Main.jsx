@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Signup from "../components/Signup";
+import Signup from "@compo/Signup";
 const Main = () => {
   return (
     <main id="main" role="main">
