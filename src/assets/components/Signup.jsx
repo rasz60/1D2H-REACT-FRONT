@@ -13,6 +13,7 @@ import {
   Checkbox,
 } from "@mui/material";
 import { AlternateEmail, Search, Check } from "@mui/icons-material";
+import axiosInstance from "../../utils/axiosInstance";
 import Validation from "../js/validation";
 
 const Signup = () => {
@@ -41,21 +42,14 @@ const Signup = () => {
     setIsStepTwo(true);
   };
 
-  const handleUserEmailDomainSelect = (event) => {
-    handleUserInfo(event);
-    event.target.name = "userEmailDomain";
-    handleUserInfo(event);
-  };
-
   const handleUserInfo = (event) => {
     let { name, value } = event.target;
 
-    if (name === "userEmailDomain") {
+    if (name === "userEmailDomainSelect") {
       if (value === "self") {
-        userInfo.domainSelf = false;
-        value = "";
-      } else {
         userInfo.domainSelf = true;
+      } else {
+        userInfo.domainSelf = false;
       }
     }
 
@@ -68,7 +62,52 @@ const Signup = () => {
 
   useEffect(() => {
     validate(userInfo);
+    let event = null;
+
+    if (userInfo.lastChng === "userId") {
+      event = {
+        target: {
+          name: "userIdDupChk",
+          value: false,
+        },
+      };
+    }
+
+    if (userInfo.lastChng === "userEmailDomainSelect") {
+      event = {
+        target: {
+          name: "userEmailDomain",
+          value: userInfo.domainSelf ? "" : userInfo.userEmailDomainSelect,
+        },
+      };
+    }
+
+    if (event != null) handleUserInfo(event);
   }, [userInfo]);
+
+  const handleIdDupChk = () => {
+    let chkValue = userInfo.userId;
+
+    if (chkValue && !errors.userId) {
+      axiosInstance
+        .get("/auth/idDupChk/" + chkValue)
+        .then((res) => {
+          let cnt = res.data;
+          setUserInfo({
+            ...userInfo,
+            userIdDupChk: cnt === 0,
+          });
+          if (cnt > 0) {
+            alert("중복된 아이디가 이미 가입 되어있습니다.");
+          } else {
+            alert("가입할 수 있는 아이디입니다.");
+          }
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        });
+    }
+  };
 
   return (
     <Box id="signup-wrapper">
@@ -137,6 +176,7 @@ const Signup = () => {
             startIcon={<Check />}
             fullWidth
             sx={{ height: "100%" }}
+            onClick={handleIdDupChk}
           >
             중복확인
           </Button>
@@ -178,6 +218,8 @@ const Signup = () => {
               name="userEmailId"
               value={userInfo.userEmailId}
               onChange={handleUserInfo}
+              error={errors.userEmailId}
+              helperText={errors.userEmailIdMsg}
             ></TextField>
           </FormControl>
         </Grid2>
@@ -199,10 +241,12 @@ const Signup = () => {
               value={userInfo.userEmailDomain}
               slotProps={{
                 input: {
-                  readOnly: userInfo.domainSelf,
+                  readOnly: !userInfo.domainSelf,
                 },
               }}
               onChange={handleUserInfo}
+              error={errors.userEmailDomain}
+              helperText={errors.userEmailDomainMsg}
             ></TextField>
           </FormControl>
         </Grid2>
@@ -214,7 +258,7 @@ const Signup = () => {
               name="userEmailDomainSelect"
               value={userInfo.userEmailDomainSelect}
               label="선택(Choose)"
-              onChange={handleUserEmailDomainSelect}
+              onChange={handleUserInfo}
             >
               <MenuItem value={""}>선택...</MenuItem>
               <MenuItem value={"gmail.com"}>구글(Google)</MenuItem>
@@ -225,14 +269,17 @@ const Signup = () => {
           </FormControl>
         </Grid2>
 
-        {/*-- 국가, 전화번호 --*/}
+        {/*-- 전화번호 --*/}
         <Grid2 size={12}>
           <FormControl fullWidth>
             <TextField
+              type="text"
               label="핸드폰번호"
               name="userPhone"
               value={userInfo.userPhone}
               onChange={handleUserInfo}
+              error={errors.userPhone}
+              helperText={errors.userPhoneMsg}
             ></TextField>
           </FormControl>
         </Grid2>
