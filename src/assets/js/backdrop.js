@@ -10,8 +10,9 @@ const BackdropMethods = () => {
   const setBackdrop = (backdrop) => {
     setIsBackdrop({
       ...isBackdrop,
-      open: backdrop.type ? !isBackdrop.open : false,
+      open: backdrop.type,
       layout: backdrop.type ? backdrop.layout : "",
+      fullH: backdrop.layout !== "login" && backdrop.layout !== "menu",
       result: {},
     });
   };

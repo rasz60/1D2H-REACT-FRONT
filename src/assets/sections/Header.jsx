@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { AppBar, Toolbar, Grid2, IconButton, Avatar } from "@mui/material";
 import { Menu, Login, Logout, AccountCircle } from "@mui/icons-material";
 import BackdropWrapper from "@compo/common/Backdrop";

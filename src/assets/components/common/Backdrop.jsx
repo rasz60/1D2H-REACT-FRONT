@@ -6,7 +6,11 @@ import AddrAPI from "@compo/common/AddrAPI";
 
 const BackdropWapper = ({ isBackdrop, setBackdrop, onAddrSelect }) => {
   return (
-    <Backdrop id="backdrop" open={isBackdrop.open}>
+    <Backdrop
+      id="backdrop"
+      open={isBackdrop.open}
+      className={isBackdrop.fullH ? "full" : "default"}
+    >
       <Box id="backdrop-content">
         <Box id="backdrop-close">
           <IconButton size="large" onClick={() => setBackdrop(false)}>

@@ -1,58 +1,67 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axiosInstance from "@utils/axiosInstance";
 
 const Validation = () => {
   const [errors, setErrors] = useState({});
 
   /*-- validate --*/
-  const validate = (userInfo) => {
+  const validate = async (userInfo) => {
     let name = userInfo.lastChng;
+
     /*-- chk ? '전체 검증' : '개별 검증' --*/
-    let chk = name === "";
+    let chk = name === "all";
+
+    /*-- 각 validation 결과 --*/
+    let flag = false;
 
     /*-- UserId --*/
     if (name === "signupUserId" || chk) {
-      validUserId(userInfo.signupUserId);
+      flag = validUserId(userInfo.signupUserId);
+      if (chk) chk = !flag;
+    }
+
+    /*-- 전체 검증 추가 --*/
+    if (name === "userIdDupChk" || chk) {
+      /*-- UserIdDupChk --*/
+      flag = await validUserIdDupChk(userInfo, name);
+      if (chk) chk = !flag;
+      console.log(flag);
     }
 
     /*-- UserPwd --*/
     if (name === "signupUserPwd" || chk) {
-      validUserPwd(userInfo.signupUserPwd);
-
+      flag = validUserPwd(userInfo.signupUserPwd);
       if (userInfo.userPwdChk) {
         name = "userPwdChk";
       }
+      if (chk) chk = !flag;
     }
 
     /*-- UserPwdChk --*/
     if (name === "userPwdChk" || chk) {
-      validUserPwdChk(userInfo);
+      flag = validUserPwdChk(userInfo);
+      if (chk) chk = !flag;
     }
 
     /*-- userEmailId --*/
     if (name === "userEmailId" || chk) {
-      validUserEmailId(userInfo.userEmailId);
+      flag = validUserEmailId(userInfo.userEmailId);
+      if (chk) chk = !flag;
     }
 
     /*-- userEmailDomain --*/
     if (name === "userEmailDomain" || chk) {
-      validUserEmailDomain(userInfo, chk);
+      flag = validUserEmailDomain(userInfo, chk);
+      if (chk) chk = !flag;
     }
 
     /*-- userPhone --*/
     if (name === "userPhone" || chk) {
-      validUserPhone(userInfo.userPhone);
+      flag = validUserPhone(userInfo.userPhone);
+      if (chk) chk = !flag;
     }
 
-    /*-- 전체 검증 추가 --*/
-    if (chk) {
-      /*-- UserIdDupChk --*/
-      if (!userInfo.userIdDupchk) {
-        setErrors({
-          userIdDupChk: true,
-          userIdDupChkMsg: "아이디 중복을 확인해주세요.",
-        });
-      }
-    }
+    return !flag;
   };
 
   /*-- UserId --*/
@@ -79,6 +88,39 @@ const Validation = () => {
       signupUserId: flag,
       signupUserIdMsg: msg,
     });
+
+    return flag;
+  };
+
+  /*-- UserIdDupChk --*/
+  const validUserIdDupChk = async (userInfo) => {
+    let flag = false;
+    let msg = "";
+
+    if (!flag) flag = !userInfo.signupUserId;
+    if (flag) msg = "아이디를 입력해주세요.";
+
+    if (!flag) flag = errors.signupUserId;
+
+    if (!flag) {
+      try {
+        const res = await axiosInstance.get(
+          "/auth/idDupChk/" + userInfo.signupUserId
+        );
+        console.log(res);
+        flag = res.data > 0;
+        if (flag) msg = "이미 사용 중인 아이디입니다.";
+      } catch {}
+    }
+
+    //Return
+    setErrors({
+      ...errors,
+      userIdDupChk: flag,
+      userIdDupChkMsg: msg,
+    });
+
+    return flag;
   };
 
   /*-- UserPwd --*/
@@ -106,6 +148,8 @@ const Validation = () => {
       signupUserPwd: flag,
       signupUserPwdMsg: msg,
     });
+
+    return flag;
   };
 
   /*-- UserPwdChk --*/
@@ -126,6 +170,8 @@ const Validation = () => {
       userPwdChk: flag,
       userPwdChkMsg: msg,
     });
+
+    return flag;
   };
 
   /*-- UserEmailId --*/
@@ -142,6 +188,8 @@ const Validation = () => {
       userEmailId: flag,
       userEmailIdMsg: msg,
     });
+
+    return flag;
   };
 
   /*-- UserEmailDomain --*/
@@ -174,6 +222,8 @@ const Validation = () => {
       userEmailDomain: flag,
       userEmailDomainMsg: msg,
     });
+
+    return flag;
   };
 
   /*-- UserPhone --*/
@@ -196,6 +246,8 @@ const Validation = () => {
       userPhone: flag,
       userPhoneMsg: msg,
     });
+
+    return flag;
   };
 
   return { validate, errors };

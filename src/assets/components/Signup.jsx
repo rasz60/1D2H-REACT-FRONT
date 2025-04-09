@@ -48,7 +48,6 @@ const Signup = () => {
 
   const handleSignupInfo = (event) => {
     let { name, value } = event.target;
-
     if (name === "userEmailDomainSelect") {
       if (value === "self") {
         signupInfo.domainSelf = true;
@@ -56,7 +55,6 @@ const Signup = () => {
         signupInfo.domainSelf = false;
       }
     }
-
     setSignupInfo({
       ...signupInfo,
       lastChng: name,
@@ -89,30 +87,6 @@ const Signup = () => {
     if (event != null) handleSignupInfo(event);
   }, [signupInfo]);
 
-  const handleIdDupChk = () => {
-    let chkValue = signupInfo.signupUserId;
-
-    if (chkValue && !errors.signupUserId) {
-      axiosInstance
-        .get("/auth/idDupChk/" + chkValue)
-        .then((res) => {
-          let cnt = res.data;
-          setSignupInfo({
-            ...signupInfo,
-            userIdDupChk: cnt === 0,
-          });
-          if (cnt > 0) {
-            alert("중복된 아이디가 이미 가입 되어있습니다.");
-          } else {
-            alert("가입할 수 있는 아이디입니다.");
-          }
-        })
-        .catch((err) => {
-          alert(err.response.data.message);
-        });
-    }
-  };
-
   const handleAddrAPI = () => {
     setBackdrop({
       ...isBackdrop,
@@ -130,6 +104,25 @@ const Signup = () => {
       });
     }
   };
+
+  const handleSignup = () => {
+    if (signupInfo.lastChng === "all") {
+      let flag = validate(signupInfo);
+
+      if (flag) {
+        window.confirm("회원으로 가입할까요?", function () {
+          //API
+        });
+      }
+    } else {
+      setSignupInfo({
+        ...signupInfo,
+        lastChng: "all",
+      });
+    }
+  };
+
+  useEffect(() => {}, [errors]);
 
   return (
     <Box id="signup-wrapper">
@@ -180,28 +173,23 @@ const Signup = () => {
         id="step-2"
         className={isStepTwo ? "open" : "close"}
       >
-        <Grid2 size={10.39}>
+        <Grid2 size={12}>
           <FormControl fullWidth>
             <TextField
               label="아이디(ID)"
               name="signupUserId"
               value={signupInfo.signupUserId}
               onChange={handleSignupInfo}
-              error={errors.signupUserId}
-              helperText={errors.signupUserIdMsg}
+              error={
+                errors.signupUserId ? errors.signupUserId : errors.userIdDupchk
+              }
+              helperText={
+                errors.signupUserIdMsg
+                  ? errors.signupUserIdMsg
+                  : errors.userIdDupchkMsg
+              }
             ></TextField>
           </FormControl>
-        </Grid2>
-        <Grid2 size={1.5} sx={{ ml: 1 }}>
-          <Button
-            variant="contained"
-            startIcon={<Check />}
-            fullWidth
-            sx={{ height: "100%" }}
-            onClick={handleIdDupChk}
-          >
-            중복확인
-          </Button>
         </Grid2>
 
         {/*-- 비밀번호, 비밀번호 확인 --*/}
@@ -371,6 +359,13 @@ const Signup = () => {
             }
             label="devsixt에서 보내는 알림을 수신하는데 동의합니다. (메일, 문자)"
           />
+        </Grid2>
+
+        {/*-- 버튼 --*/}
+        <Grid2 size={12} sx={{ display: "flex", justifyContent: "end" }}>
+          <Button variant="contained" onClick={handleSignup}>
+            가입하기
+          </Button>
         </Grid2>
       </Grid2>
       <BackdropWrapper
