@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+
+/*-- MUI --*/
 import {
   Box,
   Grid2,
@@ -12,12 +14,17 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
-import { AlternateEmail, Search, Check } from "@mui/icons-material";
-import axiosInstance from "@utils/axiosInstance";
-import Validation from "../js/validation";
+import { AlternateEmail, Search } from "@mui/icons-material";
 
+/*-- AXIOS --*/
+import axiosInstance from "@utils/axiosInstance";
+
+/*-- 주소검색 Backdrop --*/
 import BackdropWrapper from "@compo/common/Backdrop";
 import BackdropMethods from "@js/backdrop";
+
+/*-- Validation --*/
+import Validation from "../js/validation";
 
 const Signup = () => {
   const { isBackdrop, setBackdrop } = BackdropMethods();
@@ -26,7 +33,6 @@ const Signup = () => {
   const [signupInfo, setSignupInfo] = useState({
     lastChng: "",
     signupUserId: "",
-    userIdDupChk: false,
     signupUserPwd: "",
     userPwdChk: "",
     userEmailId: "",
@@ -42,19 +48,26 @@ const Signup = () => {
     alarmYn: false,
   });
 
+  /*-- 가입 유형 devsixt 신규 회원 가입 선택 시 --*/
   const handleOpenStepTwo = () => {
-    setIsStepTwo(true);
+    setIsStepTwo(true); // form 오픈
   };
 
+  /*-- signupInfo 변경 시 bind --*/
   const handleSignupInfo = (event) => {
     let { name, value } = event.target;
+
+    // emailDomain 변경 시
     if (name === "userEmailDomainSelect") {
+      // 직접 입력인지 확인
       if (value === "self") {
         signupInfo.domainSelf = true;
       } else {
         signupInfo.domainSelf = false;
       }
     }
+
+    // 변경 값 binding
     setSignupInfo({
       ...signupInfo,
       lastChng: name,
@@ -62,20 +75,15 @@ const Signup = () => {
     });
   };
 
+  /*-- signupInfo 변경이 생겼을 때 --*/
   useEffect(() => {
+    // 검증 호출
     validate(signupInfo);
     let event = null;
 
-    if (signupInfo.lastChng === "signupUserId") {
-      event = {
-        target: {
-          name: "userIdDupChk",
-          value: false,
-        },
-      };
-    }
-
+    // emailDomain 셀렉트 박스 선택 시
     if (signupInfo.lastChng === "userEmailDomainSelect") {
+      // userEmailDomain input 값 binding 다시 호출할 event 객체 임의 생성
       event = {
         target: {
           name: "userEmailDomain",
@@ -84,9 +92,11 @@ const Signup = () => {
       };
     }
 
+    // binding 호출
     if (event != null) handleSignupInfo(event);
   }, [signupInfo]);
 
+  /*-- 주소 검색 화면 호출 --*/
   const handleAddrAPI = () => {
     setBackdrop({
       ...isBackdrop,
@@ -95,6 +105,7 @@ const Signup = () => {
     });
   };
 
+  /*-- 주소 검색 완료 시 callback --*/
   const onAddrSelect = (addr) => {
     if (addr.address && addr.zonecode) {
       setSignupInfo({
@@ -105,24 +116,32 @@ const Signup = () => {
     }
   };
 
-  const handleSignup = () => {
-    if (signupInfo.lastChng === "all") {
-      let flag = validate(signupInfo);
+  /*-- 가입하기 버튼 클릭 시 --*/
+  const handleSignup = async () => {
+    // 아이디 중복 체크
+    let res = await axiosInstance.get(
+      "/auth/idDupChk/" + signupInfo.signupUserId
+    );
 
-      if (flag) {
-        window.confirm("회원으로 가입할까요?", function () {
-          //API
-        });
-      }
-    } else {
-      setSignupInfo({
-        ...signupInfo,
-        lastChng: "all",
-      });
+    // 중복일 때
+    if (res.data > 0) {
+      alert("이미 사용 중인 아이디 입니다.");
+      return false;
     }
-  };
 
-  useEffect(() => {}, [errors]);
+    // 입력 값 전체 검증 호출
+    let flag = validate(signupInfo, true);
+
+    // 검증 실패
+    if (!flag) {
+      alert("입력한 값을 다시 확인해주세요.");
+      return;
+    }
+
+    window.confirm("회원으로 가입할까요?", function () {
+      // 회원가입 API 호출
+    });
+  };
 
   return (
     <Box id="signup-wrapper">
@@ -180,14 +199,8 @@ const Signup = () => {
               name="signupUserId"
               value={signupInfo.signupUserId}
               onChange={handleSignupInfo}
-              error={
-                errors.signupUserId ? errors.signupUserId : errors.userIdDupchk
-              }
-              helperText={
-                errors.signupUserIdMsg
-                  ? errors.signupUserIdMsg
-                  : errors.userIdDupchkMsg
-              }
+              error={errors.signupUserId}
+              helperText={errors.signupUserIdMsg}
             ></TextField>
           </FormControl>
         </Grid2>

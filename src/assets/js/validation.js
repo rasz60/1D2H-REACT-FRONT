@@ -1,15 +1,11 @@
-import { useState, useEffect } from "react";
-import axiosInstance from "@utils/axiosInstance";
+import { useState } from "react";
 
 const Validation = () => {
   const [errors, setErrors] = useState({});
 
-  /*-- validate --*/
-  const validate = async (userInfo) => {
+  /*-- validate chk가 true일 때는 전체 항목 검증 --*/
+  const validate = (userInfo, chk) => {
     let name = userInfo.lastChng;
-
-    /*-- chk ? '전체 검증' : '개별 검증' --*/
-    let chk = name === "all";
 
     /*-- 각 validation 결과 --*/
     let flag = false;
@@ -18,14 +14,6 @@ const Validation = () => {
     if (name === "signupUserId" || chk) {
       flag = validUserId(userInfo.signupUserId);
       if (chk) chk = !flag;
-    }
-
-    /*-- 전체 검증 추가 --*/
-    if (name === "userIdDupChk" || chk) {
-      /*-- UserIdDupChk --*/
-      flag = await validUserIdDupChk(userInfo, name);
-      if (chk) chk = !flag;
-      console.log(flag);
     }
 
     /*-- UserPwd --*/
@@ -87,37 +75,6 @@ const Validation = () => {
       ...errors,
       signupUserId: flag,
       signupUserIdMsg: msg,
-    });
-
-    return flag;
-  };
-
-  /*-- UserIdDupChk --*/
-  const validUserIdDupChk = async (userInfo) => {
-    let flag = false;
-    let msg = "";
-
-    if (!flag) flag = !userInfo.signupUserId;
-    if (flag) msg = "아이디를 입력해주세요.";
-
-    if (!flag) flag = errors.signupUserId;
-
-    if (!flag) {
-      try {
-        const res = await axiosInstance.get(
-          "/auth/idDupChk/" + userInfo.signupUserId
-        );
-        console.log(res);
-        flag = res.data > 0;
-        if (flag) msg = "이미 사용 중인 아이디입니다.";
-      } catch {}
-    }
-
-    //Return
-    setErrors({
-      ...errors,
-      userIdDupChk: flag,
-      userIdDupChkMsg: msg,
     });
 
     return flag;
