@@ -1,15 +1,15 @@
+import { DragHandle } from "@mui/icons-material";
 import { useState } from "react";
 
 const Validation = () => {
   const [errors, setErrors] = useState({});
 
   /*-- validate chk가 true일 때는 전체 항목 검증 --*/
-  const validate = (userInfo, chk) => {
+  const validate = (userInfo) => {
     let name = userInfo.lastChng;
-
+    let chk = name === "all";
     /*-- 각 validation 결과 --*/
     let flag = false;
-
     /*-- UserId --*/
     if (name === "signupUserId" || chk) {
       flag = validUserId(userInfo.signupUserId);
@@ -46,6 +46,12 @@ const Validation = () => {
     /*-- userPhone --*/
     if (name === "userPhone" || chk) {
       flag = validUserPhone(userInfo.userPhone);
+      if (chk) chk = !flag;
+    }
+
+    /*-- UserBirth --*/
+    if (name === "userBirth" || chk) {
+      flag = validUserBirth(userInfo.userBirth);
       if (chk) chk = !flag;
     }
 
@@ -104,6 +110,26 @@ const Validation = () => {
       ...errors,
       signupUserPwd: flag,
       signupUserPwdMsg: msg,
+    });
+
+    return flag;
+  };
+
+  /*-- UserBirth --*/
+  const validUserBirth = (value) => {
+    let flag = false;
+    let msg = "";
+    let yyyy = value.$y;
+    let mm = value.$M;
+    let dd = value.$D;
+
+    if (!flag) flag = !(!yyyy && !mm && !dd) && (!yyyy || !mm || !dd);
+    if (flag) msg = "생년월일을 정확하게 입력해주세요.";
+
+    setErrors({
+      ...errors,
+      userBirth: flag,
+      userBirthMsg: msg,
     });
 
     return flag;
@@ -194,7 +220,7 @@ const Validation = () => {
 
     // 형식
     if (!flag) {
-      flag = !/[0-9]{11}$/.test(value);
+      flag = !/^[0-9]{11}$/.test(value);
       if (flag) msg = "핸드폰 번호 형식을 확인해주세요. (숫자 11자리)";
     }
 

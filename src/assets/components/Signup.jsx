@@ -15,6 +15,10 @@ import {
   Checkbox,
 } from "@mui/material";
 import { AlternateEmail, Search } from "@mui/icons-material";
+import dayjs from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 /*-- AXIOS --*/
 import axiosInstance from "@utils/axiosInstance";
@@ -27,6 +31,7 @@ import BackdropMethods from "@js/backdrop";
 import Validation from "../js/validation";
 
 const Signup = () => {
+  const currentYear = dayjs();
   const { isBackdrop, setBackdrop } = BackdropMethods();
   const { validate, errors } = Validation();
   const [isStepTwo, setIsStepTwo] = useState(false);
@@ -78,22 +83,30 @@ const Signup = () => {
   /*-- signupInfo 변경이 생겼을 때 --*/
   useEffect(() => {
     // 검증 호출
-    validate(signupInfo);
-    let event = null;
-
-    // emailDomain 셀렉트 박스 선택 시
-    if (signupInfo.lastChng === "userEmailDomainSelect") {
-      // userEmailDomain input 값 binding 다시 호출할 event 객체 임의 생성
-      event = {
-        target: {
-          name: "userEmailDomain",
-          value: signupInfo.domainSelf ? "" : signupInfo.userEmailDomainSelect,
-        },
-      };
+    let flag = validate(signupInfo);
+    // 전체 검증일 때
+    if (signupInfo.lastChng === "all") {
+      if (flag) handleSignup(); // 결과가 true일 때 handleSignup 실행
     }
+    // 항목 검증일 때
+    else {
+      let event = null;
+      // emailDomain 셀렉트 박스 선택 시
+      if (signupInfo.lastChng === "userEmailDomainSelect") {
+        // userEmailDomain input 값 binding 다시 호출할 event 객체 임의 생성
+        event = {
+          target: {
+            name: "userEmailDomain",
+            value: signupInfo.domainSelf
+              ? ""
+              : signupInfo.userEmailDomainSelect,
+          },
+        };
+      }
 
-    // binding 호출
-    if (event != null) handleSignupInfo(event);
+      // binding 호출
+      if (event != null) handleSignupInfo(event);
+    }
   }, [signupInfo]);
 
   /*-- 주소 검색 화면 호출 --*/
@@ -119,28 +132,45 @@ const Signup = () => {
   /*-- 가입하기 버튼 클릭 시 --*/
   const handleSignup = async () => {
     // 아이디 중복 체크
-    let res = await axiosInstance.get(
-      "/auth/idDupChk/" + signupInfo.signupUserId
-    );
+    let res = await axiosInstance.post("/auth/dupChk", {
+      signupUserId: signupInfo.signupUserId,
+      userEmailId: signupInfo.userEmailId,
+      userEmailDomain: signupInfo.userEmailDomain,
+      userPhone: signupInfo.userPhone,
+    });
 
-    // 중복일 때
-    if (res.data > 0) {
+    // 아이디 중복일 때
+    if (res.data.signupUserIdDupChk) {
       alert("이미 사용 중인 아이디 입니다.");
       return false;
     }
 
-    // 입력 값 전체 검증 호출
-    let flag = validate(signupInfo, true);
-
-    // 검증 실패
-    if (!flag) {
-      alert("입력한 값을 다시 확인해주세요.");
-      return;
+    // 이메일 중복일 때
+    if (res.data.userEmailDupChk) {
+      alert("이미 가입된 이메일 주소 입니다.");
+      return false;
     }
 
-    window.confirm("회원으로 가입할까요?", function () {
+    // 휴대폰번호 중복일 때
+    if (res.data.userPhoneDupChk) {
+      alert("이미 가입된 연락처 입니다.");
+      return false;
+    }
+
+    let flag = await window.confirm("회원으로 가입할까요?");
+
+    if (flag) {
       // 회원가입 API 호출
-    });
+      await axiosInstance
+        .post("/auth/signup", signupInfo)
+        .then((res) => {
+          alert(res.data);
+          window.location.href = "/";
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        });
+    }
   };
 
   return (
@@ -195,6 +225,7 @@ const Signup = () => {
         <Grid2 size={12}>
           <FormControl fullWidth>
             <TextField
+              required
               label="아이디(ID)"
               name="signupUserId"
               value={signupInfo.signupUserId}
@@ -209,6 +240,7 @@ const Signup = () => {
         <Grid2 size={12}>
           <FormControl fullWidth>
             <TextField
+              required
               type="password"
               label="비밀번호(Password)"
               name="signupUserPwd"
@@ -222,6 +254,7 @@ const Signup = () => {
         <Grid2 size={12}>
           <FormControl fullWidth>
             <TextField
+              required
               type="password"
               label="비밀번호 확인(Password Check)"
               name="userPwdChk"
@@ -237,6 +270,7 @@ const Signup = () => {
         <Grid2 size={4.5}>
           <FormControl fullWidth>
             <TextField
+              required
               label="이메일 아이디(E-mail ID)"
               name="userEmailId"
               value={signupInfo.userEmailId}
@@ -259,6 +293,7 @@ const Signup = () => {
         <Grid2 size={4}>
           <FormControl fullWidth>
             <TextField
+              required
               name="userEmailDomain"
               label="이메일 주소(E-mail Domain)"
               value={signupInfo.userEmailDomain}
@@ -275,8 +310,11 @@ const Signup = () => {
         </Grid2>
         <Grid2 size={2.89} sx={{ ml: 1 }}>
           <FormControl fullWidth>
-            <InputLabel id="email-domain-label">선택(Choose)</InputLabel>
+            <InputLabel required id="email-domain-label">
+              선택(Choose)
+            </InputLabel>
             <Select
+              required
               labelId="email-domain-label"
               name="userEmailDomainSelect"
               value={signupInfo.userEmailDomainSelect}
@@ -296,6 +334,7 @@ const Signup = () => {
         <Grid2 size={12}>
           <FormControl fullWidth>
             <TextField
+              required
               type="text"
               label="핸드폰번호"
               name="userPhone"
@@ -360,6 +399,36 @@ const Signup = () => {
           </FormControl>
         </Grid2>
 
+        {/*-- 생년월일 --*/}
+        <Grid2 size={12}>
+          <FormControl fullWidth>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="생년월일"
+                name="userBirth"
+                maxDate={currentYear}
+                openTo="year"
+                views={["year", "month", "day"]}
+                format="YYYY/MM/DD"
+                yearsOrder="desc"
+                error={errors.userBirth}
+                slotProps={{
+                  textField: {
+                    helperText: errors.userBirthMsg,
+                  },
+                }}
+                onChange={(newValue) =>
+                  setSignupInfo({
+                    ...signupInfo,
+                    lastChng: "userBirth",
+                    userBirth: newValue,
+                  })
+                }
+              />
+            </LocalizationProvider>
+          </FormControl>
+        </Grid2>
+
         {/*-- 알람여부 --*/}
         <Grid2 size={12}>
           <FormControlLabel
@@ -376,7 +445,10 @@ const Signup = () => {
 
         {/*-- 버튼 --*/}
         <Grid2 size={12} sx={{ display: "flex", justifyContent: "end" }}>
-          <Button variant="contained" onClick={handleSignup}>
+          <Button
+            variant="contained"
+            onClick={() => setSignupInfo({ ...signupInfo, lastChng: "all" })}
+          >
             가입하기
           </Button>
         </Grid2>
