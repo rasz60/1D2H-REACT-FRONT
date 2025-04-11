@@ -18,10 +18,14 @@
   }
 
   #slide-menu-box {
-    width: 50%;
+    width: 100vw;
+    height: 100vh;
 
     #slide-menu-list {
+      width: 20%;
+      height: 100%;
       padding: 0;
+      padding-top: 6.5em;
       padding-left: 1em;
       padding-right: 1em;
 
@@ -29,16 +33,32 @@
         display: block;
         padding: 0;
         width: 100%;
-        height: 4em;
+        margin-top: 0.5em;
 
         .slide-menu-item-row {
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 4em;
+          margin-top: 0.7em;
 
+          .slide-menu-item-col {
+            color: black;
+          }
           .slide-menu-item-col.icon {
             text-align: center;
+
+            button {
+              background-color: white;
+              color: black;
+            }
+          }
+
+          .slide-menu-item-col.name {
+            padding: 4px;
+            span {
+              display: inline-block;
+              background-color: white;
+            }
           }
         }
       }

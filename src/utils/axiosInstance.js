@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const getDeviceInfo = () => {
   const userAgent = navigator.userAgent;
 
@@ -13,9 +12,11 @@ const getDeviceInfo = () => {
 
   let browser = "Unknown Browser";
   if (userAgent.includes("Chrome")) browser = "Chrome";
-  else if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) browser = "Safari";
+  else if (userAgent.includes("Safari") && !userAgent.includes("Chrome"))
+    browser = "Safari";
   else if (userAgent.includes("Firefox")) browser = "Firefox";
-  else if (userAgent.includes("MSIE") || userAgent.includes("Trident")) browser = "Internet Explorer";
+  else if (userAgent.includes("MSIE") || userAgent.includes("Trident"))
+    browser = "Internet Explorer";
   else if (userAgent.includes("Edg")) browser = "Edge";
 
   return `${os} - ${browser}`;
@@ -30,12 +31,8 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("1d2h-access-token");
-    if (token) {
-      config.headers["Authorization"] = "Bearer " + token;
-    }
+    if (token) config.headers["Authorization"] = "Bearer " + token;
     config.headers["X-device-info"] = getDeviceInfo();
-
-
     return config;
   },
   (error) => {

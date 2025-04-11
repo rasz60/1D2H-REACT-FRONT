@@ -49,12 +49,6 @@ const Validation = () => {
       if (chk) chk = !flag;
     }
 
-    /*-- UserBirth --*/
-    if (name === "userBirth" || chk) {
-      flag = validUserBirth(userInfo.userBirth);
-      if (chk) chk = !flag;
-    }
-
     return !flag;
   };
 
@@ -110,26 +104,6 @@ const Validation = () => {
       ...errors,
       signupUserPwd: flag,
       signupUserPwdMsg: msg,
-    });
-
-    return flag;
-  };
-
-  /*-- UserBirth --*/
-  const validUserBirth = (value) => {
-    let flag = false;
-    let msg = "";
-    let yyyy = value.$y;
-    let mm = value.$M;
-    let dd = value.$D;
-
-    if (!flag) flag = !(!yyyy && !mm && !dd) && (!yyyy || !mm || !dd);
-    if (flag) msg = "생년월일을 정확하게 입력해주세요.";
-
-    setErrors({
-      ...errors,
-      userBirth: flag,
-      userBirthMsg: msg,
     });
 
     return flag;

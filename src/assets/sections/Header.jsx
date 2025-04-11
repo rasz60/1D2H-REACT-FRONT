@@ -13,7 +13,7 @@ const Header = ({ isScroll }) => {
   const handleBackdrop = (layout) => {
     setBackdrop({
       ...isBackdrop,
-      type: true,
+      type: isBackdrop.layout === layout ? !isBackdrop.open : true,
       layout: layout,
     });
   };

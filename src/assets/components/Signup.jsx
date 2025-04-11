@@ -13,8 +13,10 @@ import {
   Button,
   FormControlLabel,
   Checkbox,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
-import { AlternateEmail, Search } from "@mui/icons-material";
+import { AlternateEmail, Search, Clear, Refresh } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -60,7 +62,7 @@ const Signup = () => {
 
   /*-- signupInfo 변경 시 bind --*/
   const handleSignupInfo = (event) => {
-    let { name, value } = event.target;
+    let { name, value, checked } = event.target;
 
     // emailDomain 변경 시
     if (name === "userEmailDomainSelect") {
@@ -76,7 +78,7 @@ const Signup = () => {
     setSignupInfo({
       ...signupInfo,
       lastChng: name,
-      [name]: value,
+      [name]: name === "alarmYn" ? checked : value,
     });
   };
 
@@ -400,7 +402,20 @@ const Signup = () => {
         </Grid2>
 
         {/*-- 생년월일 --*/}
-        <Grid2 size={12}>
+        <Grid2 size={0.5} sx={{ display: "flex", alignItems: "center" }}>
+          <IconButton
+            onClick={() =>
+              setSignupInfo({
+                ...signupInfo,
+                lastChng: "userBirth",
+                userBirth: "",
+              })
+            }
+          >
+            <Refresh />
+          </IconButton>
+        </Grid2>
+        <Grid2 size={11.5}>
           <FormControl fullWidth>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
@@ -412,18 +427,30 @@ const Signup = () => {
                 format="YYYY/MM/DD"
                 yearsOrder="desc"
                 error={errors.userBirth}
-                slotProps={{
-                  textField: {
-                    helperText: errors.userBirthMsg,
-                  },
-                }}
+                value={
+                  signupInfo.userBirth
+                    ? dayjs(signupInfo.userBirth, "YYYY/M/D")
+                    : null
+                }
                 onChange={(newValue) =>
                   setSignupInfo({
                     ...signupInfo,
                     lastChng: "userBirth",
-                    userBirth: newValue,
+                    userBirth:
+                      newValue === null
+                        ? ""
+                        : newValue.$y +
+                          "/" +
+                          (parseInt(newValue.$M) + 1) +
+                          "/" +
+                          newValue.$D,
                   })
                 }
+                slotProps={{
+                  textField: {
+                    readOnly: true,
+                  },
+                }}
               />
             </LocalizationProvider>
           </FormControl>
