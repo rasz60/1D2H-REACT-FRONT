@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
@@ -12,11 +12,17 @@ const App = () => {
     document.scrollingElement.scrollTop > 0
   );
 
-  const handleScroll = () => {
-    setIsScroll(document.scrollingElement.scrollTop > 0);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScroll(document.scrollingElement.scrollTop > 0);
+    };
 
-  document.addEventListener("scroll", handleScroll);
+    document.addEventListener("scroll", handleScroll);
+
+    return () => {
+      document.removeEventListener("scroll", handleScroll);
+    };
+  });
 
   return (
     <AuthProvider>

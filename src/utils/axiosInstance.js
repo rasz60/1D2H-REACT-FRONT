@@ -42,15 +42,24 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    debugger;
     const newAccessToken =
       response.headers["new-access-token"] || response.data.newAccessToken;
     if (newAccessToken) {
       localStorage.setItem("1d2h-access-token", newAccessToken);
     }
+
+    return response;
   },
   (error) => {
-    console.log(error);
+    if (error.response.data.status === 401)
+      alert(
+        "로그인 유지 시간이 만료되었습니다. 다시 로그인해주세요.",
+        function () {
+          window.location.href = "/";
+        }
+      );
+
+    return error;
   }
 );
 

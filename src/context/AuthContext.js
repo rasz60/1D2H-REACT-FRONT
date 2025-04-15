@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { Route, Navigate, Outlet } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -15,6 +16,22 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
     }
   }, []);
+
+  // token 인증 실패 시, root path로 redirect 시키는 RouteGuard
+  const RouteGuard = () => {
+    const { isAuthenticated } = useAuth();
+
+    if (isAuthenticated) {
+      return <Outlet />;
+    } else {
+      alert("로그인이 필요합니다.");
+      return <Navigate to="/" />;
+    }
+  };
+
+  const tokenValid = async () => {
+    // API 호출해서 token 검증 및 재발급 처리
+  };
 
   // login 완료 후 처리
   const loginCallback = (token) => {
@@ -49,6 +66,7 @@ export const AuthProvider = ({ children }) => {
         logoutCallback,
         getIsAuthentication,
         getToken,
+        RouteGuard,
       }}
     >
       {children}

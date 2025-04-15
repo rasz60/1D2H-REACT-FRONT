@@ -23,6 +23,7 @@ const SlideMenu = ({ isBackdrop, setBackdrop }) => {
       })
       .catch((err) => {
         console.log(err);
+        setBackdrop(false);
       });
   };
 
@@ -37,13 +38,14 @@ const SlideMenu = ({ isBackdrop, setBackdrop }) => {
   return (
     <Box id="slide-menu-box">
       <List id="slide-menu-list">
-        {menu.length > 0 ? (
+        {menu ? (
           menu.map((item) => (
             <ListItem
               component={Link}
               onClick={handleMoveMenu}
               to={item.menuUrl}
               className="slide-menu-item"
+              target={item.menuTarget}
             >
               <Grid2 container className="slide-menu-item-row">
                 <Grid2 size={2.5} className="slide-menu-item-col icon">
