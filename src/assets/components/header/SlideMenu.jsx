@@ -12,7 +12,7 @@ import Icon from "@mdi/react";
 import getIcon from "@js/menuIcon.js";
 import { useState, useEffect } from "react";
 
-const SlideMenu = () => {
+const SlideMenu = ({ isBackdrop, setBackdrop }) => {
   const [menu, setMenu] = useState([]);
   const { getMdiIcon, getMuiIcon } = getIcon();
   const menuInfo = async () => {
@@ -26,6 +26,10 @@ const SlideMenu = () => {
       });
   };
 
+  const handleMoveMenu = () => {
+    setBackdrop(false);
+  };
+
   useEffect(() => {
     menuInfo();
   }, []);
@@ -37,6 +41,7 @@ const SlideMenu = () => {
           menu.map((item) => (
             <ListItem
               component={Link}
+              onClick={handleMoveMenu}
               to={item.menuUrl}
               className="slide-menu-item"
             >

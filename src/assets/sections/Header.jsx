@@ -68,7 +68,11 @@ const Header = ({ isScroll }) => {
                 <Logout />
               </IconButton>
             )}
-
+            {isAuthentication && (
+              <IconButton size="large" onClick={handleLogout}>
+                <Logout />
+              </IconButton>
+            )}
             {!isAuthentication && (
               <IconButton size="large" onClick={() => handleBackdrop("login")}>
                 <Login />

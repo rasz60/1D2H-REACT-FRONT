@@ -40,4 +40,18 @@ axiosInstance.interceptors.request.use(
   }
 );
 
+axiosInstance.interceptors.response.use(
+  (response) => {
+    debugger;
+    const newAccessToken =
+      response.headers["new-access-token"] || response.data.newAccessToken;
+    if (newAccessToken) {
+      localStorage.setItem("1d2h-access-token", newAccessToken);
+    }
+  },
+  (error) => {
+    console.log(error);
+  }
+);
+
 export default axiosInstance;

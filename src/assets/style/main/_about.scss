@@ -1,0 +1,24 @@
+#about-box {
+  width: 80%;
+  margin: 0 auto;
+  padding: 1em;
+  border: 1px solid rgb(235, 235, 235);
+  border-radius: 10px;
+
+  h3#about-title {
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    margin-top: 4.5em;
+    margin-bottom: 4.5em;
+  }
+
+  #about-main-tags {
+    display: "flex";
+    justify-content: center;
+
+    .about-main-tag-chips {
+      padding: 0.6em;
+    }
+  }
+}
