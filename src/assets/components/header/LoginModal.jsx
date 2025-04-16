@@ -31,7 +31,7 @@ const LoginModal = ({ setBackdrop }) => {
     axiosInstance
       .post("auth/login", loginInfo)
       .then((res) => {
-        loginCallback(res.data.token);
+        loginCallback(res.data);
         window.location.href = "/";
       })
       .catch((err) => {

@@ -12,11 +12,9 @@ const Main = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
 
-        {/*-- 권한이 필요한 페이지 
-          <Route path="${path}" element={<RouteGuard />}>
-            <Route path="${path}" element={<${ele} />}/>
-          </Route>        
-        --*/}
+        <Route path="/admin" element={<RouteGuard type={2} />}>
+          <Route path="/admin" element={<About />} />
+        </Route>
       </Routes>
     </main>
   );

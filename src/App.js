@@ -25,14 +25,14 @@ const App = () => {
   });
 
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
         <Container id="container" maxWidth="xxl">
           <Header isScroll={isScroll} />
           <Main />
         </Container>
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 };
 

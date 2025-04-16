@@ -1,3 +1,11 @@
+# DAY19. Refresh Token 추가 & 권한 확인 구현
+
+#### 1. Router 변환 시마다 token 검증
+
+```
+AuthContext.js
+
+
 import axiosInstance from "@src/utils/axiosInstance";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
@@ -101,3 +109,50 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+```
+
+① authLv 추가 관리
+
+- /api/auth/login, /api/auth/check 결과로 return되는 authLv을 state로 저장
+- 해당 authLv로 메뉴, Route 접근 권한 확인
+- loginCallback, logoutCallback, RouteGuard에서 authLv 설정 로직 추가
+
+② /api/auth/check API 호출 로직 추가
+
+- 최초 접근 시와 Router 변화 시 /api/auth/check API 호출
+- access token을 검증 후 다시 localstorage에 저장함
+- 유효하지 않을 때는 root path로 redirect
+
+③ RouteGuard 오류 수정
+
+- URL로 RouteGuard 페이지 접근 시, isAuthenticated, authLv 이 설정되지 않은 채로 먼저 접근됨
+- 그 다음 Router 변화가 감지되어 다시 RouteGuard 로직 수행
+- isAuthenticated, authLv 초기 값을 null로 설정하고 null일 때는 로직 수행하지 않도록 변경
+
+#### 2. RouteGuard 관련 변경
+
+- AuthContext에서 설정한 RouteGuard가 App.js에서 BrowserRoutes 밖에 선언되어 Routes hook 밖에 Route를 쓸 수 없다는 오류 발생
+- BrowserRouter 위치 변경
+
+```
+App.js
+
+.
+.
+.
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <Container id="container" maxWidth="xxl">
+          <Header isScroll={isScroll} />
+          <Main />
+        </Container>
+      </AuthProvider>
+    </BrowserRouter>
+  );
+};
+.
+.
+.
+```

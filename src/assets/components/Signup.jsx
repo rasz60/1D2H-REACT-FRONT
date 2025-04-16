@@ -13,10 +13,9 @@ import {
   Button,
   FormControlLabel,
   Checkbox,
-  InputAdornment,
   IconButton,
 } from "@mui/material";
-import { AlternateEmail, Search, Clear, Refresh } from "@mui/icons-material";
+import { AlternateEmail, Search, Refresh } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -32,7 +31,18 @@ import BackdropMethods from "@js/backdrop";
 /*-- Validation --*/
 import Validation from "../js/validation";
 
+/*-- AuthContext --*/
+import { useAuth } from "@context/AuthContext";
+
 const Signup = () => {
+  const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      window.location.href = "/";
+    }
+  }, []);
+
   const currentYear = dayjs();
   const { isBackdrop, setBackdrop } = BackdropMethods();
   const { validate, errors } = Validation();

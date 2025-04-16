@@ -1,15 +1,25 @@
 import { AppBar, Toolbar, Grid2, IconButton, Avatar } from "@mui/material";
-import { Menu, Login, Logout, AccountCircle } from "@mui/icons-material";
+import {
+  Menu,
+  Login,
+  Logout,
+  AccountCircle,
+  Settings,
+} from "@mui/icons-material";
 import BackdropWrapper from "@compo/common/Backdrop";
 import BackdropMethods from "@js/backdrop";
 import axiosInstance from "@utils/axiosInstance";
 
 import { useAuth } from "@context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ isScroll }) => {
+  const navigator = useNavigate();
   const { isBackdrop, setBackdrop } = BackdropMethods();
-  const { getIsAuthentication, logoutCallback } = useAuth();
+  const { getIsAuthentication, getAuthLv, logoutCallback } = useAuth();
   const isAuthentication = getIsAuthentication();
+  const authLv = getAuthLv();
+
   const handleBackdrop = (layout) => {
     setBackdrop({
       ...isBackdrop,
@@ -34,6 +44,10 @@ const Header = ({ isScroll }) => {
           alert(err.response.data.message);
         });
     }
+  };
+
+  const handleAdmin = () => {
+    navigator("/admin");
   };
 
   return (
@@ -63,9 +77,9 @@ const Header = ({ isScroll }) => {
                 <AccountCircle />
               </IconButton>
             )}
-            {isAuthentication && (
-              <IconButton size="large" onClick={handleLogout}>
-                <Logout />
+            {isAuthentication && authLv > 2 && (
+              <IconButton size="large" onClick={handleAdmin}>
+                <Settings />
               </IconButton>
             )}
             {isAuthentication && (
