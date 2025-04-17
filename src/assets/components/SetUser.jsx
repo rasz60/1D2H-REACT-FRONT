@@ -15,7 +15,7 @@ import {
   Checkbox,
   IconButton,
 } from "@mui/material";
-import { AlternateEmail, Search, Refresh } from "@mui/icons-material";
+import { AlternateEmail, Search, Refresh, Check } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -41,12 +41,17 @@ const SetUser = () => {
   const { isBackdrop, setBackdrop } = BackdropMethods();
   const { validate, errors } = Validation();
   const [isStepTwo, setIsStepTwo] = useState(false);
+  const [chkPwd, setChkPwd] = useState({
+    chkUserPwd: "",
+    chkUserPwdErr: false,
+    chkUserPwdErrMsg: "",
+  });
   const [setUserInfo, setSetUserInfo] = useState({
     lastChng: "",
-    chkUserPwd: "",
+    userMgmtNo: "",
     userId: "",
-    userPwd: "",
-    userPwdChk: "",
+    newUserPwd: "",
+    newUserPwdChk: "",
     userEmailId: "",
     userEmailDomain: "",
     userEmailDomainSelect: "",
@@ -70,14 +75,40 @@ const SetUser = () => {
     });
   }, []);
 
-  /*-- 가입 유형 devsixt 신규 회원 가입 선택 시 --*/
-  const handleOpenStepTwo = () => {
-    const chk = axiosInstance.post("/auth/infoChk", {
-      userId: setUserInfo.userId,
-      userPwd: setUser,
-    });
+  const handleChkPwd = (event) => {
+    const { value } = event.target;
 
-    setIsStepTwo(true); // form 오픈
+    setChkPwd({
+      ...chkPwd,
+      chkUserPwd: value,
+      chkUserPwdErr: value ? false : true,
+      chkUserPwdErrMsg: value ? "" : "비밀번호를 입력해주세요.",
+    });
+  };
+
+  /*-- 가입 유형 devsixt 신규 회원 가입 선택 시 --*/
+  const handleOpenStepTwo = async () => {
+    if (!chkPwd.chkUserPwd) {
+      return;
+    }
+
+    await axiosInstance
+      .post("/auth/infoChk", {
+        userId: setUserInfo.userId,
+        userPwd: chkPwd.chkUserPwd,
+      })
+      .then((res) => {
+        res.data.userEmailDomainSelect = res.data.userEmailDomain;
+        setSetUserInfo(res.data);
+        setIsStepTwo(true); // form 오픈
+      })
+      .catch((err) => {
+        setChkPwd({
+          ...chkPwd,
+          chkUserPwdErr: true,
+          chkUserPwdErrMsg: err.response.data.message,
+        });
+      });
   };
 
   /*-- setUserInfo 변경 시 bind --*/
@@ -91,6 +122,12 @@ const SetUser = () => {
         setUserInfo.domainSelf = true;
       } else {
         setUserInfo.domainSelf = false;
+      }
+    }
+
+    if (name === "newUserPwdChk") {
+      if (!setUserInfo.newUserPwd) {
+        value = "";
       }
     }
 
@@ -180,8 +217,9 @@ const SetUser = () => {
       await axiosInstance
         .post("/auth/setUser", setUserInfo)
         .then((res) => {
-          alert(res.data);
-          window.location.href = "/";
+          alert(res.data, function () {
+            window.location.href = "/";
+          });
         })
         .catch((err) => {
           alert(err.response.data.message);
@@ -191,7 +229,7 @@ const SetUser = () => {
 
   return (
     <Box id="set-user-wrapper">
-      <Grid2 container id="step-1">
+      <Grid2 container id="step-1" className={isStepTwo ? "close" : "open"}>
         <Grid2 size={12}>
           <p>가입 정보 변경을 위해 비밀번호를 한 번 더 인증해주세요.</p>
         </Grid2>
@@ -202,17 +240,17 @@ const SetUser = () => {
               type="password"
               label="비밀번호(Password)"
               name="chkUserPwd"
-              value={setUserInfo.chkUserPwd}
-              onChange={handleSetUserInfo}
-              error={errors.chkUserPwd}
-              helperText={errors.chkUserPwdMsg}
+              value={chkPwd.chkUserPwd}
+              onChange={handleChkPwd}
+              error={chkPwd.chkUserPwdErr}
+              helperText={chkPwd.chkUserPwdErrMsg}
             ></TextField>
           </FormControl>
         </Grid2>
         <Grid2 size={1.5} sx={{ ml: 1 }}>
           <Button
             variant="contained"
-            startIcon={<Search />}
+            startIcon={<Check />}
             fullWidth
             sx={{ height: "100%" }}
             onClick={handleOpenStepTwo}
@@ -236,9 +274,7 @@ const SetUser = () => {
               label="아이디(ID)"
               name="userId"
               value={setUserInfo.userId}
-              onChange={handleSetUserInfo}
-              error={errors.userId}
-              helperText={errors.userIdMsg}
+              readOnly
             ></TextField>
           </FormControl>
         </Grid2>
@@ -249,12 +285,12 @@ const SetUser = () => {
             <TextField
               required
               type="password"
-              label="비밀번호(Password)"
-              name="userPwd"
-              value={setUserInfo.userPwd}
+              label="새 비밀번호(New Password)"
+              name="newUserPwd"
+              value={setUserInfo.newUserPwd}
               onChange={handleSetUserInfo}
-              error={errors.userPwd}
-              helperText={errors.userPwdMsg}
+              error={errors.newUserPwd}
+              helperText={errors.newUserPwdMsg}
             ></TextField>
           </FormControl>
         </Grid2>
@@ -263,12 +299,12 @@ const SetUser = () => {
             <TextField
               required
               type="password"
-              label="비밀번호 확인(Password Check)"
-              name="userPwdChk"
-              value={setUserInfo.userPwdChk}
+              label="새 비밀번호 확인(New Password Check)"
+              name="newUserPwdChk"
+              value={setUserInfo.newUserPwdChk}
               onChange={handleSetUserInfo}
-              error={errors.userPwdChk}
-              helperText={errors.userPwdChkMsg}
+              error={errors.newUserPwdChk}
+              helperText={errors.newUserPwdChkMsg}
             ></TextField>
           </FormControl>
         </Grid2>
@@ -481,7 +517,7 @@ const SetUser = () => {
             variant="contained"
             onClick={() => setSetUserInfo({ ...setUserInfo, lastChng: "all" })}
           >
-            가입하기
+            수정하기
           </Button>
         </Grid2>
       </Grid2>

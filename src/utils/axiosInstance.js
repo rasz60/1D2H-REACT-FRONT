@@ -51,13 +51,10 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response.data.status === 401)
-      alert(
-        "로그인 유지 시간이 만료되었습니다. 다시 로그인해주세요.",
-        function () {
-          window.location.href = "/";
-        }
-      );
+    if (error.response.data.status === 401) {
+      window.location.href = "/";
+      alert("로그인 유지 시간이 만료되었습니다. 다시 로그인해주세요.");
+    }
     return Promise.reject(error);
   }
 );

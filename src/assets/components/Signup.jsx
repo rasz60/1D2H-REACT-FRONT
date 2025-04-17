@@ -95,7 +95,7 @@ const Signup = () => {
   /*-- signupInfo 변경이 생겼을 때 --*/
   useEffect(() => {
     // 검증 호출
-    let flag = validate(signupInfo);
+    let flag = validate(signupInfo, "signup");
     // 전체 검증일 때
     if (signupInfo.lastChng === "all") {
       if (flag) handleSignup(); // 결과가 true일 때 handleSignup 실행

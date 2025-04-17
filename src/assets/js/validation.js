@@ -1,11 +1,10 @@
-import { DragHandle } from "@mui/icons-material";
 import { useState } from "react";
 
 const Validation = () => {
   const [errors, setErrors] = useState({});
 
   /*-- validate chk가 true일 때는 전체 항목 검증 --*/
-  const validate = (userInfo) => {
+  const validate = (userInfo, type) => {
     let name = userInfo.lastChng;
     let chk = name === "all";
     /*-- 각 validation 결과 --*/
@@ -21,22 +20,35 @@ const Validation = () => {
     }
 
     /*-- UserPwd --*/
-    if (name === "signupUserPwd" || name === "signupUserPwd" || chk) {
-      if (name === "signupUserPwd") {
-        flag = validUserPwd(name, userInfo.signupUserPwd);
-      } else {
-        flag = validUserPwd(name, userInfo.userPwd);
-      }
+    if ((name === "signupUserPwd" || chk) && type === "signup") {
+      flag = validUserPwd(userInfo.signupUserPwd);
 
       if (userInfo.userPwdChk) {
         name = "userPwdChk";
       }
+
       if (chk) chk = !flag;
     }
 
     /*-- UserPwdChk --*/
-    if (name === "userPwdChk" || chk) {
+    if ((name === "userPwdChk" || chk) && type === "signup") {
       flag = validUserPwdChk(userInfo);
+      if (chk) chk = !flag;
+    }
+
+    /*-- NewUserPwd --*/
+    if ((name === "newUserPwd" || chk) && type !== "signup") {
+      flag = validNewUserPwd(userInfo.newUserPwd);
+
+      if (userInfo.newUserPwdChk) {
+        name = "newUserPwdChk";
+      }
+      if (chk) chk = !flag;
+    }
+
+    /*-- NewUserPwdChk --*/
+    if ((name === "newUserPwdChk" || chk) && type !== "signup") {
+      flag = validNewUserPwdChk(userInfo);
       if (chk) chk = !flag;
     }
 
@@ -57,7 +69,6 @@ const Validation = () => {
       flag = validUserPhone(userInfo.userPhone);
       if (chk) chk = !flag;
     }
-
     return !flag;
   };
 
@@ -80,17 +91,17 @@ const Validation = () => {
     }
 
     //Return
-    setErrors({
-      ...errors,
+    setErrors((prev) => ({
+      ...prev,
       [name]: flag,
       [name + "Msg"]: msg,
-    });
+    }));
 
     return flag;
   };
 
   /*-- UserPwd --*/
-  const validUserPwd = (name, value) => {
+  const validUserPwd = (value) => {
     let flag = false;
     let msg = "";
     let regExp =
@@ -109,11 +120,11 @@ const Validation = () => {
     }
 
     //Return
-    setErrors({
-      ...errors,
-      [name]: flag,
-      [name + "Msg"]: msg,
-    });
+    setErrors((prev) => ({
+      ...prev,
+      signupUserPwd: flag,
+      signupUserPwdMsg: msg,
+    }));
 
     return flag;
   };
@@ -131,11 +142,65 @@ const Validation = () => {
       flag = userInfo.signupUserPwd !== userInfo.userPwdChk;
       if (flag) msg = "비밀번호와 일치하지 않습니다.";
     }
-    setErrors({
-      ...errors,
+    setErrors((prev) => ({
+      ...prev,
       userPwdChk: flag,
       userPwdChkMsg: msg,
-    });
+    }));
+
+    return flag;
+  };
+
+  /*-- NewUserPwd --*/
+  const validNewUserPwd = (value) => {
+    let flag = false;
+    let msg = "";
+    let regExp =
+      /(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+
+    // RegExp
+    if (value) {
+      if (!flag) {
+        flag = !regExp.test(value);
+        if (flag)
+          msg =
+            "8~16자리의 영문 소/대문자, 숫자, 특수문자($,`,~,!,@,$,!,%,*,#,^,?,&,,(,),-,_,=,+) 조합으로 입력해주세요.";
+      }
+    }
+
+    //Return
+    setErrors((prev) => ({
+      ...prev,
+      newUserPwd: flag,
+      newUserPwdMsg: msg,
+    }));
+
+    return flag;
+  };
+
+  /*-- NewUserPwdChk --*/
+  const validNewUserPwdChk = (userInfo) => {
+    let flag = false;
+    let msg = "";
+
+    //Required
+    if (userInfo.newUserPwd) {
+      if (!flag) {
+        flag = !userInfo.newUserPwdChk;
+        if (flag) msg = "비밀번호를 한 번 더 입력해주세요.";
+      }
+
+      if (!flag) {
+        flag = userInfo.newUserPwd !== userInfo.newUserPwdChk;
+        if (flag) msg = "비밀번호와 일치하지 않습니다.";
+      }
+    }
+
+    setErrors((prev) => ({
+      ...prev,
+      newUserPwdChk: flag,
+      newUserPwdChkMsg: msg,
+    }));
 
     return flag;
   };
@@ -149,11 +214,11 @@ const Validation = () => {
     if (!flag) flag = !value;
     if (flag) msg = "이메일 아이디를 입력해주세요.";
 
-    setErrors({
-      ...errors,
+    setErrors((prev) => ({
+      ...prev,
       userEmailId: flag,
       userEmailIdMsg: msg,
-    });
+    }));
 
     return flag;
   };
@@ -183,11 +248,11 @@ const Validation = () => {
           "이메일 주소 형식을 확인해주세요. (영문대/소문자, '.' 1~2개 포함)";
     }
 
-    setErrors({
-      ...errors,
+    setErrors((prev) => ({
+      ...prev,
       userEmailDomain: flag,
       userEmailDomainMsg: msg,
-    });
+    }));
 
     return flag;
   };
@@ -207,11 +272,11 @@ const Validation = () => {
       if (flag) msg = "핸드폰 번호 형식을 확인해주세요. (숫자 11자리)";
     }
 
-    setErrors({
-      ...errors,
+    setErrors((prev) => ({
+      ...prev,
       userPhone: flag,
       userPhoneMsg: msg,
-    });
+    }));
 
     return flag;
   };

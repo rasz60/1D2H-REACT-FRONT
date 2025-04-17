@@ -33,10 +33,12 @@
     }
   }
 
+  #step-1.open,
   #step-2.open {
     display: flex;
   }
 
+  #step-1.close,
   #step-2.close {
     display: none;
   }
