@@ -145,10 +145,10 @@ const Signup = () => {
   const handleSignup = async () => {
     // 아이디 중복 체크
     let res = await axiosInstance.post("/auth/dupChk", {
-      signupUserId: signupInfo.signupUserId,
-      userEmailId: signupInfo.userEmailId,
-      userEmailDomain: signupInfo.userEmailDomain,
+      userId: signupInfo.signupUserId,
+      userEmail: signupInfo.userEmailId + "@" + signupInfo.userEmailDomain,
       userPhone: signupInfo.userPhone,
+      dupChkType: "signup",
     });
 
     // 아이디 중복일 때

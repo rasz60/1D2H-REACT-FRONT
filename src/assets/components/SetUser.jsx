@@ -193,9 +193,9 @@ const SetUser = () => {
     // 아이디 중복 체크
     let res = await axiosInstance.post("/auth/dupChk", {
       userId: setUserInfo.userId,
-      userEmailId: setUserInfo.userEmailId,
-      userEmailDomain: setUserInfo.userEmailDomain,
+      userEmail: setUserInfo.userEmailId + "@" + setUserInfo.userEmailDomain,
       userPhone: setUserInfo.userPhone,
+      dupChkType: "setUser",
     });
 
     // 이메일 중복일 때
@@ -217,9 +217,8 @@ const SetUser = () => {
       await axiosInstance
         .post("/auth/setUser", setUserInfo)
         .then((res) => {
-          alert(res.data, function () {
-            window.location.href = "/";
-          });
+          alert(res.data);
+          window.location.href = "/";
         })
         .catch((err) => {
           alert(err.response.data.message);
@@ -503,7 +502,8 @@ const SetUser = () => {
             control={
               <Checkbox
                 name="alarmYn"
-                value={setUserInfo.alarmYn}
+                value="Y"
+                checked={setUserInfo.alarmYn}
                 onChange={handleSetUserInfo}
               />
             }
