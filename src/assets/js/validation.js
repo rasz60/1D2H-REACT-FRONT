@@ -11,14 +11,23 @@ const Validation = () => {
     /*-- 각 validation 결과 --*/
     let flag = false;
     /*-- UserId --*/
-    if (name === "signupUserId" || chk) {
-      flag = validUserId(userInfo.signupUserId);
+    if (name === "signupUserId" || name === "userId" || chk) {
+      if (name === "signupUserId") {
+        flag = validUserId(name, userInfo.signupUserId);
+      } else {
+        flag = validUserId(name, userInfo.userId);
+      }
       if (chk) chk = !flag;
     }
 
     /*-- UserPwd --*/
-    if (name === "signupUserPwd" || chk) {
-      flag = validUserPwd(userInfo.signupUserPwd);
+    if (name === "signupUserPwd" || name === "signupUserPwd" || chk) {
+      if (name === "signupUserPwd") {
+        flag = validUserPwd(name, userInfo.signupUserPwd);
+      } else {
+        flag = validUserPwd(name, userInfo.userPwd);
+      }
+
       if (userInfo.userPwdChk) {
         name = "userPwdChk";
       }
@@ -53,7 +62,7 @@ const Validation = () => {
   };
 
   /*-- UserId --*/
-  const validUserId = (value) => {
+  const validUserId = (name, value) => {
     let flag = false;
     let msg = "";
     let regExp = /^(?=.*[a-z])(?=.*[0-9])[a-z0-9_-]{6,20}$/;
@@ -73,15 +82,15 @@ const Validation = () => {
     //Return
     setErrors({
       ...errors,
-      signupUserId: flag,
-      signupUserIdMsg: msg,
+      [name]: flag,
+      [name + "Msg"]: msg,
     });
 
     return flag;
   };
 
   /*-- UserPwd --*/
-  const validUserPwd = (value) => {
+  const validUserPwd = (name, value) => {
     let flag = false;
     let msg = "";
     let regExp =
@@ -102,8 +111,8 @@ const Validation = () => {
     //Return
     setErrors({
       ...errors,
-      signupUserPwd: flag,
-      signupUserPwdMsg: msg,
+      [name]: flag,
+      [name + "Msg"]: msg,
     });
 
     return flag;

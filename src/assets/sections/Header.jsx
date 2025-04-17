@@ -73,7 +73,7 @@ const Header = ({ isScroll }) => {
           </Grid2>
           <Grid2 size={4} id="col-button">
             {isAuthentication && (
-              <IconButton size="large">
+              <IconButton size="large" onClick={() => navigator("/setUser")}>
                 <AccountCircle />
               </IconButton>
             )}

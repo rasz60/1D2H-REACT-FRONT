@@ -9,6 +9,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [authLv, setAuthLv] = useState(null);
+  const [loginUserId, setLoginUserId] = useState(null);
   const location = useLocation();
 
   // 최초 접근 시 token 체크
@@ -26,13 +27,16 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("1d2h-access-token", token);
         setIsAuthenticated(true);
         setAuthLv(res.data.auth);
+        setLoginUserId(res.data.userId);
       } else {
         setIsAuthenticated(false);
         setAuthLv(1);
+        setLoginUserId(null);
       }
     } catch (err) {
       setIsAuthenticated(false);
       setAuthLv(1);
+      setLoginUserId(null);
     }
   };
 
@@ -46,6 +50,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("1d2h-access-token", res.token);
     setIsAuthenticated(true);
     setAuthLv(res.auth);
+    setLoginUserId(res.userId);
   };
 
   // logout 완료 후 처리
@@ -53,6 +58,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("1d2h-access-token");
     setIsAuthenticated(false);
     setAuthLv(1);
+    setLoginUserId(null);
   };
 
   // login 여부 조회
@@ -63,6 +69,11 @@ export const AuthProvider = ({ children }) => {
   // Role 조회
   const getAuthLv = () => {
     return authLv;
+  };
+
+  // userId 조회
+  const getLoginUserId = () => {
+    return loginUserId;
   };
 
   // token 인증 실패 시, root path로 redirect 시키는 RouteGuard
@@ -94,6 +105,7 @@ export const AuthProvider = ({ children }) => {
         logoutCallback,
         getIsAuthentication,
         getAuthLv,
+        getLoginUserId,
         RouteGuard,
       }}
     >
