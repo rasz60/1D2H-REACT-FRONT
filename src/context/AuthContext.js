@@ -55,6 +55,7 @@ export const AuthProvider = ({ children }) => {
 
   // logout 완료 후 처리
   const logoutCallback = () => {
+    window.location.href = "/";
     localStorage.removeItem("1d2h-access-token");
     setIsAuthenticated(false);
     setAuthLv(1);

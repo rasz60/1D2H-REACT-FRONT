@@ -38,7 +38,6 @@ const Header = ({ isScroll }) => {
         .post("/auth/logout")
         .then(() => {
           logoutCallback();
-          window.location.href = "/";
         })
         .catch((err) => {
           alert(err.response.data.message);

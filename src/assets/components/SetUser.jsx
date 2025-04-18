@@ -35,12 +35,13 @@ import Validation from "../js/validation";
 import { useAuth } from "@context/AuthContext";
 
 const SetUser = () => {
-  const { isAuthenticated, getLoginUserId } = useAuth();
+  const { isAuthenticated, getLoginUserId, logoutCallback } = useAuth();
   const loginUserId = getLoginUserId();
   const currentYear = dayjs();
   const { isBackdrop, setBackdrop } = BackdropMethods();
   const { validate, errors } = Validation();
   const [isStepTwo, setIsStepTwo] = useState(false);
+  const emailDomainList = ["gmail.com", "naver.com", "hanmail.net"];
   const [chkPwd, setChkPwd] = useState({
     chkUserPwd: "",
     chkUserPwdErr: false,
@@ -98,7 +99,12 @@ const SetUser = () => {
         userPwd: chkPwd.chkUserPwd,
       })
       .then((res) => {
-        res.data.userEmailDomainSelect = res.data.userEmailDomain;
+        let domain = res.data.userEmailDomain;
+
+        res.data.userEmailDomainSelect = emailDomainList.includes(domain)
+          ? domain
+          : "self";
+
         setSetUserInfo(res.data);
         setIsStepTwo(true); // form 오픈
       })
@@ -223,6 +229,17 @@ const SetUser = () => {
         .catch((err) => {
           alert(err.response.data.message);
         });
+    }
+  };
+
+  const handleSignout = async () => {
+    let res = await axiosInstance.delete("/auth/signout");
+
+    if (res.status === 200) {
+      alert(res.data);
+      await axiosInstance.post("/auth/logout").then(() => {
+        logoutCallback();
+      });
     }
   };
 
@@ -364,9 +381,13 @@ const SetUser = () => {
               onChange={handleSetUserInfo}
             >
               <MenuItem value={""}>선택...</MenuItem>
-              <MenuItem value={"gmail.com"}>구글(Google)</MenuItem>
-              <MenuItem value={"naver.com"}>네이버(naver)</MenuItem>
-              <MenuItem value={"hanmail.net"}>다음(Daum)</MenuItem>
+              {emailDomainList ? (
+                emailDomainList.map((domain) => (
+                  <MenuItem value={domain}>{domain}</MenuItem>
+                ))
+              ) : (
+                <></>
+              )}
               <MenuItem value={"self"}>직접입력</MenuItem>
             </Select>
           </FormControl>
@@ -516,8 +537,17 @@ const SetUser = () => {
           <Button
             variant="contained"
             onClick={() => setSetUserInfo({ ...setUserInfo, lastChng: "all" })}
+            sx={{ marginLeft: "0.2em", marginRight: "0.2em" }}
           >
             수정하기
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleSignout}
+            sx={{ marginLeft: "0.2em", marginRight: "0.2em" }}
+          >
+            탈퇴하기
           </Button>
         </Grid2>
       </Grid2>

@@ -10,12 +10,8 @@ const Validation = () => {
     /*-- 각 validation 결과 --*/
     let flag = false;
     /*-- UserId --*/
-    if (name === "signupUserId" || name === "userId" || chk) {
-      if (name === "signupUserId") {
-        flag = validUserId(name, userInfo.signupUserId);
-      } else {
-        flag = validUserId(name, userInfo.userId);
-      }
+    if (name === "signupUserId" || chk) {
+      flag = validUserId(name, userInfo.signupUserId);
       if (chk) chk = !flag;
     }
 
@@ -242,7 +238,7 @@ const Validation = () => {
 
     // 형식
     if (!flag && self) {
-      flag = /^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+){1,2}$/.test(value);
+      flag = !/^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+){0,2}$/.test(value);
       if (flag)
         msg =
           "이메일 주소 형식을 확인해주세요. (영문대/소문자, '.' 1~2개 포함)";
