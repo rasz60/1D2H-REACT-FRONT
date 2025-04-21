@@ -1,0 +1,43 @@
+.dlog-pannel {
+  .dlog-pannel-header {
+    padding: 1em;
+
+    span {
+      display: inline !important;
+
+      .dlog-pannel-header-text h4 {
+        margin: 0;
+      }
+    }
+  }
+
+  .dlog-pannel-content {
+    .dlog-pannel-content-col {
+      padding: 0.5em;
+
+      .dlog-content-card {
+        box-shadow: none;
+        border: 1px solid #ececec;
+        border-radius: 10px;
+
+        .dlog-content-card-title {
+          height: 15em;
+          background-color: aliceblue;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          p.dlog-content-card-title-text {
+            font-weight: 600;
+            font-size: 17px;
+            font-style: italic;
+          }
+        }
+
+        .dlog-cotent-card-lang {
+          margin: 0.1em;
+        }
+      }
+    }
+  }
+}

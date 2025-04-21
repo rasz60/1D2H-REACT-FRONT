@@ -1,6 +1,6 @@
 import axiosInstance from "@src/utils/axiosInstance";
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -10,7 +10,9 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [authLv, setAuthLv] = useState(null);
   const [loginUserId, setLoginUserId] = useState(null);
+  const navigator = useNavigate();
   const location = useLocation();
+  const [logout, setLogout] = useState(false);
 
   // 최초 접근 시 token 체크
   useEffect(() => {
@@ -55,12 +57,20 @@ export const AuthProvider = ({ children }) => {
 
   // logout 완료 후 처리
   const logoutCallback = () => {
-    window.location.href = "/";
+    setLogout(true);
     localStorage.removeItem("1d2h-access-token");
     setIsAuthenticated(false);
     setAuthLv(1);
     setLoginUserId(null);
+    navigator("/");
   };
+
+  useEffect(() => {
+    if (logout) {
+      // 한 번 리디렉션 후 플래그 초기화
+      setTimeout(() => setLogout(false), 500); // 혹은 바로 false로 바꿔도 OK
+    }
+  }, [logout]);
 
   // login 여부 조회
   const getIsAuthentication = () => {
@@ -79,8 +89,12 @@ export const AuthProvider = ({ children }) => {
 
   // token 인증 실패 시, root path로 redirect 시키는 RouteGuard
   const RouteGuard = ({ type }) => {
-    const { isAuthenticated, authLv } = useAuth();
+    const { isAuthenticated, authLv, logout } = useAuth();
     let msg = "";
+    if (logout || location.pathname === "/") {
+      return;
+    }
+
     if (isAuthenticated != null && authLv != null) {
       if (isAuthenticated) {
         return <Outlet />;
@@ -102,6 +116,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         isAuthenticated,
         authLv,
+        logout,
         loginCallback,
         logoutCallback,
         getIsAuthentication,
