@@ -1,0 +1,807 @@
+INSERT INTO "1d2h"."1d2h_devlog_item" (
+	   item_no, 
+	   delete_yn, 
+	   item_regist_date, 
+	   item_register, 
+	   item_sort_no, 
+	   item_title, 
+	   item_type,
+	   open_yn, 
+	   progress, 
+	   group_no
+)
+VALUES (
+	1,
+	'N',
+	'2024-06-24 11:25:13',
+	'503',
+	1,
+	'🔨초기 설정',
+	'DEV',
+	'Y',
+	'DONE',
+	1
+);
+
+INSERT INTO "1d2h"."1d2h_devlog_item" (
+	   item_no, 
+	   delete_yn, 
+	   item_regist_date, 
+	   item_register, 
+	   item_sort_no, 
+	   item_title, 
+	   item_type,
+	   open_yn, 
+	   progress, 
+	   group_no
+)
+VALUES (
+	2,
+	'N',
+	'2024-06-24 12:30:10',
+	'503',
+	2,
+	'🩺VS CODE Terminal 권한 설정',
+	'ISSUE',
+	'Y',
+	'DONE',
+	1
+);
+
+INSERT INTO "1d2h"."1d2h_devlog_item" (
+	   item_no, 
+	   delete_yn, 
+	   item_regist_date, 
+	   item_register, 
+	   item_sort_no, 
+	   item_title, 
+	   item_type,
+	   open_yn, 
+	   progress, 
+	   group_no
+)
+VALUES (
+	3,
+	'N',
+	'2024-06-24 14:22:18',
+	'503',
+	3,
+	'🩺dependency 설정 관련',
+	'ISSUE',
+	'Y',
+	'DONE',
+	1
+);
+
+
+INSERT INTO "1d2h"."1d2h_devlog_item" (
+	   item_no, 
+	   delete_yn, 
+	   item_regist_date, 
+	   item_register, 
+	   item_sort_no, 
+	   item_title, 
+	   item_type,
+	   open_yn, 
+	   progress, 
+	   group_no
+)
+VALUES (
+	4,
+	'N',
+	'2024-06-24 15:00:30',
+	'503',
+	4,
+	'🩺eslint, prettier 충돌',
+	'ISSUE',
+	'Y',
+	'DONE',
+	1
+);
+
+  {
+    "seq": 5,
+    "groupSeq": 1,
+    "groupItemSeq": 5,
+    "type": "dev",
+    "serizes": "g1",
+    "fileName": "seq2.md",
+    "title": "🔨프로젝트 구성 및 초기 화면",
+    "date": "2024-06-25 17:35:57",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "frontend" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 6,
+    "groupSeq": 1,
+    "groupItemSeq": 6,
+    "type": "dev",
+    "serizes": "g1",
+    "fileName": "seq3.md",
+    "title": "🔨초기 화면 상세",
+    "date": "2024-06-25 18:05:23",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "frontend" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 7,
+    "groupSeq": 1,
+    "groupItemSeq": 7,
+    "type": "dev",
+    "serizes": "g1",
+    "fileName": "seq4.md",
+    "title": "🔨vue-router 적용",
+    "date": "2024-06-26 17:41:55",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "frontend" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 8,
+    "groupSeq": 1,
+    "groupItemSeq": 8,
+    "type": "dev",
+    "serizes": "g1",
+    "fileName": "seq5.md",
+    "title": "🔨게시글 목록 페이지 만들기",
+    "date": "2024-06-27 16:22:37",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "frontend" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 9,
+    "groupSeq": 1,
+    "groupItemSeq": 9,
+    "type": "dev",
+    "serizes": "g1",
+    "fileName": "seq6.md",
+    "title": "🔨게시글 목록 검색 기능 추가",
+    "date": "2024-06-28 10:15:19",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "frontend" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 10,
+    "groupSeq": 1,
+    "groupItemSeq": 10,
+    "type": "dev",
+    "serizes": "g1",
+    "fileName": "seq7.md",
+    "title": "🔨게시글 상세 페이지",
+    "date": "2024-06-28 16:57:03",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "frontend" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 11,
+    "groupSeq": 1,
+    "groupItemSeq": 11,
+    "type": "dev",
+    "serizes": "g1",
+    "fileName": "seq8.md",
+    "title": "🔨Github Pages ↔ 프로젝트 연동",
+    "date": "2024-07-01 11:24:06",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "frontend" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 12,
+    "groupSeq": 1,
+    "groupItemSeq": 12,
+    "type": "issue",
+    "serizes": "g1",
+    "fileName": "issue4.md",
+    "title": "🩺.gitignore 설정",
+    "date": "2024-07-01 11:35:24",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "issue", "value": "issue" },
+      { "type": "front", "value": "frontend" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 13,
+    "groupSeq": 1,
+    "groupItemSeq": 13,
+    "type": "issue",
+    "serizes": "g1",
+    "fileName": "issue5.md",
+    "title": "🩺publicPath 설정",
+    "date": "2024-07-01 11:38:42",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "issue", "value": "issue" },
+      { "type": "front", "value": "frontend" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 14,
+    "groupSeq": 1,
+    "groupItemSeq": 14,
+    "type": "dev",
+    "serizes": "g1",
+    "fileName": "seq9.md",
+    "title": "🔨디테일 변경",
+    "date": "2024-07-02 16:11:19",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "frontend" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 15,
+    "groupSeq": 2,
+    "groupItemSeq": 1,
+    "type": "dev",
+    "serizes": "g2",
+    "fileName": "seq1.md",
+    "title": "🔨Spring-boot 프로젝트 만들기",
+    "date": "2024-07-08 17:31:51",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "full", "value": "fullstack" },
+      { "type": "back", "value": "Spring-Boot" },
+      { "type": "db", "value": "MySQL" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 16,
+    "groupSeq": 2,
+    "groupItemSeq": 2,
+    "type": "issue",
+    "serizes": "g2",
+    "fileName": "issue1.md",
+    "title": "🩺Could not move temporary workspace",
+    "date": "2024-07-08 17:44:10",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "issue", "value": "issue" },
+      { "type": "back", "value": "Spring-Boot" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 17,
+    "groupSeq": 2,
+    "groupItemSeq": 3,
+    "type": "dev",
+    "serizes": "g2",
+    "fileName": "seq2.md",
+    "title": "🔨Spring-boot 프로젝트 DB 연동 하기",
+    "date": "2024-07-09 16:04:56",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "back", "value": "Spring-Boot" },
+      { "type": "back", "value": "JPA" },
+      { "type": "db", "value": "MySQL" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 18,
+    "groupSeq": 2,
+    "groupItemSeq": 4,
+    "type": "issue",
+    "serizes": "g2",
+    "fileName": "issue2.md",
+    "title": "🩺JPA Column Default 설정 무시되는 현상",
+    "date": "2024-07-09 17:55:27",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "issue", "value": "issue" },
+      { "type": "back", "value": "Spring-Boot" },
+      { "type": "back", "value": "JPA" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 19,
+    "groupSeq": 2,
+    "groupItemSeq": 5,
+    "type": "dev",
+    "serizes": "g2",
+    "fileName": "seq3.md",
+    "title": "🔨Spring-boot, Vue3 프로젝트 연동하기",
+    "date": "2024-07-10 16:11:01",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "back", "value": "Spring-Boot" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 20,
+    "groupSeq": 2,
+    "groupItemSeq": 6,
+    "type": "dev",
+    "serizes": "g2",
+    "fileName": "seq4.md",
+    "title": "🔨회원가입 구현하기 (1/2)",
+    "date": "2024-07-12 16:17:32",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" },
+      { "type": "front", "value": "axios" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 21,
+    "groupSeq": 2,
+    "groupItemSeq": 7,
+    "type": "dev",
+    "serizes": "g2",
+    "fileName": "seq5.md",
+    "title": "🔨회원가입 구현하기 (2/2)",
+    "date": "2024-07-15 17:03:02",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "back", "value": "Spring-Boot" },
+      { "type": "back", "value": "JPA" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 22,
+    "groupSeq": 2,
+    "groupItemSeq": 8,
+    "type": "issue",
+    "serizes": "g2",
+    "fileName": "issue3.md",
+    "title": "🩺@RequestBody 속성명 매핑 이슈",
+    "date": "2024-07-15 17:07:47",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "issue", "value": "issue" },
+      { "type": "back", "value": "Spring-Boot" },
+      { "type": "back", "value": "JPA" },
+      { "type": "lib", "value": "lombok" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 23,
+    "groupSeq": 2,
+    "groupItemSeq": 9,
+    "type": "dev",
+    "serizes": "g2",
+    "fileName": "seq6.md",
+    "title": "🔨로그인 구현하기 (1/2)",
+    "date": "2024-07-29 16:55:31",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "back", "value": "Spring-Boot" },
+      { "type": "back", "value": "Spring Security" },
+      { "type": "back", "value": "JPA" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 24,
+    "groupSeq": 2,
+    "groupItemSeq": 10,
+    "type": "issue",
+    "serizes": "g2",
+    "fileName": "issue4.md",
+    "title": "🩺BCryptPasswordEncoder 순환 참조 이슈",
+    "date": "2024-07-29 17:21:02",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "issue", "value": "issue" },
+      { "type": "back", "value": "Spring-Boot" },
+      { "type": "back", "value": "Spring Security" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 25,
+    "groupSeq": 2,
+    "groupItemSeq": 11,
+    "type": "dev",
+    "serizes": "g2",
+    "fileName": "seq7.md",
+    "title": "🔨로그인 구현하기 (2/2)",
+    "date": "2024-07-30 11:19:19",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" },
+      { "type": "front", "value": "axios" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 26,
+    "groupSeq": 2,
+    "groupItemSeq": 12,
+    "type": "dev",
+    "serizes": "g2",
+    "fileName": "seq8.md",
+    "title": "🔨아이디/비밀번호 찾기 구현하기",
+    "date": "2024-07-31 16:17:10",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" },
+      { "type": "front", "value": "axios" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 27,
+    "groupSeq": 2,
+    "groupItemSeq": 13,
+    "type": "dev",
+    "serizes": "g2",
+    "fileName": "seq9.md",
+    "title": "🔨회원 정보 수정/삭제 구현하기",
+    "date": "2024-08-01 16:26:37",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" },
+      { "type": "front", "value": "axios" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 28,
+    "groupSeq": 2,
+    "groupItemSeq": 14,
+    "type": "dev",
+    "serizes": "g2",
+    "fileName": "seq10.md",
+    "title": "🔨VUEX Store 사용하여 리팩토링",
+    "date": "2024-08-02 13:06:51",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuex" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 29,
+    "groupSeq": 2,
+    "groupItemSeq": 15,
+    "type": "issue",
+    "serizes": "g2",
+    "fileName": "issue5.md",
+    "title": "🩺예외: TypeError: 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them at Function.",
+    "date": "2024-08-02 15:12:17",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "issue", "value": "issue" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuex" }
+    ],
+    "newPost": false,
+    "proceeding": false
+  },
+  {
+    "seq": 30,
+    "groupSeq": 3,
+    "groupItemSeq": 1,
+    "type": "dev",
+    "serizes": "g3",
+    "fileName": "seq1.md",
+    "title": "🔨상단 메뉴 추가 및 설정(1/2)",
+    "date": "2024-08-05 16:11:47",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "back", "value": "Spring-Boot" },
+      { "type": "back", "value": "JPA" }
+    ],
+    "newPost": false,
+    "proceeding": true
+  },
+  {
+    "seq": 31,
+    "groupSeq": 3,
+    "groupItemSeq": 2,
+    "type": "dev",
+    "serizes": "g3",
+    "fileName": "seq2.md",
+    "title": "🔨상단 메뉴 추가 및 설정 (2/2)",
+    "date": "2024-08-05 20:22:21",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" },
+      { "type": "front", "value": "vuex" }
+    ],
+    "newPost": false,
+    "proceeding": true
+  },
+  {
+    "seq": 32,
+    "groupSeq": 3,
+    "groupItemSeq": 3,
+    "type": "dev",
+    "serizes": "g3",
+    "fileName": "seq3.md",
+    "title": "🔨Entity / DTO",
+    "date": "2024-08-06 19:42:07",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "back", "value": "Spring-Boot" },
+      { "type": "back", "value": "JPA" }
+    ],
+    "newPost": false,
+    "proceeding": true
+  },
+  {
+    "seq": 33,
+    "groupSeq": 3,
+    "groupItemSeq": 4,
+    "type": "dev",
+    "serizes": "g3",
+    "fileName": "seq4.md",
+    "title": "🔨게시판 리스트 구현하기 (1/2)",
+    "date": "2024-08-07 21:32:11",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "back", "value": "Spring-Boot" },
+      { "type": "back", "value": "JPA" }
+    ],
+    "newPost": false,
+    "proceeding": true
+  },
+  {
+    "seq": 34,
+    "groupSeq": 3,
+    "groupItemSeq": 5,
+    "type": "dev",
+    "serizes": "g3",
+    "fileName": "seq5.md",
+    "title": "🔨게시판 리스트 구현하기 (2/2)",
+    "date": "2024-08-09 23:55:41",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": true
+  },
+  {
+    "seq": 35,
+    "groupSeq": 3,
+    "groupItemSeq": 6,
+    "type": "dev",
+    "serizes": "g3",
+    "fileName": "seq6.md",
+    "title": "🔨게시물 작성 구현하기 (1/2)",
+    "date": "2024-08-12 20:00:33",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "back", "value": "Spring-Boot" },
+      { "type": "back", "value": "JPA" }
+    ],
+    "newPost": false,
+    "proceeding": true
+  },
+  {
+    "seq": 36,
+    "groupSeq": 3,
+    "groupItemSeq": 7,
+    "type": "dev",
+    "serizes": "g3",
+    "fileName": "seq7.md",
+    "title": "🔨게시물 작성 구현하기 (2/2)",
+    "date": "2024-08-12 23:19:21",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": true
+  },
+  {
+    "seq": 37,
+    "groupSeq": 3,
+    "groupItemSeq": 8,
+    "type": "dev",
+    "serizes": "g3",
+    "fileName": "seq8.md",
+    "title": "🔨게시물 상세 조회 구현하기 (1/2)",
+    "date": "2024-08-13 19:33:10",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "back", "value": "Spring-Boot" },
+      { "type": "back", "value": "JPA" }
+    ],
+    "newPost": false,
+    "proceeding": true
+  },
+  {
+    "seq": 38,
+    "groupSeq": 3,
+    "groupItemSeq": 9,
+    "type": "dev",
+    "serizes": "g3",
+    "fileName": "seq9.md",
+    "title": "🔨게시물 상세 조회 구현하기 (2/2)",
+    "date": "2024-08-14 12:45:36",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": true
+  },
+  {
+    "seq": 39,
+    "groupSeq": 3,
+    "groupItemSeq": 10,
+    "type": "issue",
+    "serizes": "g3",
+    "fileName": "issue1.md",
+    "title": "🩺vue-router 중복 경로 동적 설정",
+    "date": "2024-08-15 18:22:17",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "issue", "value": "issue" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vue-router" }
+    ],
+    "newPost": false,
+    "proceeding": true
+  },
+  {
+    "seq": 40,
+    "groupSeq": 3,
+    "groupItemSeq": 11,
+    "type": "dev",
+    "serizes": "g3",
+    "fileName": "seq10.md",
+    "title": "🔨게시물 수정/삭제 기능 구현하기 (1/2)",
+    "date": "2024-08-16 17:09:01",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "back", "value": "Spring-Boot" },
+      { "type": "back", "value": "JPA" }
+    ],
+    "newPost": false,
+    "proceeding": true
+  },
+  {
+    "seq": 41,
+    "groupSeq": 3,
+    "groupItemSeq": 12,
+    "type": "dev",
+    "serizes": "g3",
+    "fileName": "seq11.md",
+    "title": "🔨게시물 수정/삭제 기능 구현하기 (2/2)",
+    "date": "2024-08-19 18:22:17",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": true
+  },
+  {
+    "seq": 42,
+    "groupSeq": 3,
+    "groupItemSeq": 13,
+    "type": "dev",
+    "serizes": "g3",
+    "fileName": "seq12.md",
+    "title": "🔨댓글 기능 구현하기 (1/2)",
+    "date": "2024-08-20 19:39:43",
+    "dateDiff": null,
+    "keywords": [
+      { "type": "dev", "value": "dev" },
+      { "type": "front", "value": "vue" },
+      { "type": "front", "value": "vuetify" }
+    ],
+    "newPost": false,
+    "proceeding": true
+  }
+]

@@ -1,0 +1,70 @@
+INSERT INTO "1D2H"."1D2H_DEVLOG_GROUP" (
+	groupNo,
+	groupTitle,
+	groupRegistDate,
+	groupRegister,
+	groupUpdateDate,
+	groupUpdater,
+	progress,
+	openYn,
+	deleteYn
+)
+VALUES (
+	1,
+	'Github Pages Blog 만들기',
+	CURRENT_TIMESTAMP,
+	503,
+	CURRENT_TIMESTAMP,
+	503,
+	'DONE',
+	'Y',
+	'N'
+);
+
+
+INSERT INTO "1D2H"."1D2H_DEVLOG_GROUP" (
+	groupNo,
+	groupTitle,
+	groupRegistDate,
+	groupRegister,
+	groupUpdateDate,
+	groupUpdater,
+	progress,
+	openYn,
+	deleteYn
+)
+VALUES (
+	2,
+	'Spring-boot, Vue3 회원가입/로그인 구현하기',
+	CURRENT_TIMESTAMP,
+	503,
+	CURRENT_TIMESTAMP,
+	503,
+	'DONE',
+	'Y',
+	'N'
+);
+
+
+INSERT INTO "1D2H"."1D2H_DEVLOG_GROUP" (
+	groupNo,
+	groupTitle,
+	groupRegistDate,
+	groupRegister,
+	groupUpdateDate,
+	groupUpdater,
+	progress,
+	openYn,
+	deleteYn
+)
+VALUES (
+	3,
+	'Spring-boot, Vue3 게시판 만들기',
+	CURRENT_TIMESTAMP,
+	503,
+	CURRENT_TIMESTAMP,
+	503,
+	'DONE',
+	'Y',
+	'N'
+);
