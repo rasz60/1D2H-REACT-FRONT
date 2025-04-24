@@ -1,4 +1,15 @@
-import { ArrowDownward } from "@mui/icons-material";
+import {
+  ArrowDownward,
+  Bookmark,
+  BookmarkBorder,
+  ContentCopy,
+  Favorite,
+  FavoriteBorder,
+  PlayCircle,
+  PlayCircleOutline,
+  StopCircle,
+  StopCircleOutlined,
+} from "@mui/icons-material";
 import {
   Accordion,
   AccordionDetails,
@@ -75,8 +86,29 @@ const DevLog = () => {
               onClick={() => handleToggleGroup(idx)}
             >
               <Grid2 container className="dlog-pannel-header-row">
-                <Grid2 size={11} className="dlog-pannel-header-text">
+                <Grid2 size={1} className="dlog-pannel-header-text">
+                  {group.progress === "LIVE" ? (
+                    <PlayCircleOutline />
+                  ) : (
+                    <StopCircleOutlined />
+                  )}
+                </Grid2>
+                <Grid2 size={8} className="dlog-pannel-header-text">
                   <Typography component="h4">{group.groupTitle}</Typography>
+                </Grid2>
+                <Grid2 size={1} className="dlog-pannel-header-text">
+                  {group.progress === "LIVE" ? (
+                    <FavoriteBorder />
+                  ) : (
+                    <Favorite />
+                  )}
+                </Grid2>
+                <Grid2 size={1} className="dlog-pannel-header-text">
+                  {group.progress === "LIVE" ? (
+                    <BookmarkBorder />
+                  ) : (
+                    <Bookmark />
+                  )}
                 </Grid2>
                 <Grid2 size={1} className="dlog-pannel-header-badge">
                   <Chip label={group.itemCnt} color="success" />
