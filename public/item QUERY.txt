@@ -82,63 +82,63 @@ INSERT INTO "1d2h"."1d2h_devlog_item" (
 	   group_no
 )
 SELECT 
-	15,	'N', '2024-07-08 17:31:51'::timestamp, 2,	15,	'🔨Spring-boot 프로젝트 만들기', 'DEV',	'Y',	'DONE',	2
+	15,	'N', '2024-07-08 17:31:51'::timestamp, 2,	1,	'🔨Spring-boot 프로젝트 만들기', 'DEV',	'Y',	'DONE',	2
 
 UNION ALL
 SELECT 
-	16,	'N', '2024-07-08 17:44:10'::timestamp, 2,	16,	'🩺Could not move temporary workspace', 'ISSUE',	'Y',	'DONE',	2
+	16,	'N', '2024-07-08 17:44:10'::timestamp, 2,	2,	'🩺Could not move temporary workspace', 'ISSUE',	'Y',	'DONE',	2
 
 UNION ALL
 SELECT 
-	17,	'N', '2024-07-09 16:04:56'::timestamp, 2,	17,	'🔨Spring-boot 프로젝트 DB 연동 하기', 'DEV',	'Y',	'DONE',	2
+	17,	'N', '2024-07-09 16:04:56'::timestamp, 2,	3,	'🔨Spring-boot 프로젝트 DB 연동 하기', 'DEV',	'Y',	'DONE',	2
 
 UNION ALL
 SELECT 
-	18,	'N', '2024-07-09 17:55:27'::timestamp, 2,	18,	'🩺JPA Column Default 설정 무시되는 현상', 'ISSUE',	'Y',	'DONE',	2
+	18,	'N', '2024-07-09 17:55:27'::timestamp, 2,	4,	'🩺JPA Column Default 설정 무시되는 현상', 'ISSUE',	'Y',	'DONE',	2
 
 UNION ALL
 SELECT 
-	19,	'N', '2024-07-10 16:11:01'::timestamp, 2,	19,	'🔨Spring-boot, Vue3 프로젝트 연동하기', 'DEV',	'Y',	'DONE',	2
+	19,	'N', '2024-07-10 16:11:01'::timestamp, 2,	5,	'🔨Spring-boot, Vue3 프로젝트 연동하기', 'DEV',	'Y',	'DONE',	2
 
 UNION ALL
 SELECT 
-	20,	'N', '2024-07-12 16:17:32'::timestamp, 2,	20,	'🔨회원가입 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	2
+	20,	'N', '2024-07-12 16:17:32'::timestamp, 2,	6,	'🔨회원가입 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	2
 
 UNION ALL
 SELECT 
-	21,	'N', '2024-07-15 17:03:02'::timestamp, 2,	21,	'🔨회원가입 구현하기 (2/2)', 'ISSUE',	'Y',	'DONE',	2
+	21,	'N', '2024-07-15 17:03:02'::timestamp, 2,	7,	'🔨회원가입 구현하기 (2/2)', 'ISSUE',	'Y',	'DONE',	2
 
 UNION ALL
 SELECT 
-	22,	'N', '2024-07-15 17:07:47'::timestamp, 2,	22,	'🩺@RequestBody 속성명 매핑 이슈', 'ISSUE',	'Y',	'DONE',	2
+	22,	'N', '2024-07-15 17:07:47'::timestamp, 2,	8,	'🩺@RequestBody 속성명 매핑 이슈', 'ISSUE',	'Y',	'DONE',	2
 
 UNION ALL
 SELECT 
-	23,	'N', '2024-07-29 16:55:31'::timestamp, 2,	23,	'🔨로그인 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	2
+	23,	'N', '2024-07-29 16:55:31'::timestamp, 2,	9,	'🔨로그인 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	2
 
 UNION ALL
 SELECT 
-	24,	'N', '2024-07-29 17:21:02'::timestamp, 2,	24,	'🩺BCryptPasswordEncoder 순환 참조 이슈', 'ISSUE',	'Y',	'DONE',	2
+	24,	'N', '2024-07-29 17:21:02'::timestamp, 2,	10,	'🩺BCryptPasswordEncoder 순환 참조 이슈', 'ISSUE',	'Y',	'DONE',	2
 
 UNION ALL
 SELECT 
-	25,	'N', '2024-07-30 11:19:19'::timestamp, 2,	25,	'🔨로그인 구현하기 (2/2)', 'DEV',	'Y',	'DONE',	2
+	25,	'N', '2024-07-30 11:19:19'::timestamp, 2,	11,	'🔨로그인 구현하기 (2/2)', 'DEV',	'Y',	'DONE',	2
 
 UNION ALL
 SELECT 
-	26,	'N', '2024-07-31 16:17:10'::timestamp, 2,	26,	'🔨아이디/비밀번호 찾기 구현하기', 'DEV',	'Y',	'DONE',	2
+	26,	'N', '2024-07-31 16:17:10'::timestamp, 2,	12,	'🔨아이디/비밀번호 찾기 구현하기', 'DEV',	'Y',	'DONE',	2
 
 UNION ALL
 SELECT 
-	27,	'N', '2024-08-01 16:26:37'::timestamp, 2,	27,	'🔨회원 정보 수정/삭제 구현하기', 'DEV',	'Y',	'DONE',	2
+	27,	'N', '2024-08-01 16:26:37'::timestamp, 2,	13,	'🔨회원 정보 수정/삭제 구현하기', 'DEV',	'Y',	'DONE',	2
 
 UNION ALL
 SELECT 
-	28,	'N', '2024-08-02 13:06:51'::timestamp, 2,	28,	'🔨VUEX Store 사용하여 리팩토링', 'DEV',	'Y',	'DONE',	2
+	28,	'N', '2024-08-02 13:06:51'::timestamp, 2,	14,	'🔨VUEX Store 사용하여 리팩토링', 'DEV',	'Y',	'DONE',	2
 
 UNION ALL
 SELECT 
-	29,	'N', '2024-08-02 15:12:17'::timestamp, 2,	29,	'🩺예외: TypeError: ''caller'', ''callee'', and ''arguments'' properties may not be accessed on strict mode functions or the arguments objects for calls to them at Function.', 'ISSUE',	'Y',	'DONE',	2
+	29,	'N', '2024-08-02 15:12:17'::timestamp, 2,	15,	'🩺예외: TypeError: ''caller'', ''callee'', and ''arguments'' properties may not be accessed on strict mode functions or the arguments objects for calls to them at Function.', 'ISSUE',	'Y',	'DONE',	2
 
 
 
@@ -156,52 +156,52 @@ INSERT INTO "1d2h"."1d2h_devlog_item" (
 	   group_no
 )
 SELECT 
-	30,	'N', '2024-08-05 16:11:47'::timestamp, 2,	30,	'🔨상단 메뉴 추가 및 설정(1/2)', 'DEV',	'Y',	'DONE',	3
+	30,	'N', '2024-08-05 16:11:47'::timestamp, 2,	1,	'🔨상단 메뉴 추가 및 설정(1/2)', 'DEV',	'Y',	'DONE',	3
 
 UNION ALL
 SELECT 
-	31,	'N', '2024-08-05 20:22:21'::timestamp, 2,	31,	'🔨상단 메뉴 추가 및 설정 (2/2)', 'DEV',	'Y',	'DONE',	3
+	31,	'N', '2024-08-05 20:22:21'::timestamp, 2,	2,	'🔨상단 메뉴 추가 및 설정 (2/2)', 'DEV',	'Y',	'DONE',	3
 
 UNION ALL
 SELECT 
-	32,	'N', '2024-08-06 19:42:07'::timestamp, 2,	32,	'🔨Entity / DTO', 'DEV',	'Y',	'DONE',	3
+	32,	'N', '2024-08-06 19:42:07'::timestamp, 2,	3,	'🔨Entity / DTO', 'DEV',	'Y',	'DONE',	3
 
 UNION ALL
 SELECT 
-	33,	'N', '2024-08-07 21:32:11'::timestamp, 2,	33,	'🔨게시판 리스트 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	3
+	33,	'N', '2024-08-07 21:32:11'::timestamp, 2,	4,	'🔨게시판 리스트 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	3
 
 UNION ALL
 SELECT 
-	34,	'N', '2024-08-09 23:55:41'::timestamp, 2,	34,	'🔨게시판 리스트 구현하기 (2/2)', 'DEV',	'Y',	'DONE',	3
+	34,	'N', '2024-08-09 23:55:41'::timestamp, 2,	5,	'🔨게시판 리스트 구현하기 (2/2)', 'DEV',	'Y',	'DONE',	3
 
 UNION ALL
 SELECT 
-	35,	'N', '2024-08-12 20:00:33'::timestamp, 2,	35,	'🔨게시물 작성 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	3
+	35,	'N', '2024-08-12 20:00:33'::timestamp, 2,	6,	'🔨게시물 작성 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	3
 
 UNION ALL
 SELECT 
-	36,	'N', '2024-08-12 23:19:21'::timestamp, 2,	36,	'🔨게시물 작성 구현하기 (2/2)', 'DEV',	'Y',	'DONE',	3
+	36,	'N', '2024-08-12 23:19:21'::timestamp, 2,	7,	'🔨게시물 작성 구현하기 (2/2)', 'DEV',	'Y',	'DONE',	3
 
 UNION ALL
 SELECT 
-	37,	'N', '2024-08-13 19:33:10'::timestamp, 2,	37,	'🔨게시물 상세 조회 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	3
+	37,	'N', '2024-08-13 19:33:10'::timestamp, 2,	8,	'🔨게시물 상세 조회 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	3
 
 UNION ALL
 SELECT 
-	38,	'N', '2024-08-14 12:45:36'::timestamp, 2,	38,	'🔨게시물 상세 조회 구현하기 (2/2)', 'DEV',	'Y',	'DONE',	3
+	38,	'N', '2024-08-14 12:45:36'::timestamp, 2,	9,	'🔨게시물 상세 조회 구현하기 (2/2)', 'DEV',	'Y',	'DONE',	3
 
 UNION ALL
 SELECT 
-	39,	'N', '2024-08-15 18:22:17'::timestamp, 2,	39,	'🩺vue-router 중복 경로 동적 설정', 'ISSUE',	'Y',	'DONE',	3
+	39,	'N', '2024-08-15 18:22:17'::timestamp, 2,	10,	'🩺vue-router 중복 경로 동적 설정', 'ISSUE',	'Y',	'DONE',	3
 
 UNION ALL
 SELECT 
-	40,	'N', '2024-08-16 17:09:01'::timestamp, 2,	40,	'🔨게시물 수정/삭제 기능 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	3
+	40,	'N', '2024-08-16 17:09:01'::timestamp, 2,	11,	'🔨게시물 수정/삭제 기능 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	3
 
 UNION ALL
 SELECT 
-	41,	'N', '2024-08-19 18:22:17'::timestamp, 2,	41,	'🔨게시물 수정/삭제 기능 구현하기 (2/2)', 'DEV',	'Y',	'DONE',	3
+	41,	'N', '2024-08-19 18:22:17'::timestamp, 2,	12,	'🔨게시물 수정/삭제 기능 구현하기 (2/2)', 'DEV',	'Y',	'DONE',	3
 
 UNION ALL
 SELECT 
-	42,	'N', '2024-08-20 19:39:43'::timestamp, 2,	42,	'🔨댓글 기능 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	3
+	42,	'N', '2024-08-20 19:39:43'::timestamp, 2,	13,	'🔨댓글 기능 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	3

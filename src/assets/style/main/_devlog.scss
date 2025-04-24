@@ -4,9 +4,27 @@
 
     span {
       display: inline !important;
+      .dlog-pannel-header-status {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-      .dlog-pannel-header-text h4 {
-        margin: 0;
+      .dlog-pannel-header-text {
+        display: flex;
+        align-items: center;
+
+        span {
+          margin: 0;
+        }
+      }
+
+      .dlog-pannel-header-likes,
+      .dlog-pannel-header-subs,
+      .dlog-pannel-header-items {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
       }
     }
   }
@@ -22,7 +40,6 @@
 
         .dlog-content-card-title {
           height: 15em;
-          background-color: aliceblue;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -30,7 +47,7 @@
           p.dlog-content-card-title-text {
             text-align: center;
             font-weight: 600;
-            font-size: 17px;
+            font-size: 15px;
             font-style: italic;
           }
         }
@@ -41,4 +58,7 @@
       }
     }
   }
+}
+.dlog-pannel.expended .dlog-pannel-header {
+  background-color: rgb(246, 252, 255, 0.5);
 }

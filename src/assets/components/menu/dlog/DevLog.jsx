@@ -2,12 +2,10 @@ import {
   ArrowDownward,
   Bookmark,
   BookmarkBorder,
-  ContentCopy,
+  List,
   Favorite,
   FavoriteBorder,
-  PlayCircle,
   PlayCircleOutline,
-  StopCircle,
   StopCircleOutlined,
 } from "@mui/icons-material";
 import {
@@ -19,9 +17,9 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-  Chip,
   Container,
   Grid2,
+  IconButton,
   Typography,
 } from "@mui/material";
 import axiosInstance from "@src/utils/axiosInstance";
@@ -77,7 +75,7 @@ const DevLog = () => {
           <Accordion
             expanded={toggleIdx === idx}
             id={"pannel" + idx}
-            className="dlog-pannel"
+            className={"dlog-pannel" + (toggleIdx === idx ? " expended" : "")}
           >
             <AccordionSummary
               expandIcon={<ArrowDownward />}
@@ -86,32 +84,43 @@ const DevLog = () => {
               onClick={() => handleToggleGroup(idx)}
             >
               <Grid2 container className="dlog-pannel-header-row">
-                <Grid2 size={1} className="dlog-pannel-header-text">
+                <Grid2 size={1} className="dlog-pannel-header-status">
                   {group.progress === "LIVE" ? (
-                    <PlayCircleOutline />
+                    <PlayCircleOutline color="info" />
                   ) : (
-                    <StopCircleOutlined />
+                    <StopCircleOutlined color="error" />
                   )}
                 </Grid2>
                 <Grid2 size={8} className="dlog-pannel-header-text">
-                  <Typography component="h4">{group.groupTitle}</Typography>
+                  <Typography component="span">{group.groupTitle}</Typography>
                 </Grid2>
-                <Grid2 size={1} className="dlog-pannel-header-text">
-                  {group.progress === "LIVE" ? (
-                    <FavoriteBorder />
+                <Grid2 size={1} className="dlog-pannel-header-likes">
+                  {group.likeYn ? (
+                    <IconButton>
+                      <Favorite color="error" />
+                    </IconButton>
                   ) : (
-                    <Favorite />
+                    <IconButton>
+                      <FavoriteBorder />
+                    </IconButton>
                   )}
+                  {group.likeCnt}
                 </Grid2>
-                <Grid2 size={1} className="dlog-pannel-header-text">
-                  {group.progress === "LIVE" ? (
-                    <BookmarkBorder />
+                <Grid2 size={1} className="dlog-pannel-header-subs">
+                  {group.subsYn ? (
+                    <IconButton>
+                      <Bookmark color="warning" />
+                    </IconButton>
                   ) : (
-                    <Bookmark />
+                    <IconButton>
+                      <BookmarkBorder />
+                    </IconButton>
                   )}
+                  {group.subsCnt}
                 </Grid2>
-                <Grid2 size={1} className="dlog-pannel-header-badge">
-                  <Chip label={group.itemCnt} color="success" />
+                <Grid2 size={1} className="dlog-pannel-header-items">
+                  <List />
+                  {group.itemCnt}
                 </Grid2>
               </Grid2>
             </AccordionSummary>
@@ -128,12 +137,30 @@ const DevLog = () => {
                           <Grid2 size={4} className="dlog-pannel-content-col">
                             <Card className="dlog-content-card">
                               <CardActionArea>
-                                <CardMedia className="dlog-content-card-title">
+                                <CardMedia
+                                  className="dlog-content-card-title"
+                                  sx={{
+                                    backgroundColor:
+                                      "rgb(" +
+                                      Math.floor(Math.random() * 256) +
+                                      "," +
+                                      Math.floor(Math.random() * 256) +
+                                      "," +
+                                      Math.floor(Math.random() * 256) +
+                                      ", 0.04)",
+                                  }}
+                                >
                                   <p className="dlog-content-card-title-text">
                                     {item.itemTitle}
                                   </p>
                                 </CardMedia>
-                                <CardContent>1</CardContent>
+                                <CardContent>
+                                  <Grid2 container>
+                                    {group.groupTitle} - #{item.itemSortNo}
+                                  </Grid2>
+                                  <Grid2 container>사용언어</Grid2>
+                                  <Grid2 container>좋아요, 조회수</Grid2>
+                                </CardContent>
                               </CardActionArea>
                             </Card>
                           </Grid2>
