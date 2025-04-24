@@ -10,19 +10,65 @@ INSERT INTO "1d2h"."1d2h_devlog_item" (
 	   progress, 
 	   group_no
 )
-VALUES (
-	1,
-	'N',
-	'2024-06-24 11:25:13',
-	'503',
-	1,
-	'🔨초기 설정',
-	'DEV',
-	'Y',
-	'DONE',
-	1
-);
+SELECT 
+	1,	'N',	'2024-06-24 11:25:13'::timestamp, 2,	1,	'🔨초기 설정',	'DEV',	'Y',	'DONE',	1
 
+UNION ALL
+SELECT 
+	2,	'N',	'2024-06-24 12:30:10'::timestamp,	2,	2,	'🩺VS CODE Terminal 권한 설정',	'ISSUE',	'Y',	'DONE',	1
+
+UNION ALL
+SELECT 	
+  3,	'N',	'2024-06-24 14:22:18'::timestamp,	2,	3,	'🩺dependency 설정 관련',	'ISSUE',	'Y',	'DONE',	1
+
+UNION ALL
+SELECT 	
+	4,	'N',	'2024-06-24 15:00:30'::timestamp,	2,	4,	'🩺eslint, prettier 충돌',	'ISSUE',	'Y',	'DONE',	1
+
+UNION ALL
+SELECT 	
+	5,	'N',	'2024-06-25 17:35:57'::timestamp,	2,	5,	'🔨프로젝트 구성 및 초기 화면',	'DEV',	'Y',	'DONE',	1
+
+UNION ALL
+SELECT 
+	6,	'N',	'2024-06-25 18:05:23'::timestamp, 2,	6,	'🔨초기 화면 상세',	'DEV',	'Y',	'DONE',	1
+
+UNION ALL
+SELECT 
+	7,	'N', '2024-06-26 17:41:55'::timestamp, 2,	7,	'🔨vue-router 적용', 'DEV',	'Y',	'DONE',	1
+
+UNION ALL
+SELECT 
+	8,	'N', '2024-06-27 16:22:37'::timestamp, 2,	8,	'🔨게시글 목록 페이지 만들기', 'DEV',	'Y',	'DONE',	1
+
+UNION ALL
+SELECT 
+	9,	'N', '2024-06-28 10:15:19'::timestamp, 2,	9,	'🔨게시글 목록 검색 기능 추가', 'DEV',	'Y',	'DONE',	1
+
+UNION ALL
+SELECT 
+	10,	'N', '2024-06-28 16:57:03', 2,	10,	'🔨게시글 상세 페이지', 'DEV',	'Y',	'DONE',	1
+
+UNION ALL
+SELECT 
+	11,	'N', '2024-07-01 11:24:06'::timestamp, 2,	11,	'🔨Github Pages ↔ 프로젝트 연동', 'DEV',	'Y',	'DONE',	1
+
+UNION ALL
+SELECT 
+	12,	'N', '2024-07-01 11:35:24'::timestamp, 2,	12,	'🩺.gitignore 설정', 'ISSUE',	'Y',	'DONE',	1
+
+UNION ALL
+SELECT 
+	13,	'N', '2024-07-01 11:38:42'::timestamp, 2,	13,	'🩺publicPath 설정', 'ISSUE',	'Y',	'DONE',	1
+
+UNION ALL
+SELECT 
+	14,	'N', '2024-07-02 16:11:19'::timestamp, 2,	14,	'🔨디테일 변경', 'DEV',	'Y',	'DONE',	1
+;
+
+
+
+---2
 INSERT INTO "1d2h"."1d2h_devlog_item" (
 	   item_no, 
 	   delete_yn, 
@@ -35,70 +81,77 @@ INSERT INTO "1d2h"."1d2h_devlog_item" (
 	   progress, 
 	   group_no
 )
-VALUES (
-	2,
-	'N',
-	'2024-06-24 12:30:10',
-	'503',
-	2,
-	'🩺VS CODE Terminal 권한 설정',
-	'ISSUE',
-	'Y',
-	'DONE',
-	1
-);
+SELECT 
+	15,	'N', '2024-07-08 17:31:51'::timestamp, 2,	15,	'🔨Spring-boot 프로젝트 만들기', 'DEV',	'Y',	'DONE',	2
 
-INSERT INTO "1d2h"."1d2h_devlog_item" (
-	   item_no, 
-	   delete_yn, 
-	   item_regist_date, 
-	   item_register, 
-	   item_sort_no, 
-	   item_title, 
-	   item_type,
-	   open_yn, 
-	   progress, 
-	   group_no
-)
-VALUES (
-	3,
-	'N',
-	'2024-06-24 14:22:18',
-	'503',
-	3,
-	'🩺dependency 설정 관련',
-	'ISSUE',
-	'Y',
-	'DONE',
-	1
-);
+UNION ALL
+SELECT 
+	16,	'N', '2024-07-08 17:44:10'::timestamp, 2,	16,	'🩺Could not move temporary workspace', 'ISSUE',	'Y',	'DONE',	2
+
+UNION ALL
+SELECT 
+	17,	'N', '2024-07-09 16:04:56'::timestamp, 2,	17,	'🔨Spring-boot 프로젝트 DB 연동 하기', 'DEV',	'Y',	'DONE',	2
+
+UNION ALL
+SELECT 
+	18,	'N', '2024-07-09 17:55:27'::timestamp, 2,	18,	'🩺JPA Column Default 설정 무시되는 현상', 'ISSUE',	'Y',	'DONE',	2
+
+UNION ALL
+SELECT 
+	19,	'N', '2024-07-10 16:11:01'::timestamp, 2,	19,	'🔨Spring-boot, Vue3 프로젝트 연동하기', 'DEV',	'Y',	'DONE',	2
+
+UNION ALL
+SELECT 
+	20,	'N', '2024-07-12 16:17:32'::timestamp, 2,	20,	'🔨회원가입 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	2
+
+UNION ALL
+SELECT 
+	21,	'N', '2024-07-15 17:03:02'::timestamp, 2,	21,	'🔨회원가입 구현하기 (2/2)', 'ISSUE',	'Y',	'DONE',	2
+
+UNION ALL
+SELECT 
+	22,	'N', '2024-07-15 17:07:47'::timestamp, 2,	22,	'🩺@RequestBody 속성명 매핑 이슈', 'ISSUE',	'Y',	'DONE',	2
+
+UNION ALL
+SELECT 
+	23,	'N', '2024-07-29 16:55:31'::timestamp, 2,	23,	'🔨로그인 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	2
+
+UNION ALL
+SELECT 
+	24,	'N', '2024-07-29 17:21:02'::timestamp, 2,	24,	'🩺BCryptPasswordEncoder 순환 참조 이슈', 'ISSUE',	'Y',	'DONE',	2
+
+UNION ALL
+SELECT 
+	25,	'N', '2024-07-30 11:19:19'::timestamp, 2,	25,	'🔨로그인 구현하기 (2/2)', 'DEV',	'Y',	'DONE',	2
+
+UNION ALL
+SELECT 
+	26,	'N', '2024-07-31 16:17:10'::timestamp, 2,	26,	'🔨아이디/비밀번호 찾기 구현하기', 'DEV',	'Y',	'DONE',	2
+
+UNION ALL
+SELECT 
+	27,	'N', '2024-08-01 16:26:37'::timestamp, 2,	27,	'🔨회원 정보 수정/삭제 구현하기', 'DEV',	'Y',	'DONE',	2
+
+UNION ALL
+SELECT 
+	28,	'N', '2024-08-02 13:06:51'::timestamp, 2,	28,	'🔨VUEX Store 사용하여 리팩토링', 'DEV',	'Y',	'DONE',	2
+
+UNION ALL
+SELECT 
+	29,	'N', '2024-08-02 15:12:17'::timestamp, 2,	29,	'🩺예외: TypeError: ''caller'', ''callee'', and ''arguments'' properties may not be accessed on strict mode functions or the arguments objects for calls to them at Function.', 'ISSUE',	'Y',	'DONE',	2
 
 
-INSERT INTO "1d2h"."1d2h_devlog_item" (
-	   item_no, 
-	   delete_yn, 
-	   item_regist_date, 
-	   item_register, 
-	   item_sort_no, 
-	   item_title, 
-	   item_type,
-	   open_yn, 
-	   progress, 
-	   group_no
-)
-VALUES (
-	4,
-	'N',
-	'2024-06-24 15:00:30',
-	'503',
-	4,
-	'🩺eslint, prettier 충돌',
-	'ISSUE',
-	'Y',
-	'DONE',
-	1
-);
 
+----3.
+
+UNION ALL
+SELECT 
+	,	'N', ''::timestamp, 2,	,	'', '',	'Y',	'DONE',	
+
+UNION ALL
+SELECT 
+	,	'N', ''::timestamp, 2,	,	'', '',	'Y',	'DONE',	
+==============================================================================
   {
     "seq": 5,
     "groupSeq": 1,

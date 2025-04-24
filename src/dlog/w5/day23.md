@@ -1,3 +1,24 @@
+# DAY23. DevLog API 구현
+
+#### 1. DevLog 화면 출력
+
+- 각 DevLogGroup 클릭 시 toggleIdx 값을 변경
+  - 현재 선택한 index 값과 toggleIdx가 같으면 null, 아니면 현재 선택한 index 값으로 설정
+  - Accordion component에서 toggleIdx 와 해당 index가 같으면 expended 되도록 설정
+-
+- toggleIdx 변경 시
+
+  - 모든 group의 item 리스트를 초기화
+  - toggleIdx가 null이 아닐 때, 해당하는 index group의 groupNo를 parameter로 /api/dlog/itemList 호출
+  - 조회 결과를 해당 index의 items 에 binding
+
+- toggleIdx에 해당하는 Accordion component가 expended되고 하위에 items가 출력
+- 한 row에 3개씩 출력하도록 설정
+
+```
+DevLog.jsx
+
+
 import { ArrowDownward } from "@mui/icons-material";
 import {
   Accordion,
@@ -123,3 +144,4 @@ const DevLog = () => {
 };
 
 export default DevLog;
+```
