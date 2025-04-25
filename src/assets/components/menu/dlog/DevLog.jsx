@@ -24,9 +24,14 @@ import {
 import axiosInstance from "@src/utils/axiosInstance";
 import { useEffect, useState } from "react";
 
+/*-- AuthContext --*/
+import { useAuth } from "@context/AuthContext";
+
 const DevLog = () => {
   const [groups, setGroups] = useState(null);
   const [toggleIdx, setToggleIdx] = useState(null);
+
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     axiosInstance
@@ -67,10 +72,21 @@ const DevLog = () => {
     }
   }, [toggleIdx]);
 
-  const handleLikes = (event, groupNo, itemNo) => {
+  const handleLikes = async (event, groupNo, itemNo) => {
     event.stopPropagation();
 
+    if (!isAuthenticated) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+
     // api 호출
+    let res = await axiosInstance.post("/dlog/updateLikes", {
+      groupNo: groupNo,
+      itemNo: itemNo ? itemNo : null,
+    });
+
+    console.log(res);
 
     // 결과 세팅
     setGroups((prev) => {
@@ -104,8 +120,14 @@ const DevLog = () => {
     });
   };
 
-  const handleSubs = (event, groupNo, itemNo) => {
+  const handleSubs = async (event, groupNo) => {
     event.stopPropagation();
+
+    if (!isAuthenticated) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+
     // api 호출
 
     // 결과 세팅
@@ -122,8 +144,6 @@ const DevLog = () => {
       });
     });
   };
-
-  useEffect(() => {}, [groups]);
 
   return (
     <Container maxWidth="lg">
