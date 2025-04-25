@@ -139,7 +139,7 @@ SELECT
 UNION ALL
 SELECT 
 	29,	'N', '2024-08-02 15:12:17'::timestamp, 2,	15,	'🩺예외: TypeError: ''caller'', ''callee'', and ''arguments'' properties may not be accessed on strict mode functions or the arguments objects for calls to them at Function.', 'ISSUE',	'Y',	'DONE',	2
-
+;
 
 
 ----3.
@@ -205,3 +205,4 @@ SELECT
 UNION ALL
 SELECT 
 	42,	'N', '2024-08-20 19:39:43'::timestamp, 2,	13,	'🔨댓글 기능 구현하기 (1/2)', 'DEV',	'Y',	'DONE',	3
+;

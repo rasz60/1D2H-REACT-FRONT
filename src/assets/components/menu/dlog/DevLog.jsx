@@ -1,12 +1,11 @@
 import {
   ArrowDownward,
   Bookmark,
-  BookmarkBorder,
   List,
   Favorite,
-  FavoriteBorder,
   PlayCircleOutline,
   StopCircleOutlined,
+  Visibility,
 } from "@mui/icons-material";
 import {
   Accordion,
@@ -68,6 +67,64 @@ const DevLog = () => {
     }
   }, [toggleIdx]);
 
+  const handleLikes = (event, groupNo, itemNo) => {
+    event.stopPropagation();
+
+    // api 호출
+
+    // 결과 세팅
+    setGroups((prev) => {
+      return prev.map((group) => {
+        if (group.groupNo === groupNo) {
+          if (itemNo) {
+            const updateItem = group.items.map((item) => {
+              if (item.itemNo === itemNo) {
+                return {
+                  ...item,
+                  likeYn: !item.likeYn,
+                  likeCnt: item.likeCnt + (!item.likeYn ? 1 : -1),
+                };
+              }
+              return item;
+            });
+            return {
+              ...group,
+              items: updateItem,
+            };
+          } else {
+            return {
+              ...group,
+              likeYn: !group.likeYn,
+              likeCnt: group.likeCnt + (!group.likeYn ? 1 : -1),
+            };
+          }
+        }
+        return group;
+      });
+    });
+  };
+
+  const handleSubs = (event, groupNo, itemNo) => {
+    event.stopPropagation();
+    // api 호출
+
+    // 결과 세팅
+    setGroups((prev) => {
+      return prev.map((group) => {
+        if (group.groupNo === groupNo) {
+          return {
+            ...group,
+            subsYn: !group.subsYn,
+            subsCnt: group.subsCnt + (!group.subsYn ? 1 : -1),
+          };
+        }
+        return group;
+      });
+    });
+  };
+
+  useEffect(() => {}, [groups]);
+
   return (
     <Container maxWidth="lg">
       {groups != null ? (
@@ -95,27 +152,19 @@ const DevLog = () => {
                   <Typography component="span">{group.groupTitle}</Typography>
                 </Grid2>
                 <Grid2 size={1} className="dlog-pannel-header-likes">
-                  {group.likeYn ? (
-                    <IconButton>
-                      <Favorite color="error" />
-                    </IconButton>
-                  ) : (
-                    <IconButton>
-                      <FavoriteBorder />
-                    </IconButton>
-                  )}
+                  <IconButton
+                    onClick={(event) => handleLikes(event, group.groupNo)}
+                  >
+                    <Favorite color={group.likeYn ? "error" : ""} />
+                  </IconButton>
                   {group.likeCnt}
                 </Grid2>
                 <Grid2 size={1} className="dlog-pannel-header-subs">
-                  {group.subsYn ? (
-                    <IconButton>
-                      <Bookmark color="warning" />
-                    </IconButton>
-                  ) : (
-                    <IconButton>
-                      <BookmarkBorder />
-                    </IconButton>
-                  )}
+                  <IconButton
+                    onClick={(event) => handleSubs(event, group.groupNo)}
+                  >
+                    <Bookmark color={group.subsYn ? "warning" : ""} />
+                  </IconButton>
                   {group.subsCnt}
                 </Grid2>
                 <Grid2 size={1} className="dlog-pannel-header-items">
@@ -155,11 +204,38 @@ const DevLog = () => {
                                   </p>
                                 </CardMedia>
                                 <CardContent>
-                                  <Grid2 container>
+                                  <p className="group-title">
                                     {group.groupTitle} - #{item.itemSortNo}
+                                  </p>
+                                  <Grid2 container>
+                                    <Grid2 size={12}></Grid2>
                                   </Grid2>
-                                  <Grid2 container>사용언어</Grid2>
-                                  <Grid2 container>좋아요, 조회수</Grid2>
+                                  <Grid2
+                                    container
+                                    className="dlog-content-card-content-status"
+                                  >
+                                    <Grid2 size={6}></Grid2>
+                                    <Grid2 size={3} className="status-likes">
+                                      <IconButton
+                                        onClick={(event) =>
+                                          handleLikes(
+                                            event,
+                                            group.groupNo,
+                                            item.itemNo
+                                          )
+                                        }
+                                      >
+                                        <Favorite
+                                          color={item.likeYn ? "error" : ""}
+                                        />
+                                      </IconButton>
+                                      {item.likeCnt}
+                                    </Grid2>
+                                    <Grid2 size={3} className="status-views">
+                                      <Visibility />
+                                      {item.viewCnt}
+                                    </Grid2>
+                                  </Grid2>
                                 </CardContent>
                               </CardActionArea>
                             </Card>

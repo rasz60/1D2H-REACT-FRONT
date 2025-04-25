@@ -55,6 +55,27 @@
         .dlog-cotent-card-lang {
           margin: 0.1em;
         }
+
+        .dlog-content-card-content-status {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .status-likes,
+          .status-views {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+          }
+
+          .status-likes svg {
+            font-size: 0.8em;
+          }
+
+          .status-views svg {
+            font-size: 1.4em;
+          }
+        }
       }
     }
   }
