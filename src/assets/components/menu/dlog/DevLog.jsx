@@ -83,10 +83,8 @@ const DevLog = () => {
     // api 호출
     let res = await axiosInstance.post("/dlog/updateLikes", {
       groupNo: groupNo,
-      itemNo: itemNo ? itemNo : null,
+      itemNo: itemNo,
     });
-
-    console.log(res);
 
     // 결과 세팅
     setGroups((prev) => {
@@ -129,6 +127,9 @@ const DevLog = () => {
     }
 
     // api 호출
+    let res = await axiosInstance.post("/dlog/updateSubs", {
+      groupNo: groupNo,
+    });
 
     // 결과 세팅
     setGroups((prev) => {
