@@ -11,12 +11,13 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Avatar,
   Box,
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
-  Container,
+  Chip,
   Grid2,
   IconButton,
   Typography,
@@ -147,7 +148,7 @@ const DevLog = () => {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Box>
       {groups != null ? (
         groups.map((group, idx) => (
           <Accordion
@@ -228,9 +229,33 @@ const DevLog = () => {
                                   <p className="group-title">
                                     {group.groupTitle} - #{item.itemSortNo}
                                   </p>
-                                  <Grid2 container>
-                                    <Grid2 size={12}></Grid2>
-                                  </Grid2>
+                                  <Box className="dlog-content-card-lang">
+                                    {item.itemLangs ? (
+                                      item.itemLangs.map((itemLang) => (
+                                        <Chip
+                                          avatar={
+                                            <Avatar
+                                              className="lang-chip-avatar"
+                                              sx={{
+                                                backgroundColor:
+                                                  itemLang.langTypeColor,
+                                              }}
+                                            >
+                                              {itemLang.langType.substring(
+                                                0,
+                                                1
+                                              )}
+                                            </Avatar>
+                                          }
+                                          className="lang-chip"
+                                          label={itemLang.langName}
+                                          variant="outlined"
+                                        ></Chip>
+                                      ))
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </Box>
                                   <Grid2
                                     container
                                     className="dlog-content-card-content-status"
@@ -274,7 +299,7 @@ const DevLog = () => {
       ) : (
         <></>
       )}
-    </Container>
+    </Box>
   );
 };
 

@@ -52,8 +52,29 @@
           }
         }
 
-        .dlog-cotent-card-lang {
+        .dlog-content-card-lang {
           margin: 0.1em;
+
+          .lang-chip {
+            font-size: smaller;
+            height: 25px;
+            margin-bottom: 2px;
+            margin-right: 2px;
+
+            .lang-chip-avatar {
+              width: 18px;
+              height: 18px;
+            }
+
+            .lang-chip-avatar {
+              color: white;
+              font-size: 10px;
+            }
+
+            span {
+              padding: 12px;
+            }
+          }
         }
 
         .dlog-content-card-content-status {

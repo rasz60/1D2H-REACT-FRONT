@@ -48,10 +48,10 @@ const SlideMenu = ({ isBackdrop, setBackdrop }) => {
               target={item.menuTarget}
             >
               <Grid2 container className="slide-menu-item-row">
-                <Grid2 size={2.5} className="slide-menu-item-col icon">
+                <Grid2 size={2} className="slide-menu-item-col icon">
                   <IconButton>{getMuiIcon(item.menuIcon)}</IconButton>
                 </Grid2>
-                <Grid2 size={9.5} className="slide-menu-item-col name">
+                <Grid2 size={10} className="slide-menu-item-col name">
                   <span>
                     {item.menuName.split("").map((char) => (
                       <Icon path={getMdiIcon(char)} size={1} />
