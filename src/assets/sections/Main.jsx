@@ -16,7 +16,7 @@ const Main = () => {
         <Routes>
           {/*-- 메뉴 화면 --*/}
           <Route path="/about" element={<About />} />
-          <Route path="/dlog" element={<DevLog />} />
+          <Route path="/dlog/*" element={<DevLog />} />
 
           {/*-- 메뉴 외 화면 --*/}
           <Route path="/signup" element={<Signup />} />
