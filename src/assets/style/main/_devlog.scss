@@ -104,3 +104,68 @@
 .dlog-pannel.expended .dlog-pannel-header {
   background-color: rgb(246, 252, 255, 0.5);
 }
+
+#item-box {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1em;
+  border: 1px solid #ececec;
+  border-radius: 10px;
+
+  #item-header {
+    width: 100%;
+
+    #item-title {
+      text-align: center;
+    }
+
+    #item-reg-date {
+      text-align: center;
+      color: darkgrey;
+    }
+
+    #item-langs {
+      margin-top: 1em;
+      display: flex;
+      justify-content: center;
+
+      .lang-chip {
+        font-size: smaller;
+        height: 25px;
+        margin-bottom: 2px;
+        margin-right: 2px;
+
+        .lang-chip-avatar {
+          width: 18px;
+          height: 18px;
+        }
+
+        .lang-chip-avatar {
+          color: white;
+          font-size: 10px;
+        }
+
+        span {
+          padding: 12px;
+        }
+      }
+    }
+
+    #btn-box {
+      margin-top: 1em;
+      display: flex;
+      justify-content: end;
+    }
+  }
+
+  hr {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border: 0.1rem solid #ececec;
+  }
+
+  #item-contents {
+    width: 100%;
+  }
+}

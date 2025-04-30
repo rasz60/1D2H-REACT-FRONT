@@ -45,7 +45,7 @@ SELECT 6, 'FLUTTER', 2, 'Y'
 UNION ALL
 
 SELECT 7, 'JSP', 2, 'Y'
-;
+UNION ALL
 
 -- 2-3. db
 SELECT 8, 'ORACLE', 3, 'Y'
