@@ -9,9 +9,11 @@ const DevLog = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  if (location.pathname === "/dlog") {
-    navigate("/dlog/list");
-  }
+  useEffect(() => {
+    if (location.pathname === "/dlog") {
+      navigate("/dlog/list");
+    }
+  }, []);
 
   return (
     <Routes>

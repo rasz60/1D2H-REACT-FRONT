@@ -6,6 +6,7 @@ import {
   PlayCircleOutline,
   StopCircleOutlined,
   Visibility,
+  Edit,
 } from "@mui/icons-material";
 import {
   Accordion,
@@ -13,6 +14,7 @@ import {
   AccordionSummary,
   Avatar,
   Box,
+  Button,
   Card,
   CardActionArea,
   CardContent,
@@ -154,6 +156,16 @@ const DevLogList = () => {
 
   return (
     <Box>
+      <Box id="dlog-list-btn-box">
+        <Button
+          variant="contained"
+          startIcon={<Edit />}
+          id="btn-create-post"
+          onClick={() => navigator("/dlog/item/form")}
+        >
+          작성
+        </Button>
+      </Box>
       {groups != null ? (
         groups.map((group, idx) => (
           <Accordion
@@ -202,6 +214,16 @@ const DevLogList = () => {
             </AccordionSummary>
             {group.items != null ? (
               <AccordionDetails className="dlog-pannel-content">
+                <Box className="dlog-pannel-btnbox">
+                  <Button
+                    variant="contained"
+                    startIcon={<Edit />}
+                    size="small"
+                    onClick={() => navigator("/dlog/item/form")}
+                  >
+                    작성하기
+                  </Button>
+                </Box>
                 <Box>
                   {Array.from({
                     length: Math.ceil(group.items.length / 3),
