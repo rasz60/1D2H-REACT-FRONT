@@ -4,6 +4,9 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
+  FormControl,
+  Grid,
+  Grid2,
   TextField,
 } from "@mui/material";
 import axiosInstance from "@src/utils/axiosInstance";
@@ -46,14 +49,24 @@ const DevLogLangAddPopup = ({ toggleLang, setToggleLang, setLangDialog }) => {
   };
 
   return (
-    <Dialog open={toggleLang} onClose={handleClosePopup}>
+    <Dialog open={toggleLang} onClose={handleClosePopup} id="add-popup">
       <DialogContent>
-        <Autocomplete
-          options={languages.map((lang) => lang.langName)}
-          sx={{ width: "10em" }}
-          renderInput={(params) => <TextField {...params} variant="standard" />}
-          onChange={(event, value) => handleLangs(value)}
-        />
+        <FormControl fullWidth className="add-form-control">
+          <Grid2 container>
+            <Grid2 size={2} className="add-form-label">
+              사용 언어
+            </Grid2>
+            <Grid2 size={10}>
+              <Autocomplete
+                options={languages.map((lang) => lang.langName)}
+                renderInput={(params) => (
+                  <TextField {...params} variant="standard" />
+                )}
+                onChange={(event, value) => handleLangs(value)}
+              />
+            </Grid2>
+          </Grid2>
+        </FormControl>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleSelected} autoFocus>

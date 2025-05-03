@@ -15,17 +15,26 @@ $font-stack:
 
 body {
   margin: 0;
-  height: 1500px;
   font-family: $font-stack;
 }
 
 #root {
   width: 100%;
+  min-height: 100vh;
 
   #container {
     padding: 0;
   }
 }
+
+.MuiDialog-root {
+  z-index: 2001 !important;
+}
+
+.MuiAutocomplete-popper {
+  z-index: 2002 !important;
+}
+
 @import url(_backdrop.scss);
 @import url(_header.scss);
 @import url(_main.scss);

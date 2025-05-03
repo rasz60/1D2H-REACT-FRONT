@@ -7,6 +7,7 @@ import {
   StopCircleOutlined,
   Visibility,
   Edit,
+  Add,
 } from "@mui/icons-material";
 import {
   Accordion,
@@ -31,13 +32,21 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
+import DevLogGroupAddPopup from "@compo/menu/dlog/DevLogGroupAddPopup";
+
 const DevLogList = () => {
   const [groups, setGroups] = useState(null);
   const [toggleIdx, setToggleIdx] = useState(null);
+  const [togglePopup, setTogglePopup] = useState(false);
   const navigator = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, getAuthLv } = useAuth();
+  const authLv = getAuthLv();
 
   useEffect(() => {
+    getGroups();
+  }, []);
+
+  const getGroups = () => {
     axiosInstance
       .get("/dlog/groupList")
       .then((res) => {
@@ -46,7 +55,7 @@ const DevLogList = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
 
   const handleToggleGroup = (idx) => {
     setToggleIdx(toggleIdx === idx ? null : idx);
@@ -154,18 +163,59 @@ const DevLogList = () => {
     navigator("/dlog/item/" + groupNo + "/" + itemNo);
   };
 
+  const handleGroupProgress = async (event, group) => {
+    event.stopPropagation();
+
+    let msg = "";
+    let progress = group.progress;
+
+    if (progress === "Y") {
+      msg = "그룹 진행 상태를 종료할까요?";
+    } else {
+      msg = "그룹 진행 상태를 변경할까요?";
+    }
+
+    let res = await window.confirm(msg);
+
+    if (res) {
+      await axiosInstance
+        .post("/dlog/updateGroupProgress", {
+          groupNo: group.groupNo,
+          progress: group.progress === "Y" ? "N" : "Y",
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            alert("상태 변경에 성공했습니다.");
+            getGroups();
+          } else {
+            alert("일시적 오류로 상태 변경에 실패했습니다.");
+          }
+        })
+        .catch((err) => {
+          alert("일시적 오류로 상태 변경에 실패했습니다.");
+        });
+    }
+  };
+
   return (
     <Box>
-      <Box id="dlog-list-btn-box">
-        <Button
-          variant="contained"
-          startIcon={<Edit />}
-          id="btn-create-post"
-          onClick={() => navigator("/dlog/item/form")}
-        >
-          작성
-        </Button>
-      </Box>
+      {authLv > 1 && (
+        <Box id="dlog-list-btn-box">
+          <Button
+            variant="outlined"
+            startIcon={<Add />}
+            id="btn-create-post"
+            onClick={() => setTogglePopup(!togglePopup)}
+          >
+            그룹 추가하기
+          </Button>
+          <DevLogGroupAddPopup
+            togglePopup={togglePopup}
+            setTogglePopup={setTogglePopup}
+            setGroups={setGroups}
+          />
+        </Box>
+      )}
       {groups != null ? (
         groups.map((group, idx) => (
           <Accordion
@@ -181,14 +231,26 @@ const DevLogList = () => {
             >
               <Grid2 container className="dlog-pannel-header-row">
                 <Grid2 size={1} className="dlog-pannel-header-status">
-                  {group.progress === "LIVE" ? (
+                  {authLv > 1 ? (
+                    <IconButton
+                      onClick={(event) => handleGroupProgress(event, group)}
+                    >
+                      {group.progress === "Y" ? (
+                        <PlayCircleOutline color="info" />
+                      ) : (
+                        <StopCircleOutlined color="error" />
+                      )}
+                    </IconButton>
+                  ) : group.progress === "Y" ? (
                     <PlayCircleOutline color="info" />
                   ) : (
                     <StopCircleOutlined color="error" />
                   )}
                 </Grid2>
                 <Grid2 size={8} className="dlog-pannel-header-text">
-                  <Typography component="span">{group.groupTitle}</Typography>
+                  <Typography component="span">
+                    {"#" + (groups.length - idx) + ". " + group.groupTitle}
+                  </Typography>
                 </Grid2>
                 <Grid2 size={1} className="dlog-pannel-header-likes">
                   <IconButton
@@ -214,16 +276,18 @@ const DevLogList = () => {
             </AccordionSummary>
             {group.items != null ? (
               <AccordionDetails className="dlog-pannel-content">
-                <Box className="dlog-pannel-btnbox">
-                  <Button
-                    variant="contained"
-                    startIcon={<Edit />}
-                    size="small"
-                    onClick={() => navigator("/dlog/item/form")}
-                  >
-                    작성하기
-                  </Button>
-                </Box>
+                {authLv > 1 && (
+                  <Box className="dlog-pannel-btnbox">
+                    <Button
+                      variant="contained"
+                      startIcon={<Edit />}
+                      size="small"
+                      onClick={() => navigator("/dlog/item/form")}
+                    >
+                      작성하기
+                    </Button>
+                  </Box>
+                )}
                 <Box>
                   {Array.from({
                     length: Math.ceil(group.items.length / 3),

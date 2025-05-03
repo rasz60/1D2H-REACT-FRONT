@@ -2,7 +2,11 @@
   display: flex;
   justify-content: end;
   margin-top: 1em;
-  margin-bottom: 1em;
+
+  button {
+    width: 100%;
+    padding: 1em;
+  }
 }
 
 .dlog-pannel {
@@ -287,5 +291,17 @@
       display: contents;
       min-height: 500px;
     }
+  }
+}
+
+#add-popup {
+  .MuiDialog-paper {
+    width: 50%;
+  }
+
+  .add-form-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

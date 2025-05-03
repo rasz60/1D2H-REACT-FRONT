@@ -5,14 +5,21 @@ import SetUser from "@compo/SetUser";
 
 import About from "@compo/menu/about/About";
 import DevLog from "@compo/menu/dlog/DevLog";
-import { Container } from "@mui/material";
+import {
+  Box,
+  Container,
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialIcon,
+} from "@mui/material";
+import { Edit } from "@mui/icons-material";
 
 const Main = () => {
   const { RouteGuard } = useAuth();
 
   return (
-    <Container maxWidth="lg">
-      <main id="main" role="main">
+    <main id="main" role="main">
+      <Container maxWidth="lg">
         <Routes>
           {/*-- 메뉴 화면 --*/}
           <Route path="/about" element={<About />} />
@@ -27,8 +34,8 @@ const Main = () => {
             <Route path="/setUser" element={<SetUser />} />
           </Route>
         </Routes>
-      </main>
-    </Container>
+      </Container>
+    </main>
   );
 };
 

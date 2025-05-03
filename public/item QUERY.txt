@@ -47,7 +47,7 @@ SELECT
 
 UNION ALL
 SELECT 
-	10,	'N', '2024-06-28 16:57:03', 2,	10,	'🔨게시글 상세 페이지', 'DEV',	'Y',	'DONE',	1
+	10,	'N', '2024-06-28 16:57:03'::timestamp, 2,	10,	'🔨게시글 상세 페이지', 'DEV',	'Y',	'DONE',	1
 
 UNION ALL
 SELECT 

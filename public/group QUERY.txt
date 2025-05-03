@@ -16,7 +16,7 @@ VALUES (
 	503,
 	CURRENT_TIMESTAMP,
 	503,
-	'DONE',
+	'Y',
 	'Y',
 	'N'
 );
@@ -40,7 +40,7 @@ VALUES (
 	503,
 	CURRENT_TIMESTAMP,
 	503,
-	'DONE',
+	'Y',
 	'Y',
 	'N'
 );
@@ -64,7 +64,7 @@ VALUES (
 	503,
 	CURRENT_TIMESTAMP,
 	503,
-	'DONE',
+	'N',
 	'Y',
 	'N'
 );

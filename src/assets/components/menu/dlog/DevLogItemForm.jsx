@@ -6,6 +6,7 @@ import {
   ButtonGroup,
   Chip,
   FormControl,
+  FormHelperText,
   Grid2,
   IconButton,
   MenuItem,
@@ -33,6 +34,7 @@ const DevLogItemView = () => {
     itemLangs: [],
   });
   const [langs, setLangs] = useState(null);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     getGroups();
@@ -73,18 +75,26 @@ const DevLogItemView = () => {
     }
   };
   const onClickSave = async () => {
-    if (!item.itemTitle) {
-      alert("제목을 입력해주세요.");
-      return;
-    }
+    let error = {};
 
     if (!item.groupNo) {
-      alert("그룹을 선택해주세요.");
-      return;
+      error.itemGroup = true;
+      error.itemGroupMsg = "그룹을 선택해주세요.";
+    } else if (!item.itemType) {
+      error.itemType = true;
+      error.itemTypeMsg = "유형을 선택해주세요.";
+    } else if (!item.itemTitle) {
+      error.itemTitle = true;
+      error.itemTitleMsg = "제목을 입력해주세요.";
+    } else if (!item.itemContents) {
+      error.itemContents = true;
+      error.itemContentsMsg = "내용을 입력해주세요.";
+    } else {
+      error = null;
     }
 
-    if (!item.itemContents) {
-      alert("내용을 입력해주세요.");
+    if (error) {
+      setErrors(error);
       return;
     }
 
@@ -105,6 +115,14 @@ const DevLogItemView = () => {
     }
   };
 
+  useEffect(() => {
+    if (errors.itemContents) {
+      alert(errors.itemContentsMsg);
+      document.querySelector("textarea").focus();
+      setFocused(true);
+    }
+  }, [errors]);
+
   const onClickList = async () => {
     let res = await window.confirm(
       "작성된 내용을 저장하지 않고 목록으로 돌아갈까요?"
@@ -117,6 +135,13 @@ const DevLogItemView = () => {
     setItem({
       ...item,
       groupNo: event.target.value,
+    });
+  };
+
+  const handleItemType = (event) => {
+    setItem({
+      ...item,
+      itemType: event.target.value,
     });
   };
 
@@ -191,25 +216,11 @@ const DevLogItemView = () => {
           </Button>
         </Box>
 
-        <FormControl fullWidth className="item-form-control">
-          <Grid2 container>
-            <Grid2 size={2} className="item-form-label">
-              제목 (Title)
-            </Grid2>
-            <Grid2 size={10}>
-              <TextField
-                sx={{ margin: 0 }}
-                fullWidth
-                type="text"
-                variant="standard"
-                value={item.itemTitle}
-                onChange={(event) => handleItemTitle(event)}
-              ></TextField>
-            </Grid2>
-          </Grid2>
-        </FormControl>
-
-        <FormControl fullWidth className="item-form-control">
+        <FormControl
+          fullWidth
+          className="item-form-control"
+          error={errors.itemGroup}
+        >
           <Grid2 container>
             <Grid2 size={2} className="item-form-label">
               그룹 (Group)
@@ -233,11 +244,65 @@ const DevLogItemView = () => {
                   <></>
                 )}
               </Select>
+              <FormHelperText sx={{ marginLeft: 0 }}>
+                {errors.itemGroupMsg}
+              </FormHelperText>
+            </Grid2>
+          </Grid2>
+        </FormControl>
+
+        <FormControl
+          fullWidth
+          className="item-form-control"
+          error={errors.itemType}
+        >
+          <Grid2 container>
+            <Grid2 size={2} className="item-form-label">
+              유형 (Type)
+            </Grid2>
+            <Grid2 size={10}>
+              <Select
+                fullWidth
+                required
+                name="itemType"
+                value={item.itemType}
+                onChange={(event) => handleItemType(event)}
+              >
+                <MenuItem value="DEV">DEV</MenuItem>
+                <MenuItem value="ISSUE">ISSUE</MenuItem>
+              </Select>
+              <FormHelperText sx={{ marginLeft: 0 }}>
+                {errors.itemTypeMsg}
+              </FormHelperText>
             </Grid2>
           </Grid2>
         </FormControl>
 
         <FormControl fullWidth className="item-form-control">
+          <Grid2 container>
+            <Grid2 size={2} className="item-form-label">
+              제목 (Title)
+            </Grid2>
+            <Grid2 size={10}>
+              <TextField
+                sx={{ margin: 0 }}
+                fullWidth
+                type="text"
+                variant="standard"
+                value={item.itemTitle}
+                error={errors.itemTitle}
+                helperText={errors.itemTitleMsg}
+                onChange={(event) => handleItemTitle(event)}
+              ></TextField>
+            </Grid2>
+          </Grid2>
+        </FormControl>
+
+        <FormControl
+          fullWidth
+          className="item-form-control"
+          error={errors.itemContents}
+        >
           <Grid2 container>
             <Grid2 size={2} className="item-form-label">
               사용언어 (Language)

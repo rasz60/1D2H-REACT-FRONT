@@ -2,10 +2,19 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import { Container } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Fab,
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialIcon,
+} from "@mui/material";
 import Header from "@sections/Header";
 import Main from "@sections/Main";
 import "@style/_common.scss";
+import { ArrowUpward, Edit } from "@mui/icons-material";
 
 const App = () => {
   const [isScroll, setIsScroll] = useState(
@@ -27,10 +36,42 @@ const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Container id="container" maxWidth="xxl">
-          <Header isScroll={isScroll} />
-          <Main />
-        </Container>
+        <Header isScroll={isScroll} />
+        <Main />
+        <Box
+          sx={{
+            transform: "translateZ(0px)",
+            flexGrow: 1,
+            position: "fixed",
+            bottom: 90,
+            right: 20,
+          }}
+        >
+          <SpeedDial
+            ariaLabel="SpeedDial openIcon example"
+            sx={{}}
+            icon={<SpeedDialIcon openIcon={<Edit size="small" />} />}
+          ></SpeedDial>
+        </Box>
+        <Box
+          sx={{
+            transform: "translateZ(0px)",
+            flexGrow: 1,
+            position: "fixed",
+            bottom: 20,
+            right: 20,
+          }}
+        >
+          <Fab
+            sx={{ backgroundColor: "white" }}
+            variant="circular"
+            onClick={() =>
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
+            }
+          >
+            <ArrowUpward />
+          </Fab>
+        </Box>
       </AuthProvider>
     </BrowserRouter>
   );
