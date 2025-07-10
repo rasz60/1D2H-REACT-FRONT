@@ -22,13 +22,14 @@
     height: 100vh;
 
     #slide-menu-list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
       min-width: 350px;
       width: 50%;
-      height: 100%;
       padding: 0;
-      padding-top: 6.5em;
+      padding-top: 8em;
       padding-left: 1em;
-      padding-right: 1em;
 
       .slide-menu-item {
         display: block;

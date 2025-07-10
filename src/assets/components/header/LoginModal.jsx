@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Button, FormControl, TextField } from "@mui/material";
-import { VpnKey, PersonAdd } from "@mui/icons-material";
+import { VpnKey, PersonAdd, PersonSearch } from "@mui/icons-material";
 import axiosInstance from "@utils/axiosInstance";
 import { useAuth } from "@context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -44,6 +44,11 @@ const LoginModal = ({ setBackdrop }) => {
     navigate("/signup");
   };
 
+  const handleFindInfo = () => {
+    setBackdrop(false);
+    navigate("/findInfo");
+  };
+
   return (
     <Box id="login-modal-box">
       <Box id="login-modal-input-box">
@@ -76,7 +81,7 @@ const LoginModal = ({ setBackdrop }) => {
           onClick={handleLogin}
           sx={{ ml: 1, mr: 1 }}
         >
-          Login
+          로그인
         </Button>
 
         <Button
@@ -86,7 +91,17 @@ const LoginModal = ({ setBackdrop }) => {
           onClick={handleSignUp}
           sx={{ ml: 1, mr: 1 }}
         >
-          Sign Up
+          가입하기
+        </Button>
+
+        <Button
+          color="success"
+          variant="outlined"
+          startIcon={<PersonSearch />}
+          onClick={handleFindInfo}
+          sx={{ ml: 1, mr: 1 }}
+        >
+          정보찾기
         </Button>
       </Box>
     </Box>

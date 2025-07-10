@@ -1,24 +1,37 @@
-#about-box {
-  width: 80%;
+#about-me-box {
+  width: 100%;
   margin: 0 auto;
   padding: 1em;
   border: 1px solid rgb(235, 235, 235);
   border-radius: 10px;
 
-  h3#about-title {
-    width: 100%;
-    text-align: center;
-    font-weight: 500;
-    margin-top: 4.5em;
-    margin-bottom: 4.5em;
+  #about-me-pages {
+    display: inline-block;
+    padding: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    background-color: rgb(250, 250, 250);
+    border: 1px solid rgb(235, 235, 235);
   }
 
-  #about-main-tags {
-    display: "flex";
+  .col {
+    display: flex;
     justify-content: center;
+    align-items: center;
+  }
 
-    .about-main-tag-chips {
-      padding: 0.6em;
+  .react-pdf__Document {
+    width: 100%;
+
+    .react-pdf__Page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      canvas {
+        width: 90% !important;
+        height: max-content !important;
+      }
     }
   }
 }

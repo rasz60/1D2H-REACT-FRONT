@@ -10,7 +10,7 @@ const Validation = () => {
     /*-- 각 validation 결과 --*/
     let flag = false;
     /*-- UserId --*/
-    if (name === "signupUserId" || chk) {
+    if ((name === "signupUserId" || chk) && type === "signup") {
       flag = validUserId(name, userInfo.signupUserId);
       if (chk) chk = !flag;
     }

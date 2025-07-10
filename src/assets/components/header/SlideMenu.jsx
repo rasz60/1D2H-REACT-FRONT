@@ -35,12 +35,19 @@ const SlideMenu = ({ isBackdrop, setBackdrop }) => {
     menuInfo();
   }, []);
 
+  const handleClick = (e) => {
+    if (e.target.id === "slide-menu-box") {
+      setBackdrop(false);
+    }
+  };
+
   return (
-    <Box id="slide-menu-box">
+    <Box id="slide-menu-box" onClick={handleClick}>
       <List id="slide-menu-list">
         {menu ? (
           menu.map((item) => (
             <ListItem
+              key={item.menuName}
               component={Link}
               onClick={handleMoveMenu}
               to={item.menuUrl}
@@ -48,10 +55,10 @@ const SlideMenu = ({ isBackdrop, setBackdrop }) => {
               target={item.menuTarget}
             >
               <Grid2 container className="slide-menu-item-row">
-                <Grid2 size={2} className="slide-menu-item-col icon">
+                <Grid2 size={1} className="slide-menu-item-col icon">
                   <IconButton>{getMuiIcon(item.menuIcon)}</IconButton>
                 </Grid2>
-                <Grid2 size={10} className="slide-menu-item-col name">
+                <Grid2 size={11} className="slide-menu-item-col name">
                   <span>
                     {item.menuName.split("").map((char) => (
                       <Icon path={getMdiIcon(char)} size={1} />

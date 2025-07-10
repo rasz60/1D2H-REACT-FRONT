@@ -12,11 +12,13 @@ const BackdropWapper = ({ isBackdrop, setBackdrop, onAddrSelect }) => {
       className={isBackdrop.fullH ? "full" : "default"}
     >
       <Box id="backdrop-content">
-        <Box id="backdrop-close">
-          <IconButton size="large" onClick={() => setBackdrop(false)}>
-            <Close />
-          </IconButton>
-        </Box>
+        {isBackdrop.layout !== "menu" && (
+          <Box id="backdrop-close">
+            <IconButton size="large" onClick={() => setBackdrop(false)}>
+              <Close />
+            </IconButton>
+          </Box>
+        )}
         {isBackdrop.layout === "menu" && (
           <SlideMenu setBackdrop={setBackdrop} />
         )}

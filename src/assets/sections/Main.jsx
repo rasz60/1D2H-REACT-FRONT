@@ -1,18 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import { useAuth } from "@context/AuthContext";
+import FrontDoor from "@compo/FrontDoor";
 import Signup from "@compo/Signup";
 import SetUser from "@compo/SetUser";
+import FindInfo from "@compo/FindInfo";
 
 import About from "@compo/menu/about/About";
 import DevLog from "@compo/menu/dlog/DevLog";
-import {
-  Box,
-  Container,
-  SpeedDial,
-  SpeedDialAction,
-  SpeedDialIcon,
-} from "@mui/material";
-import { Edit } from "@mui/icons-material";
+import { Container } from "@mui/material";
 
 const Main = () => {
   const { RouteGuard } = useAuth();
@@ -22,6 +17,7 @@ const Main = () => {
       <Container maxWidth="lg">
         <Routes>
           {/*-- 메뉴 화면 --*/}
+          <Route path="/" element={<FrontDoor />} />
           <Route path="/about" element={<About />} />
           <Route path="/dlog/*" element={<DevLog />} />
 
@@ -33,6 +29,7 @@ const Main = () => {
           <Route path="/setUser" element={<RouteGuard type={1} />}>
             <Route path="/setUser" element={<SetUser />} />
           </Route>
+          <Route path="/findInfo" element={<FindInfo />} />
         </Routes>
       </Container>
     </main>

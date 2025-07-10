@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import {
   Box,
   Grid2,
-  Avatar,
   FormControl,
   TextField,
   InputLabel,
@@ -147,8 +146,9 @@ const SetUser = () => {
 
   /*-- setUserInfo 변경이 생겼을 때 --*/
   useEffect(() => {
+    debugger;
     // 검증 호출
-    let flag = validate(setUserInfo);
+    let flag = validate(setUserInfo, "setUser");
     // 전체 검증일 때
     if (setUserInfo.lastChng === "all") {
       if (flag) handleSetUser(); // 결과가 true일 때 handleSetUser 실행
