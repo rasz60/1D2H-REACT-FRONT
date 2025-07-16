@@ -1,0 +1,91 @@
+.front-door-title {
+  display: inline-block;
+}
+
+.front-door-btn-more {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.front-door-contents {
+  padding: 0.5em;
+  width: 100%;
+  min-height: 300px;
+
+  .front-door-contents-col {
+    padding: 1em;
+    border: 1px solid #ececec;
+    border-radius: 1em;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+    .sub-title.about-me-exp-bg {
+      background-color: rgba(0, 255, 0, 0.1);
+    }
+
+    .sub-title.about-me-skill-bg {
+      background-color: rgba(255, 0, 0, 0.1);
+    }
+
+    .sub-title.about-me-prj-bg {
+      background-color: rgba(0, 0, 255, 0.1);
+    }
+
+    .sub-contents {
+      margin-top: 0.5em;
+      padding: 0.5em;
+
+      .sub-content-title {
+        font-weight: 700;
+      }
+
+      .sub-content-title,
+      .sub-content-content {
+        display: flex;
+        align-items: center;
+        min-height: 2em;
+      }
+
+      .sub-content-content ul {
+        margin: 0;
+        font-size: 0.9em;
+
+        li {
+          padding: 0.2em;
+        }
+      }
+
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+
+        .MuiChip-root {
+          margin: 0.2em;
+          padding: 0.3em;
+
+          .MuiAvatar-root {
+            color: white !important;
+            margin-right: 0.1em;
+          }
+
+          .skill-be {
+            background-color: #4caf50;
+          }
+
+          .skill-fw {
+            background-color: #7e57c2;
+          }
+
+          .skill-db {
+            background-color: #03a9f4;
+          }
+
+          .skill-fe {
+            background-color: #ffa726;
+          }
+        }
+      }
+    }
+  }
+}

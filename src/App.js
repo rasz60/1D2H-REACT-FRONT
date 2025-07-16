@@ -2,17 +2,10 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import {
-  Box,
-  Button,
-  Container,
-  Fab,
-  SpeedDial,
-  SpeedDialAction,
-  SpeedDialIcon,
-} from "@mui/material";
+import { Box, Fab, SpeedDial, SpeedDialIcon } from "@mui/material";
 import Header from "@sections/Header";
 import Main from "@sections/Main";
+import Footer from "@sections/Footer";
 import "@style/_common.scss";
 import { ArrowUpward, Edit } from "@mui/icons-material";
 
@@ -38,6 +31,7 @@ const App = () => {
       <AuthProvider>
         <Header isScroll={isScroll} />
         <Main />
+        <Footer />
         <Box
           sx={{
             transform: "translateZ(0px)",
