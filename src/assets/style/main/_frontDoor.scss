@@ -17,19 +17,19 @@
     padding: 1em;
     border: 1px solid #ececec;
     border-radius: 1em;
-    background-color: #f9f9f9;
+    background-color: #fbfbfb;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 
     .sub-title.about-me-exp-bg {
-      background-color: rgba(0, 255, 0, 0.1);
+      background-color: rgba(0, 255, 0, 0.05);
     }
 
     .sub-title.about-me-skill-bg {
-      background-color: rgba(255, 0, 0, 0.1);
+      background-color: rgba(255, 0, 0, 0.05);
     }
 
     .sub-title.about-me-prj-bg {
-      background-color: rgba(0, 0, 255, 0.1);
+      background-color: rgba(0, 0, 255, 0.05);
     }
 
     .sub-contents {
@@ -61,8 +61,10 @@
         flex-wrap: wrap;
 
         .MuiChip-root {
+          border: 1px solid #e8e8e8;
           margin: 0.2em;
           padding: 0.3em;
+          color: #2b2b2b;
 
           .MuiAvatar-root {
             color: white !important;
@@ -86,6 +88,17 @@
           }
         }
       }
+    }
+
+    .dlog-col {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .dlog-col.title {
+      padding-left: 1.5em;
+      justify-content: start;
     }
   }
 }

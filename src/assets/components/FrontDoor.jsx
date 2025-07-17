@@ -1,21 +1,38 @@
-import {
-  Box,
-  Grid2,
-  Button,
-  Divider,
-  IconButton,
-  Chip,
-  Avatar,
-} from "@mui/material";
+import { Box, Grid2, Button, Divider, Chip, SvgIcon } from "@mui/material";
 import Icon from "@mdi/react";
 import getIcon from "@js/menuIcon.js";
-import { Search } from "@mui/icons-material";
+import {
+  Favorite,
+  FavoriteBorderOutlined,
+  FormatListBulleted,
+  Search,
+  TurnedIn,
+  TurnedInNot,
+} from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "@src/utils/axiosInstance";
 import { useState, useEffect } from "react";
 
 const FrontDoor = () => {
   const { getMdiIcon } = getIcon();
+  const [groups, setGroups] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getGroups();
+  }, []);
+
+  const getGroups = () => {
+    axiosInstance
+      .get("/dlog/groupList")
+      .then((res) => {
+        console.log(res.data[0]);
+        setGroups(res.data.filter((group, idx) => idx < 3));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const calculateDiffDate = (start, end) => {
     let dateStr = "";
@@ -55,17 +72,8 @@ const FrontDoor = () => {
       ));
   };
 
-  const generateSkillChip = (type, name) => {
-    let avatarClassName = "skill-" + type;
-    let avatarLabel = type.substring(0, 1).toUpperCase();
-    return (
-      <Chip
-        avatar={<Avatar className={avatarClassName}>{avatarLabel}</Avatar>}
-        size="small"
-        label={name}
-        variant="outlined"
-      ></Chip>
-    );
+  const generateSkillChip = (name) => {
+    return <Chip size="small" label={name} variant="outlined"></Chip>;
   };
 
   const handleSeeMore = (nav) => {
@@ -122,13 +130,13 @@ const FrontDoor = () => {
                 사용기술
               </Grid2>
               <Grid2 size={12} className="sub-content-content skills">
-                {generateSkillChip("be", "JAVA")}
-                {generateSkillChip("fw", "SPRING")}
-                {generateSkillChip("fw", "SPRING-BOOT")}
-                {generateSkillChip("db", "ORACLE")}
-                {generateSkillChip("db", "MSSQL")}
-                {generateSkillChip("fe", "JSP")}
-                {generateSkillChip("fe", "WebSquare")}
+                {generateSkillChip("JAVA")}
+                {generateSkillChip("SPRING")}
+                {generateSkillChip("SPRING-BOOT")}
+                {generateSkillChip("ORACLE")}
+                {generateSkillChip("MSSQL")}
+                {generateSkillChip("JSP")}
+                {generateSkillChip("WebSquare")}
               </Grid2>
             </Grid2>
           </Grid2>
@@ -136,7 +144,7 @@ const FrontDoor = () => {
           {/*-- aboutMe::2nd COL-PROJECT --*/}
           <Grid2 size={4} className="front-door-contents-col">
             <span className="sub-title about-me-prj-bg">
-              {generateIconText("project", 1)}
+              {generateIconText("LASTEST", 1)}
             </span>
             <Divider></Divider>
 
@@ -170,11 +178,11 @@ const FrontDoor = () => {
                 사용기술
               </Grid2>
               <Grid2 size={12} className="sub-content-content skills">
-                {generateSkillChip("be", "JAVA")}
-                {generateSkillChip("be", "SPRING-BATCH")}
-                {generateSkillChip("fw", "SPRING-BOOT")}
-                {generateSkillChip("db", "ORACLE")}
-                {generateSkillChip("fe", "WebSquare")}
+                {generateSkillChip("JAVA")}
+                {generateSkillChip("SPRING-BATCH")}
+                {generateSkillChip("SPRING-BOOT")}
+                {generateSkillChip("ORACLE")}
+                {generateSkillChip("WebSquare")}
               </Grid2>
             </Grid2>
           </Grid2>
@@ -190,29 +198,29 @@ const FrontDoor = () => {
                 BACKEND
               </Grid2>
               <Grid2 size={12} className="sub-content-content skills">
-                {generateSkillChip("be", "JAVA")}
-                {generateSkillChip("fw", "SPRING")}
-                {generateSkillChip("fw", "SPRING-BOOT")}
+                {generateSkillChip("JAVA")}
+                {generateSkillChip("SPRING")}
+                {generateSkillChip("SPRING-BOOT")}
               </Grid2>
 
               <Grid2 size={12} className="sub-content-title">
                 FRONTEND
               </Grid2>
               <Grid2 size={12} className="sub-content-content skills">
-                {generateSkillChip("fe", "JSP")}
-                {generateSkillChip("fe", "WebSquare")}
-                {generateSkillChip("fe", "REACT")}
-                {generateSkillChip("fe", "VUEJS")}
+                {generateSkillChip("JSP")}
+                {generateSkillChip("WebSquare")}
+                {generateSkillChip("REACT")}
+                {generateSkillChip("VUEJS")}
               </Grid2>
 
               <Grid2 size={12} className="sub-content-title">
                 DATABASE
               </Grid2>
               <Grid2 size={12} className="sub-content-content skills">
-                {generateSkillChip("db", "ORACLE")}
-                {generateSkillChip("db", "MSSQL")}
-                {generateSkillChip("db", "MYSQL")}
-                {generateSkillChip("db", "POSTGRESQL")}
+                {generateSkillChip("ORACLE")}
+                {generateSkillChip("MSSQL")}
+                {generateSkillChip("MYSQL")}
+                {generateSkillChip("POSTGRESQL")}
               </Grid2>
             </Grid2>
           </Grid2>
@@ -235,31 +243,32 @@ const FrontDoor = () => {
         {/*-- FRONT DOOR::2nd ROW-devLog::CONTENT--*/}
         <Grid2 size={12}>
           <Grid2 container className="front-door-contents" spacing={1}>
-            <Grid2 size={4} className="front-door-contents-col"></Grid2>
-            <Grid2 size={4} className="front-door-contents-col"></Grid2>
-            <Grid2 size={4} className="front-door-contents-col"></Grid2>
-          </Grid2>
-        </Grid2>
-
-        <Grid2 size={11}>
-          {/*-- FRONT DOOR::3rd ROW-codingTest::TITLE --*/}
-          <h2 className="front-door-title">
-            {generateIconText("coding test", 1.5)}
-            &nbsp;&nbsp;✍️
-          </h2>
-        </Grid2>
-        <Grid2 size={1} className="front-door-btn-more">
-          <Button onClick={() => handleSeeMore("/cote")} size="small">
-            more&nbsp;&nbsp;{<Search />}
-          </Button>
-        </Grid2>
-
-        {/*-- FRONT DOOR::3rd ROW-codingTest::CONTENT--*/}
-        <Grid2 size={12}>
-          <Grid2 container className="front-door-contents" spacing={1}>
-            <Grid2 size={4} className="front-door-contents-col"></Grid2>
-            <Grid2 size={4} className="front-door-contents-col"></Grid2>
-            <Grid2 size={4} className="front-door-contents-col"></Grid2>
+            {groups ? (
+              groups.map((group) => (
+                <Grid2 container size={12} className="front-door-contents-col">
+                  <Grid2 size={9} className="dlog-col title">
+                    <h4>#{group.groupNo + ". " + group.groupTitle}</h4>
+                  </Grid2>
+                  <Grid2 size={1} className="dlog-col">
+                    {group.likeYn ? <Favorite /> : <FavoriteBorderOutlined />}
+                    &nbsp;
+                    {group.likeCnt}
+                  </Grid2>
+                  <Grid2 size={1} className="dlog-col">
+                    {group.subsYn ? <TurnedIn /> : <TurnedInNot />}
+                    &nbsp;
+                    {group.subsCnt}
+                  </Grid2>
+                  <Grid2 size={1} className="dlog-col">
+                    <FormatListBulleted />
+                    &nbsp;
+                    {group.itemCnt}
+                  </Grid2>
+                </Grid2>
+              ))
+            ) : (
+              <></>
+            )}
           </Grid2>
         </Grid2>
       </Grid2>

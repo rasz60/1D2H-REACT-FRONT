@@ -22,7 +22,6 @@ const SlideMenu = ({ isBackdrop, setBackdrop }) => {
         setMenu(res.data);
       })
       .catch((err) => {
-        console.log(err);
         setBackdrop(false);
       });
   };

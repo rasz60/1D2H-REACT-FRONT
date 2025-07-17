@@ -8,6 +8,7 @@ import FindInfo from "@compo/FindInfo";
 import About from "@compo/menu/about/About";
 import DevLog from "@compo/menu/dlog/DevLog";
 import { Container } from "@mui/material";
+import SendMail from "../components/menu/sendmail/SendMail";
 
 const Main = () => {
   const { RouteGuard } = useAuth();
@@ -20,6 +21,7 @@ const Main = () => {
           <Route path="/" element={<FrontDoor />} />
           <Route path="/about" element={<About />} />
           <Route path="/dlog/*" element={<DevLog />} />
+          <Route path="/sendmail/*" element={<SendMail />} />
 
           {/*-- 메뉴 외 화면 --*/}
           <Route path="/signup" element={<Signup />} />
