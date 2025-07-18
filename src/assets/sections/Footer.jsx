@@ -9,6 +9,7 @@ const Footer = () => {
     if (target === "github") {
       window.open("https://github.com/rasz60", "_blank");
     } else {
+      document.scrollingElement.scrollTop = 0;
       navigate(target);
     }
   };
