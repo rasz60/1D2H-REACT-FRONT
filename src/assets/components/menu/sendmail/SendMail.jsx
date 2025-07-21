@@ -1,5 +1,12 @@
 import { Send } from "@mui/icons-material";
-import { Box, Button, FormControl, Grid2, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Chip,
+  FormControl,
+  Grid2,
+  TextField,
+} from "@mui/material";
 import { useAuth } from "@src/context/AuthContext";
 import axiosInstance from "@src/utils/axiosInstance";
 import { useEffect, useState } from "react";
@@ -22,9 +29,10 @@ const SendMail = () => {
       axiosInstance
         .get("auth/getEmailAddr/" + userId)
         .then((res) => {
-          setMailInfo({
+          setMailInfo((prev) => ({
+            ...prev,
             fromAddr: res.data,
-          });
+          }));
         })
         .catch((err) => {
           console.log(err);
@@ -91,14 +99,11 @@ const SendMail = () => {
       <Grid2 container spacing={3}>
         <Grid2 size={3}>To.</Grid2>
         <Grid2 size={9}>
-          <FormControl fullWidth>
-            <TextField
-              name="toAddr"
-              value={mailInfo.toAddr}
-              readonly="true"
-              variant="standard"
-            ></TextField>
-          </FormControl>
+          <Chip
+            variant="filled"
+            label={"id2hAdmin <" + mailInfo.toAddr + ">"}
+            color="primary"
+          ></Chip>
         </Grid2>
 
         <Grid2 size={3}>From.</Grid2>

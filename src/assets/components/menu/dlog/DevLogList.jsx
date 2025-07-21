@@ -30,7 +30,7 @@ import { useEffect, useState } from "react";
 
 /*-- AuthContext --*/
 import { useAuth } from "@context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import DevLogGroupAddPopup from "@compo/menu/dlog/DevLogGroupAddPopup";
 
@@ -39,6 +39,7 @@ const DevLogList = () => {
   const [toggleIdx, setToggleIdx] = useState(null);
   const [togglePopup, setTogglePopup] = useState(false);
   const navigator = useNavigate();
+  const location = useLocation();
   const { isAuthenticated, getAuthLv } = useAuth();
   const authLv = getAuthLv();
 
@@ -51,6 +52,17 @@ const DevLogList = () => {
       .get("/dlog/groupList")
       .then((res) => {
         setGroups(res.data);
+
+        let search = location.search;
+
+        if (search !== "") {
+          for (let idx = 0; idx < res.data.length; idx++) {
+            if (res.data[idx].groupNo === Number(search.split("=")[1])) {
+              setToggleIdx(idx);
+              break;
+            }
+          }
+        }
       })
       .catch((err) => {
         console.log(err);

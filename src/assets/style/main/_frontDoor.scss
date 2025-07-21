@@ -101,4 +101,12 @@
       justify-content: start;
     }
   }
+
+  .dlog-row {
+    cursor: pointer;
+  }
+
+  .dlog-row:hover {
+    background-color: aliceblue;
+  }
 }

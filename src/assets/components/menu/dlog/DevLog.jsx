@@ -11,7 +11,13 @@ const DevLog = () => {
 
   useEffect(() => {
     if (location.pathname === "/dlog") {
-      navigate("/dlog/list");
+      let search = location.search;
+
+      if (search !== "") {
+        navigate("/dlog/list" + search);
+      } else {
+        navigate("/dlog/list");
+      }
     }
   }, []);
 

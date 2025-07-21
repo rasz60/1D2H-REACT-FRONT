@@ -1,6 +1,12 @@
 import axiosInstance from "@src/utils/axiosInstance";
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useMemo,
+} from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -87,30 +93,6 @@ export const AuthProvider = ({ children }) => {
     return loginUserId;
   };
 
-  // token 인증 실패 시, root path로 redirect 시키는 RouteGuard
-  const RouteGuard = ({ type }) => {
-    const { isAuthenticated, authLv, logout } = useAuth();
-    let msg = "";
-    if (logout || location.pathname === "/") {
-      return;
-    }
-
-    if (isAuthenticated != null && authLv != null) {
-      if (isAuthenticated) {
-        return <Outlet />;
-      }
-      msg = "로그인이 필요합니다.";
-
-      if (!msg) {
-        if (authLv > type) {
-          return <Outlet />;
-        }
-        msg = "권한이 없는 페이지입니다.";
-      }
-      alert(msg);
-      return <Navigate to="/" />;
-    }
-  };
   return (
     <AuthContext.Provider
       value={{
@@ -122,7 +104,6 @@ export const AuthProvider = ({ children }) => {
         getIsAuthentication,
         getAuthLv,
         getLoginUserId,
-        RouteGuard,
       }}
     >
       {children}

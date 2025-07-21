@@ -1,0 +1,36 @@
+#admin {
+  #admin-list,
+  #admin-form,
+  #admin-menu-list,
+  #admin-menu-form {
+    min-height: 70vh;
+    padding: 0.5em;
+  }
+
+  #admin-list,
+  #admin-menu-list {
+    border: 1px solid #ececec;
+  }
+
+  #admin-menu-form {
+    padding: 1em;
+
+    .label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .input-label {
+      margin-left: -1em;
+    }
+
+    .MuiGrid2-direction-xs-row {
+      min-height: 5em;
+    }
+  }
+
+  .on {
+    background-color: #efefef;
+  }
+}

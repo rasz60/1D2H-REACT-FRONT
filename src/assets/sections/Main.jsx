@@ -1,18 +1,18 @@
 import { Routes, Route } from "react-router-dom";
-import { useAuth } from "@context/AuthContext";
+import RouteGuard from "@context/RouteGuard";
 import FrontDoor from "@compo/FrontDoor";
-import Signup from "@compo/Signup";
-import SetUser from "@compo/SetUser";
-import FindInfo from "@compo/FindInfo";
+import Signup from "@src/assets/components/header/Signup";
+import SetUser from "@src/assets/components/header/SetUser";
+import FindInfo from "@src/assets/components/header/FindInfo";
 
 import About from "@compo/menu/about/About";
 import DevLog from "@compo/menu/dlog/DevLog";
 import { Container } from "@mui/material";
 import SendMail from "../components/menu/sendmail/SendMail";
+import React from "react";
+import AdminMain from "../components/admin/AdminMain";
 
 const Main = () => {
-  const { RouteGuard } = useAuth();
-
   return (
     <main id="main" role="main">
       <Container maxWidth="lg">
@@ -26,7 +26,7 @@ const Main = () => {
           {/*-- 메뉴 외 화면 --*/}
           <Route path="/signup" element={<Signup />} />
           <Route path="/admin" element={<RouteGuard type={2} />}>
-            <Route path="/admin" element={<About />} />
+            <Route path="/admin" element={<AdminMain />} />
           </Route>
           <Route path="/setUser" element={<RouteGuard type={1} />}>
             <Route path="/setUser" element={<SetUser />} />

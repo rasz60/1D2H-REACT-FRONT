@@ -1,4 +1,4 @@
-import { Box, Grid2, Button, Divider, Chip, SvgIcon } from "@mui/material";
+import { Box, Grid2, Button, Divider, Chip } from "@mui/material";
 import Icon from "@mdi/react";
 import getIcon from "@js/menuIcon.js";
 import {
@@ -26,7 +26,6 @@ const FrontDoor = () => {
     axiosInstance
       .get("/dlog/groupList")
       .then((res) => {
-        console.log(res.data[0]);
         setGroups(res.data.filter((group, idx) => idx < 3));
       })
       .catch((err) => {
@@ -67,8 +66,13 @@ const FrontDoor = () => {
   const generateIconText = (keyword, size) => {
     return keyword
       .split("")
-      .map((char) => (
-        <Icon path={getMdiIcon(char)} size={size} color="primary" />
+      .map((char, idx) => (
+        <Icon
+          path={getMdiIcon(char)}
+          size={size}
+          color="primary"
+          key={"Char_" + idx}
+        />
       ));
   };
 
@@ -78,6 +82,10 @@ const FrontDoor = () => {
 
   const handleSeeMore = (nav) => {
     navigate(nav);
+  };
+
+  const handleDlogGroup = (groupNo) => {
+    navigate("/dlog?groupNo=" + groupNo);
   };
 
   return (
@@ -245,7 +253,12 @@ const FrontDoor = () => {
           <Grid2 container className="front-door-contents" spacing={1}>
             {groups ? (
               groups.map((group) => (
-                <Grid2 container size={12} className="front-door-contents-col">
+                <Grid2
+                  container
+                  size={12}
+                  className="front-door-contents-col dlog-row"
+                  onClick={() => handleDlogGroup(group.groupNo)}
+                >
                   <Grid2 size={9} className="dlog-col title">
                     <h4>#{group.groupNo + ". " + group.groupTitle}</h4>
                   </Grid2>
