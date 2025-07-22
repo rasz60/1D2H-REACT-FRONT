@@ -62,7 +62,7 @@ const iconMap = {
   y: mdiAlphaY,
   z: mdiAlphaZ,
   PersonSearch: <PersonSearch />,
-  LogDev: <LogoDev />,
+  LogoDev: <LogoDev />,
   PsychologyAltOutlined: <PsychologyAltOutlined />,
   GitHub: <GitHub />,
   SendOutlined: <SendOutlined />,
