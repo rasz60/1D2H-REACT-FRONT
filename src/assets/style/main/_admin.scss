@@ -10,6 +10,18 @@
   #admin-list,
   #admin-menu-list {
     border: 1px solid #ececec;
+
+    #add-btn-box {
+      text-align: right;
+
+      #add-btn {
+        padding: 0;
+      }
+    }
+
+    ul {
+      padding-top: 0;
+    }
   }
 
   #admin-menu-form {
@@ -19,6 +31,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
+      #mui-icons-view {
+        padding: 0.2em;
+        transform: rotate(45deg);
+
+        svg {
+          font-size: 16px;
+        }
+      }
     }
 
     .input-label {
@@ -40,19 +61,23 @@
       border: 1px solid #ececec;
       border-radius: 1em;
       background-color: #ececec;
-    }
 
-    .preview-col {
-      height: 3em;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+      .preview-row {
+        min-width: 40%;
 
-    .preview-col.icon button,
-    .preview-col.name span {
-      background-color: white;
-      color: black;
+        .preview-col {
+          height: 3em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .preview-col.icon button,
+        .preview-col.name span {
+          background-color: white;
+          color: black;
+        }
+      }
     }
 
     #btn-row {

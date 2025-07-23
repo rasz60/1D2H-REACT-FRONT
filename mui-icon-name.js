@@ -10,6 +10,10 @@ const extractIconName = (file) => path.basename(file, ".js");
 const OUTPUT_PATH = path.join(__dirname, "./src/assets/mui_icon_list.json");
 
 const generateIconList = () => {
+  if (fs.existsSync(OUTPUT_PATH)) {
+    return;
+  }
+
   const files = fs.readdirSync(ICON_DIR);
   const iconNames = files.filter(isIconFile).map(extractIconName).sort();
 

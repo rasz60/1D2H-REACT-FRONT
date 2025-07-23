@@ -34,21 +34,27 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import clsx from "clsx"; // 또는 classnames
+import { Add, IosShare, PlusOne } from "@mui/icons-material";
+
 const MenuAdmin = () => {
+  const [reordered, setReordered] = useState(false);
   const [menuList, setMenuList] = useState(null);
   const [selected, setSelected] = useState(null);
   const { getMdiIcon } = getIcon();
   const [menuDetails, setMenuDetails] = useState({
+    menuId: 0,
     menuName: "",
     menuAuth: "",
     menuTarget: "",
     menuUrl: "",
     menuUseYn: "",
     menuIcon: "",
-    menuRegDate: "",
-    menuRegisterId: "",
-    menuUpdateDate: "",
-    menuUpdaterId: "",
+    regDate: "",
+    registerId: "",
+    registerNo: 0,
+    updateDate: "",
+    updaterId: "",
+    updaterNo: 0,
     menuSortOrder: 0,
   });
 
@@ -105,20 +111,33 @@ const MenuAdmin = () => {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
-  const handleDragEnd = (event) => {
+  const handleDragEnd = async (event) => {
     const { active, over } = event;
-    if (active.id !== over?.id) {
-      const oldIndex = menuList.findIndex((m) => m.menuId === active.id.menuId);
-      const newIndex = menuList.findIndex((m) => m.menuId === over.id.menuId);
-
-      const reordered = arrayMove(menuList, oldIndex, newIndex).map(
-        (item, idx) => ({
-          ...item,
-          menuSortOrder: idx + 1, // 순서를 다시 지정
-        })
+    let chk = reordered;
+    if (!chk) {
+      chk = await window.confirm(
+        "메뉴 순서 변경은 실제 메뉴에 실시간으로 반영됩니다.\n순서를 변경할까요?"
       );
+    }
 
-      setMenuList(reordered);
+    setReordered(chk);
+
+    if (chk) {
+      if (active.id !== over?.id) {
+        const oldIndex = menuList.findIndex(
+          (m) => m.menuId === active.id.menuId
+        );
+        const newIndex = menuList.findIndex((m) => m.menuId === over.id.menuId);
+
+        const reorderedArr = arrayMove(menuList, oldIndex, newIndex).map(
+          (item, idx) => ({
+            ...item,
+            menuSortOrder: idx + 1, // 순서를 다시 지정
+          })
+        );
+        setMenuList(reorderedArr);
+        menuReordered(reorderedArr);
+      }
     }
   };
 
@@ -169,7 +188,7 @@ const MenuAdmin = () => {
   const handleMenuInfo = (event, selected) => {
     let { name, value } = event.target;
 
-    if (selected) {
+    if (!name && !value) {
       name = "menuIcon";
       value = selected.value;
     }
@@ -180,10 +199,111 @@ const MenuAdmin = () => {
     }));
   };
 
+  const menuReordered = async (reorderedArr) => {
+    await axiosInstance
+      .post("/menu/menuReordered", reorderedArr)
+      .then((res) => {
+        console.log(res);
+        getMenuList();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const muiIconView = () => {
+    window.open("https://mui.com/material-ui/material-icons/", "_blank");
+  };
+
+  const handleMenuDetails = () => {
+    let chk = validation();
+
+    if (chk) {
+      axiosInstance
+        .post("/menu/updateMenuInfo", menuDetails)
+        .then((res) => {
+          alert(res.data);
+          setSelected(null);
+          setMenuDetails({
+            menuId: 0,
+            menuName: "",
+            menuAuth: "",
+            menuTarget: "",
+            menuUrl: "",
+            menuUseYn: "",
+            menuIcon: "",
+            regDate: "",
+            registerId: "",
+            registerNo: 0,
+            updateDate: "",
+            updaterId: "",
+            updaterNo: 0,
+            menuSortOrder: 0,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  const validation = () => {
+    if (!menuDetails.menuName) {
+      alert("메뉴 이름은 필수 항목입니다.");
+      return false;
+    }
+
+    let regExp = /^[a-zA-Z ]+$/;
+    if (!regExp.test(menuDetails.menuName)) {
+      alert("메뉴 이름은 영어로만 입력해주세요.");
+      return false;
+    }
+
+    if (!menuDetails.menuAuth === "") {
+      alert("접근 권한은 필수 항목입니다.");
+      return false;
+    }
+
+    if (!menuDetails.menuTarget === "") {
+      alert("메뉴 타겟은 필수 항목입니다.");
+      return false;
+    }
+
+    if (!menuDetails.menuUrl === "") {
+      alert("URL은 필수 항목입니다.");
+      return false;
+    }
+
+    regExp = /^[a-zA-z0-9/]+$/;
+    if (!regExp.test(menuDetails.menuUrl)) {
+      alert("URL은 영어, 숫자로만 입력해주세요.");
+      return false;
+    }
+
+    if (!menuDetails.menuUseYn === "") {
+      alert("사용 여부는 필수 항목입니다.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const setRegMenuForm = () => {};
+
   return (
     <Box>
       <Grid2 container spacing={1}>
         <Grid2 size={3} id="admin-menu-list">
+          <Box id="add-btn-box">
+            <IconButton
+              id="add-btn"
+              color="primary"
+              title="메뉴 등록하기"
+              onClick={setRegMenuForm}
+            >
+              <Add />
+            </IconButton>
+          </Box>
           <List>
             {menuList ? (
               <DndContext
@@ -211,165 +331,181 @@ const MenuAdmin = () => {
           </List>
         </Grid2>
         <Grid2 size={9} id="admin-menu-form">
-          <Grid2 container spacing={1}>
-            <Grid2 size={12}>
-              <Box id="preview">
-                <Grid2 container className="preview-row" spacing={2}>
-                  <Grid2 size={1} className="preview-col icon">
-                    <IconButton>
-                      {menuDetails.menuIcon ? (
-                        <LazyIcon iconName={menuDetails.menuIcon} />
-                      ) : (
-                        <></>
-                      )}
-                    </IconButton>
+          {selected != null ? (
+            <Grid2 container spacing={1}>
+              <Grid2 size={12}>
+                <Box id="preview">
+                  <Grid2 container className="preview-row" spacing={2}>
+                    <Grid2 size={1} className="preview-col icon">
+                      <IconButton>
+                        {menuDetails.menuIcon ? (
+                          <LazyIcon iconName={menuDetails.menuIcon} />
+                        ) : (
+                          <></>
+                        )}
+                      </IconButton>
+                    </Grid2>
+                    <Grid2 size={11} className="preview-col name">
+                      <span>
+                        {menuDetails.menuName.split("").map((char) => (
+                          <Icon path={getMdiIcon(char)} size={1} />
+                        ))}
+                      </span>
+                    </Grid2>
                   </Grid2>
-                  <Grid2 size={11} className="preview-col name">
-                    <span>
-                      {menuDetails.menuName.split("").map((char) => (
-                        <Icon path={getMdiIcon(char)} size={1} />
-                      ))}
-                    </span>
-                  </Grid2>
-                </Grid2>
-              </Box>
-            </Grid2>
+                </Box>
+              </Grid2>
 
-            <Grid2 size={3} className="label">
-              아이콘
-            </Grid2>
-            <Grid2 size={9}>
-              <FormControl fullWidth>
-                <Autocomplete
-                  name="menuIcon"
-                  options={iconNames}
-                  filterOptions={(options, { inputValue }) => {
-                    return options
-                      .filter((option) =>
-                        option.label
-                          .toLowerCase()
-                          .includes(inputValue.toLowerCase())
-                      )
-                      .slice(0, 50); // 🔥 최대 50개만 렌더링
-                  }}
-                  renderInput={(params) => (
-                    <TextField {...params} label="Icons" variant="standard" />
-                  )}
-                  onChange={handleMenuInfo}
-                  value={menuDetails.menuIcon}
-                ></Autocomplete>
-              </FormControl>
-            </Grid2>
-
-            <Grid2 size={3} className="label">
-              메뉴명
-            </Grid2>
-            <Grid2 size={9}>
-              <FormControl fullWidth>
-                <TextField
-                  name="menuName"
-                  type="text"
-                  label="Menu Name"
-                  variant="standard"
-                  value={menuDetails.menuName}
-                  onChange={handleMenuInfo}
-                ></TextField>
-              </FormControl>
-            </Grid2>
-
-            <Grid2 size={3} className="label">
-              메뉴권한
-            </Grid2>
-            <Grid2 size={9}>
-              <FormControl fullWidth>
-                <InputLabel
-                  required
-                  id="menu-authority"
-                  className="input-label"
+              <Grid2 size={3} className="label">
+                아이콘
+                <IconButton
+                  id="mui-icons-view"
+                  title="MUI 아이콘 전체 보기"
+                  onClick={muiIconView}
                 >
-                  선택(Choose)
-                </InputLabel>
-                <Select
-                  name="menuAuth"
-                  labelId="menu-authority"
-                  variant="standard"
-                  value={menuDetails.menuAuth}
-                  onChange={handleMenuInfo}
+                  <IosShare color="primary" />
+                </IconButton>
+              </Grid2>
+              <Grid2 size={9}>
+                <FormControl fullWidth>
+                  <Autocomplete
+                    name="menuIcon"
+                    options={iconNames}
+                    filterOptions={(options, { inputValue }) => {
+                      return options
+                        .filter((option) =>
+                          option.label
+                            .toLowerCase()
+                            .includes(inputValue.toLowerCase())
+                        )
+                        .slice(0, 50); // 🔥 최대 50개만 렌더링
+                    }}
+                    renderInput={(params) => (
+                      <TextField {...params} label="Icons" variant="standard" />
+                    )}
+                    onChange={handleMenuInfo}
+                    value={menuDetails.menuIcon}
+                    required
+                  ></Autocomplete>
+                </FormControl>
+              </Grid2>
+
+              <Grid2 size={3} className="label">
+                메뉴명
+              </Grid2>
+              <Grid2 size={9}>
+                <FormControl fullWidth>
+                  <TextField
+                    name="menuName"
+                    type="text"
+                    label="Menu Name"
+                    variant="standard"
+                    value={menuDetails.menuName}
+                    onChange={handleMenuInfo}
+                  ></TextField>
+                </FormControl>
+              </Grid2>
+
+              <Grid2 size={3} className="label">
+                접근권한
+              </Grid2>
+              <Grid2 size={9}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    required
+                    id="menu-authority"
+                    className="input-label"
+                  >
+                    선택(Choose)
+                  </InputLabel>
+                  <Select
+                    name="menuAuth"
+                    labelId="menu-authority"
+                    variant="standard"
+                    value={menuDetails.menuAuth}
+                    onChange={handleMenuInfo}
+                  >
+                    <MenuItem value={""}>선택...</MenuItem>
+                    <MenuItem value={"0"}>전체</MenuItem>
+                    <MenuItem value={"1"}>회원</MenuItem>
+                    <MenuItem value={"2"}>관리자</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid2>
+
+              <Grid2 size={3} className="label">
+                메뉴타겟
+              </Grid2>
+              <Grid2 size={9}>
+                <FormControl fullWidth>
+                  <InputLabel required id="menu-target" className="input-label">
+                    선택(Choose)
+                  </InputLabel>
+                  <Select
+                    name="menuTarget"
+                    labelId="menu-target"
+                    variant="standard"
+                    value={menuDetails.menuTarget}
+                    onChange={handleMenuInfo}
+                  >
+                    <MenuItem value={""}>선택...</MenuItem>
+                    <MenuItem value={"_self"}>페이지 이동</MenuItem>
+                    <MenuItem value={"_blank"}>새 탭</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid2>
+
+              <Grid2 size={3} className="label">
+                URL
+              </Grid2>
+              <Grid2 size={9}>
+                <FormControl fullWidth>
+                  <TextField
+                    name="menuUrl"
+                    type="text"
+                    label="Menu URL"
+                    variant="standard"
+                    value={menuDetails.menuUrl}
+                    onChange={handleMenuInfo}
+                  ></TextField>
+                </FormControl>
+              </Grid2>
+
+              <Grid2 size={3} className="label">
+                사용여부
+              </Grid2>
+              <Grid2 size={9}>
+                <FormControl fullWidth>
+                  <InputLabel required id="menu-use-yn" className="input-label">
+                    선택(Choose)
+                  </InputLabel>
+                  <Select
+                    name="menuUseYn"
+                    labelId="menu-use-yn"
+                    variant="standard"
+                    value={menuDetails.menuUseYn}
+                    onChange={handleMenuInfo}
+                  >
+                    <MenuItem value={""}>선택...</MenuItem>
+                    <MenuItem value={"Y"}>사용</MenuItem>
+                    <MenuItem value={"N"}>미사용</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid2>
+
+              <Grid2 size={12} id="btn-row">
+                <Button
+                  size="small"
+                  variant="contained"
+                  onClick={handleMenuDetails}
                 >
-                  <MenuItem value={""}>선택...</MenuItem>
-                  <MenuItem value={"0"}>전체</MenuItem>
-                  <MenuItem value={"1"}>회원</MenuItem>
-                  <MenuItem value={"2"}>관리자</MenuItem>
-                </Select>
-              </FormControl>
+                  저장하기
+                </Button>
+              </Grid2>
             </Grid2>
-
-            <Grid2 size={3} className="label">
-              메뉴타겟
-            </Grid2>
-            <Grid2 size={9}>
-              <FormControl fullWidth>
-                <InputLabel required id="menu-target" className="input-label">
-                  선택(Choose)
-                </InputLabel>
-                <Select
-                  name="menuTarget"
-                  labelId="menu-target"
-                  variant="standard"
-                  value={menuDetails.menuTarget}
-                  onChange={handleMenuInfo}
-                >
-                  <MenuItem value={""}>선택...</MenuItem>
-                  <MenuItem value={"_self"}>페이지 이동</MenuItem>
-                  <MenuItem value={"_blank"}>새 탭</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid2>
-
-            <Grid2 size={3} className="label">
-              URL
-            </Grid2>
-            <Grid2 size={9}>
-              <FormControl fullWidth>
-                <TextField
-                  name="menuUrl"
-                  type="text"
-                  label="Menu URL"
-                  variant="standard"
-                  value={menuDetails.menuUrl}
-                  onChange={handleMenuInfo}
-                ></TextField>
-              </FormControl>
-            </Grid2>
-
-            <Grid2 size={3} className="label">
-              사용여부
-            </Grid2>
-            <Grid2 size={9}>
-              <FormControl fullWidth>
-                <InputLabel required id="menu-use-yn" className="input-label">
-                  선택(Choose)
-                </InputLabel>
-                <Select
-                  name="menuUseYn"
-                  labelId="menu-use-yn"
-                  variant="standard"
-                  value={menuDetails.menuUseYn}
-                  onChange={handleMenuInfo}
-                >
-                  <MenuItem value={""}>선택...</MenuItem>
-                  <MenuItem value={"Y"}>사용</MenuItem>
-                  <MenuItem value={"N"}>미사용</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid2>
-
-            <Grid2 size={12} id="btn-row">
-              <Button size="small" variant="contained">
-                저장하기
-              </Button>
-            </Grid2>
-          </Grid2>
+          ) : (
+            <></>
+          )}
         </Grid2>
       </Grid2>
     </Box>
