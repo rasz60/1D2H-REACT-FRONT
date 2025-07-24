@@ -41,6 +41,32 @@ const MenuAdmin = () => {
   const [menuList, setMenuList] = useState(null);
   const [selected, setSelected] = useState(null);
   const { getMdiIcon } = getIcon();
+  const [menuValidate, setMenuValidate] = useState({
+    menuIcon: {
+      flag: true,
+      msg: "",
+    },
+    menuName: {
+      flag: true,
+      msg: "",
+    },
+    menuAuth: {
+      flag: true,
+      msg: "",
+    },
+    menuTarget: {
+      flag: true,
+      msg: "",
+    },
+    menuUrl: {
+      flag: true,
+      msg: "",
+    },
+    menuUseYn: {
+      flag: true,
+      msg: "",
+    },
+  });
   const [menuDetails, setMenuDetails] = useState({
     menuId: 0,
     menuName: "",
@@ -57,6 +83,52 @@ const MenuAdmin = () => {
     updaterNo: 0,
     menuSortOrder: 0,
   });
+
+  const resetDetails = () => {
+    setMenuDetails({
+      menuId: 0,
+      menuName: "",
+      menuAuth: "",
+      menuTarget: "",
+      menuUrl: "",
+      menuUseYn: "",
+      menuIcon: "",
+      regDate: "",
+      registerId: "",
+      registerNo: 0,
+      updateDate: "",
+      updaterId: "",
+      updaterNo: 0,
+      menuSortOrder: 0,
+    });
+
+    setMenuValidate({
+      menuIcon: {
+        flag: true,
+        msg: "",
+      },
+      menuName: {
+        flag: true,
+        msg: "",
+      },
+      menuAuth: {
+        flag: true,
+        msg: "",
+      },
+      menuTarget: {
+        flag: true,
+        msg: "",
+      },
+      menuUrl: {
+        flag: true,
+        msg: "",
+      },
+      menuUseYn: {
+        flag: true,
+        msg: "",
+      },
+    });
+  };
 
   const SortableItem = ({ id, onClick, isSelected }) => {
     const {
@@ -87,7 +159,12 @@ const MenuAdmin = () => {
     });
 
     return (
-      <div ref={setNodeRef} style={style} className={className}>
+      <div
+        ref={setNodeRef}
+        style={style}
+        className={className}
+        onClick={() => onClick(id.menuId)}
+      >
         <div
           {...attributes}
           {...listeners}
@@ -98,9 +175,7 @@ const MenuAdmin = () => {
         >
           ⠿
         </div>
-        <div onClick={() => onClick(id.menuId)} style={{ flex: 1 }}>
-          {id.menuName.toUpperCase()}
-        </div>
+        <div style={{ flex: 1 }}>{id.menuName.toUpperCase()}</div>
       </div>
     );
   };
@@ -175,6 +250,8 @@ const MenuAdmin = () => {
       }
     }
 
+    resetDetails();
+
     axiosInstance
       .get("/menu/getMenuDetails/" + menuId)
       .then((res) => {
@@ -193,6 +270,72 @@ const MenuAdmin = () => {
       value = selected.value;
     }
 
+    if (name === "menuName" && value) {
+      let flag = true;
+      let msg = "";
+      if (value.length > 15) {
+        flag = false;
+        msg = "메뉴 이름은 15자를 초과할 수 없습니다.";
+        setMenuValidate((prev) => ({
+          ...prev,
+          menuName: {
+            flag: flag,
+            msg: msg,
+          },
+        }));
+        return;
+      }
+
+      let regExp = /^[a-zA-Z ]+$/;
+      if (!regExp.test(value)) {
+        flag = false;
+        msg = "메뉴 이름은 영어로만 입력해주세요.";
+        setMenuValidate((prev) => ({
+          ...prev,
+          menuName: {
+            flag: flag,
+            msg: msg,
+          },
+        }));
+        return;
+      }
+
+      setMenuValidate((prev) => ({
+        ...prev,
+        menuName: {
+          flag: flag,
+          msg: msg,
+        },
+      }));
+    }
+
+    if (name === "menuUrl" && value) {
+      let flag = true;
+      let msg = "";
+
+      let regExp = /^[a-zA-z0-9/]+$/;
+      if (!regExp.test(value)) {
+        flag = false;
+        msg = "URL은 영어, 숫자로만 입력해주세요.";
+        setMenuValidate((prev) => ({
+          ...prev,
+          menuUrl: {
+            flag: flag,
+            msg: msg,
+          },
+        }));
+        return;
+      }
+
+      setMenuValidate((prev) => ({
+        ...prev,
+        menuUrl: {
+          flag: flag,
+          msg: msg,
+        },
+      }));
+    }
+
     setMenuDetails((prev) => ({
       ...prev,
       [name]: value,
@@ -203,7 +346,6 @@ const MenuAdmin = () => {
     await axiosInstance
       .post("/menu/menuReordered", reorderedArr)
       .then((res) => {
-        console.log(res);
         getMenuList();
       })
       .catch((err) => {
@@ -224,22 +366,8 @@ const MenuAdmin = () => {
         .then((res) => {
           alert(res.data);
           setSelected(null);
-          setMenuDetails({
-            menuId: 0,
-            menuName: "",
-            menuAuth: "",
-            menuTarget: "",
-            menuUrl: "",
-            menuUseYn: "",
-            menuIcon: "",
-            regDate: "",
-            registerId: "",
-            registerNo: 0,
-            updateDate: "",
-            updaterId: "",
-            updaterNo: 0,
-            menuSortOrder: 0,
-          });
+          resetDetails();
+          getMenuList();
         })
         .catch((err) => {
           console.log(err);
@@ -248,47 +376,67 @@ const MenuAdmin = () => {
   };
 
   const validation = () => {
+    let chk = true;
+    let validate = {};
+
+    let menuIcon = { menuIcon: { flag: true, msg: "" } };
+    if (!menuDetails.menuIcon) {
+      chk = false;
+      menuIcon.menuIcon.flag = chk;
+      menuIcon.menuIcon.msg = "아이콘은 필수 항목입니다.";
+    }
+
+    let menuName = { menuName: { flag: true, msg: "" } };
     if (!menuDetails.menuName) {
-      alert("메뉴 이름은 필수 항목입니다.");
-      return false;
+      chk = false;
+      menuName.menuName.flag = chk;
+      menuName.menuName.msg = "메뉴 명은 필수 항목입니다.";
     }
 
-    let regExp = /^[a-zA-Z ]+$/;
-    if (!regExp.test(menuDetails.menuName)) {
-      alert("메뉴 이름은 영어로만 입력해주세요.");
-      return false;
-    }
-
+    let menuAuth = { menuAuth: { flag: true, msg: "" } };
     if (!menuDetails.menuAuth === "") {
-      alert("접근 권한은 필수 항목입니다.");
-      return false;
+      chk = false;
+      menuAuth.menuAuth.flag = chk;
+      menuAuth.menuAuth.msg = "접근 권한은 필수 항목입니다.";
     }
 
+    let menuTarget = { menuTarget: { flag: true, msg: "" } };
     if (!menuDetails.menuTarget === "") {
-      alert("메뉴 타겟은 필수 항목입니다.");
-      return false;
+      chk = false;
+      menuTarget.menuTarget.flag = chk;
+      menuTarget.menuTarget.msg = "메뉴 타겟은 필수 항목입니다.";
     }
 
-    if (!menuDetails.menuUrl === "") {
-      alert("URL은 필수 항목입니다.");
-      return false;
+    let menuUrl = { menuUrl: { flag: true, msg: "" } };
+    if (!menuDetails.menuUrl) {
+      chk = false;
+      menuUrl.menuUrl.flag = chk;
+      menuUrl.menuUrl.msg = "URL은 필수 항목입니다.";
     }
 
-    regExp = /^[a-zA-z0-9/]+$/;
-    if (!regExp.test(menuDetails.menuUrl)) {
-      alert("URL은 영어, 숫자로만 입력해주세요.");
-      return false;
-    }
-
+    let menuUseYn = { menuUseYn: { flag: true, msg: "" } };
     if (!menuDetails.menuUseYn === "") {
-      alert("사용 여부는 필수 항목입니다.");
-      return false;
+      chk = false;
+      menuUseYn.menuUseYn.flag = chk;
+      menuUseYn.menuUseYn.msg = "사용 여부는 필수 항목입니다.";
     }
 
-    return true;
+    validate = Object.assign(
+      menuName,
+      menuAuth,
+      menuTarget,
+      menuUrl,
+      menuUseYn
+    );
+    setMenuValidate(validate);
+    console.log(validate);
+    return chk;
   };
 
-  const setRegMenuForm = () => {};
+  const setRegMenuForm = () => {
+    setSelected(-1);
+    resetDetails();
+  };
 
   return (
     <Box>
@@ -335,24 +483,22 @@ const MenuAdmin = () => {
             <Grid2 container spacing={1}>
               <Grid2 size={12}>
                 <Box id="preview">
-                  <Grid2 container className="preview-row" spacing={2}>
-                    <Grid2 size={1} className="preview-col icon">
-                      <IconButton>
-                        {menuDetails.menuIcon ? (
+                  <Box className="preview-row" spacing={2}>
+                    <span className="preview-col icon">
+                      {menuDetails.menuIcon ? (
+                        <IconButton>
                           <LazyIcon iconName={menuDetails.menuIcon} />
-                        ) : (
-                          <></>
-                        )}
-                      </IconButton>
-                    </Grid2>
-                    <Grid2 size={11} className="preview-col name">
-                      <span>
-                        {menuDetails.menuName.split("").map((char) => (
-                          <Icon path={getMdiIcon(char)} size={1} />
-                        ))}
-                      </span>
-                    </Grid2>
-                  </Grid2>
+                        </IconButton>
+                      ) : (
+                        <></>
+                      )}
+                    </span>
+                    <span className="preview-col name">
+                      {menuDetails.menuName.split("").map((char) => (
+                        <Icon path={getMdiIcon(char)} size={1} />
+                      ))}
+                    </span>
+                  </Box>
                 </Box>
               </Grid2>
 
@@ -402,6 +548,8 @@ const MenuAdmin = () => {
                     variant="standard"
                     value={menuDetails.menuName}
                     onChange={handleMenuInfo}
+                    error={!menuValidate.menuName.flag}
+                    helperText={menuValidate.menuName.msg}
                   ></TextField>
                 </FormControl>
               </Grid2>
