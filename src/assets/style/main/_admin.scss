@@ -50,6 +50,10 @@
       min-height: 5em;
     }
 
+    .MuiFormHelperText-root.Mui-error {
+      margin-left: 0;
+    }
+
     #preview {
       display: flex;
       justify-content: center;

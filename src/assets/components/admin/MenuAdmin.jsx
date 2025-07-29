@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   FormControl,
+  FormHelperText,
   Grid2,
   IconButton,
   InputLabel,
@@ -34,12 +35,14 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import clsx from "clsx"; // 또는 classnames
-import { Add, IosShare, PlusOne } from "@mui/icons-material";
+import { Add, IosShare } from "@mui/icons-material";
 
 const MenuAdmin = () => {
   const [reordered, setReordered] = useState(false);
   const [menuList, setMenuList] = useState(null);
   const [selected, setSelected] = useState(null);
+  const [resetFlag, setResetFlag] = useState(false);
+  const [validated, setValidated] = useState(false);
   const { getMdiIcon } = getIcon();
   const [menuValidate, setMenuValidate] = useState({
     menuIcon: {
@@ -128,6 +131,9 @@ const MenuAdmin = () => {
         msg: "",
       },
     });
+
+    setResetFlag(true);
+    setValidated(false);
   };
 
   const SortableItem = ({ id, onClick, isSelected }) => {
@@ -342,6 +348,13 @@ const MenuAdmin = () => {
     }));
   };
 
+  useEffect(() => {
+    if (validated && !resetFlag) {
+      validation();
+    }
+    setResetFlag(false);
+  }, [menuDetails]);
+
   const menuReordered = async (reorderedArr) => {
     await axiosInstance
       .post("/menu/menuReordered", reorderedArr)
@@ -394,14 +407,14 @@ const MenuAdmin = () => {
     }
 
     let menuAuth = { menuAuth: { flag: true, msg: "" } };
-    if (!menuDetails.menuAuth === "") {
+    if (menuDetails.menuAuth === "") {
       chk = false;
       menuAuth.menuAuth.flag = chk;
       menuAuth.menuAuth.msg = "접근 권한은 필수 항목입니다.";
     }
 
     let menuTarget = { menuTarget: { flag: true, msg: "" } };
-    if (!menuDetails.menuTarget === "") {
+    if (menuDetails.menuTarget === "") {
       chk = false;
       menuTarget.menuTarget.flag = chk;
       menuTarget.menuTarget.msg = "메뉴 타겟은 필수 항목입니다.";
@@ -415,13 +428,14 @@ const MenuAdmin = () => {
     }
 
     let menuUseYn = { menuUseYn: { flag: true, msg: "" } };
-    if (!menuDetails.menuUseYn === "") {
+    if (menuDetails.menuUseYn === "") {
       chk = false;
       menuUseYn.menuUseYn.flag = chk;
       menuUseYn.menuUseYn.msg = "사용 여부는 필수 항목입니다.";
     }
 
     validate = Object.assign(
+      menuIcon,
       menuName,
       menuAuth,
       menuTarget,
@@ -429,7 +443,7 @@ const MenuAdmin = () => {
       menuUseYn
     );
     setMenuValidate(validate);
-    console.log(validate);
+    setValidated(true);
     return chk;
   };
 
@@ -527,7 +541,13 @@ const MenuAdmin = () => {
                         .slice(0, 50); // 🔥 최대 50개만 렌더링
                     }}
                     renderInput={(params) => (
-                      <TextField {...params} label="Icons" variant="standard" />
+                      <TextField
+                        {...params}
+                        label="Icons"
+                        variant="standard"
+                        error={!menuValidate.menuIcon.flag}
+                        helperText={menuValidate.menuIcon.msg}
+                      />
                     )}
                     onChange={handleMenuInfo}
                     value={menuDetails.menuIcon}
@@ -558,7 +578,7 @@ const MenuAdmin = () => {
                 접근권한
               </Grid2>
               <Grid2 size={9}>
-                <FormControl fullWidth>
+                <FormControl fullWidth error={!menuValidate.menuAuth.flag}>
                   <InputLabel
                     required
                     id="menu-authority"
@@ -578,6 +598,7 @@ const MenuAdmin = () => {
                     <MenuItem value={"1"}>회원</MenuItem>
                     <MenuItem value={"2"}>관리자</MenuItem>
                   </Select>
+                  <FormHelperText>{menuValidate.menuAuth.msg}</FormHelperText>
                 </FormControl>
               </Grid2>
 
@@ -585,7 +606,7 @@ const MenuAdmin = () => {
                 메뉴타겟
               </Grid2>
               <Grid2 size={9}>
-                <FormControl fullWidth>
+                <FormControl fullWidth error={!menuValidate.menuTarget.flag}>
                   <InputLabel required id="menu-target" className="input-label">
                     선택(Choose)
                   </InputLabel>
@@ -600,6 +621,7 @@ const MenuAdmin = () => {
                     <MenuItem value={"_self"}>페이지 이동</MenuItem>
                     <MenuItem value={"_blank"}>새 탭</MenuItem>
                   </Select>
+                  <FormHelperText>{menuValidate.menuTarget.msg}</FormHelperText>
                 </FormControl>
               </Grid2>
 
@@ -614,6 +636,8 @@ const MenuAdmin = () => {
                     label="Menu URL"
                     variant="standard"
                     value={menuDetails.menuUrl}
+                    error={!menuValidate.menuUrl.flag}
+                    helperText={menuValidate.menuUrl.msg}
                     onChange={handleMenuInfo}
                   ></TextField>
                 </FormControl>
@@ -623,7 +647,7 @@ const MenuAdmin = () => {
                 사용여부
               </Grid2>
               <Grid2 size={9}>
-                <FormControl fullWidth>
+                <FormControl fullWidth error={!menuValidate.menuUseYn.flag}>
                   <InputLabel required id="menu-use-yn" className="input-label">
                     선택(Choose)
                   </InputLabel>
@@ -638,6 +662,7 @@ const MenuAdmin = () => {
                     <MenuItem value={"Y"}>사용</MenuItem>
                     <MenuItem value={"N"}>미사용</MenuItem>
                   </Select>
+                  <FormHelperText>{menuValidate.menuUseYn.msg}</FormHelperText>
                 </FormControl>
               </Grid2>
 
