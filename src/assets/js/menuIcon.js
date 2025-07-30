@@ -26,13 +26,6 @@ import {
   mdiAlphaY,
   mdiAlphaZ,
 } from "@mdi/js";
-import {
-  PersonSearch,
-  LogoDev,
-  PsychologyAltOutlined,
-  GitHub,
-  SendOutlined,
-} from "@mui/icons-material";
 
 const iconMap = {
   a: mdiAlphaA,
@@ -61,22 +54,11 @@ const iconMap = {
   x: mdiAlphaX,
   y: mdiAlphaY,
   z: mdiAlphaZ,
-  PersonSearch: <PersonSearch />,
-  LogoDev: <LogoDev />,
-  PsychologyAltOutlined: <PsychologyAltOutlined />,
-  GitHub: <GitHub />,
-  SendOutlined: <SendOutlined />,
 };
 
 const getMdiIcon = (param) => {
   return iconMap[param?.toLowerCase?.()];
 };
-
-const getMuiIcon = (param) => {
-  return iconMap[param];
-};
-
 export default () => ({
   getMdiIcon,
-  getMuiIcon,
 });

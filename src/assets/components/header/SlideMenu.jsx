@@ -12,9 +12,11 @@ import Icon from "@mdi/react";
 import getIcon from "@js/menuIcon.js";
 import { useState, useEffect } from "react";
 
+import LazyIcon from "@compo/common/IconPreview";
+
 const SlideMenu = ({ isBackdrop, setBackdrop }) => {
   const [menu, setMenu] = useState([]);
-  const { getMdiIcon, getMuiIcon } = getIcon();
+  const { getMdiIcon } = getIcon();
   const menuInfo = async () => {
     await axiosInstance
       .get("/menu/getMenus")
@@ -55,7 +57,9 @@ const SlideMenu = ({ isBackdrop, setBackdrop }) => {
             >
               <Grid2 container className="slide-menu-item-row">
                 <Grid2 size={1} className="slide-menu-item-col icon">
-                  <IconButton>{getMuiIcon(item.menuIcon)}</IconButton>
+                  <IconButton>
+                    <LazyIcon iconName={item.menuIcon} />
+                  </IconButton>
                 </Grid2>
                 <Grid2 size={11} className="slide-menu-item-col name">
                   <span>

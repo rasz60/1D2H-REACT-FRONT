@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import iconNames from "@src/assets/mui_icon_list.json";
 import getIcon from "@js/menuIcon.js";
 import Icon from "@mdi/react";
-import LazyIcon from "./IconPreview";
+import LazyIcon from "@compo/common/IconPreview";
 import {
   DndContext,
   closestCenter,
@@ -547,6 +547,7 @@ const MenuAdmin = () => {
                         variant="standard"
                         error={!menuValidate.menuIcon.flag}
                         helperText={menuValidate.menuIcon.msg}
+                        required
                       />
                     )}
                     onChange={handleMenuInfo}
@@ -570,6 +571,7 @@ const MenuAdmin = () => {
                     onChange={handleMenuInfo}
                     error={!menuValidate.menuName.flag}
                     helperText={menuValidate.menuName.msg}
+                    required
                   ></TextField>
                 </FormControl>
               </Grid2>
@@ -592,6 +594,7 @@ const MenuAdmin = () => {
                     variant="standard"
                     value={menuDetails.menuAuth}
                     onChange={handleMenuInfo}
+                    required
                   >
                     <MenuItem value={""}>선택...</MenuItem>
                     <MenuItem value={"0"}>전체</MenuItem>
@@ -616,6 +619,7 @@ const MenuAdmin = () => {
                     variant="standard"
                     value={menuDetails.menuTarget}
                     onChange={handleMenuInfo}
+                    required
                   >
                     <MenuItem value={""}>선택...</MenuItem>
                     <MenuItem value={"_self"}>페이지 이동</MenuItem>
@@ -639,6 +643,7 @@ const MenuAdmin = () => {
                     error={!menuValidate.menuUrl.flag}
                     helperText={menuValidate.menuUrl.msg}
                     onChange={handleMenuInfo}
+                    required
                   ></TextField>
                 </FormControl>
               </Grid2>
@@ -657,6 +662,7 @@ const MenuAdmin = () => {
                     variant="standard"
                     value={menuDetails.menuUseYn}
                     onChange={handleMenuInfo}
+                    required
                   >
                     <MenuItem value={""}>선택...</MenuItem>
                     <MenuItem value={"Y"}>사용</MenuItem>
