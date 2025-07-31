@@ -28,10 +28,6 @@ const Header = ({ isScroll }) => {
     });
   };
 
-  const handleMoveHome = () => {
-    window.location.href = "/";
-  };
-
   const handleLogout = () => {
     if (window.confirm("로그아웃 할까요?")) {
       axiosInstance
@@ -45,8 +41,13 @@ const Header = ({ isScroll }) => {
     }
   };
 
-  const handleAdmin = () => {
-    navigator("/admin");
+  const handleHeaderBtn = (type) => {
+    setBackdrop(false);
+    if (type === "logout") {
+      handleLogout();
+    } else {
+      navigator("/" + type);
+    }
   };
 
   return (
@@ -64,7 +65,7 @@ const Header = ({ isScroll }) => {
           </Grid2>
           <Grid2 size={4} id="col-logo">
             <Avatar
-              onClick={handleMoveHome}
+              onClick={(ev) => handleHeaderBtn("")}
               id="logo"
               alt="devsixt"
               src="https://avatars.githubusercontent.com/u/96821067?v=4"
@@ -72,22 +73,34 @@ const Header = ({ isScroll }) => {
           </Grid2>
           <Grid2 size={4} id="col-button">
             {isAuthentication && (
-              <IconButton size="large" onClick={() => navigator("/setUser")}>
+              <IconButton
+                size="large"
+                onClick={(ev) => handleHeaderBtn("setUser")}
+              >
                 <AccountCircle />
               </IconButton>
             )}
             {isAuthentication && authLv > 2 && (
-              <IconButton size="large" onClick={handleAdmin}>
+              <IconButton
+                size="large"
+                onClick={(ev) => handleHeaderBtn("admin")}
+              >
                 <Settings />
               </IconButton>
             )}
             {isAuthentication && (
-              <IconButton size="large" onClick={handleLogout}>
+              <IconButton
+                size="large"
+                onClick={(ev) => handleHeaderBtn("logout")}
+              >
                 <Logout />
               </IconButton>
             )}
             {!isAuthentication && (
-              <IconButton size="large" onClick={() => handleBackdrop("login")}>
+              <IconButton
+                size="large"
+                onClick={(ev) => handleBackdrop("login")}
+              >
                 <Login />
               </IconButton>
             )}

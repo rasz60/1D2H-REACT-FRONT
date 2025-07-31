@@ -1,5 +1,4 @@
 #admin {
-  #admin-list,
   #admin-form,
   #admin-menu-list,
   #admin-menu-form {
@@ -7,7 +6,6 @@
     padding: 0.5em;
   }
 
-  #admin-list,
   #admin-menu-list {
     border: 1px solid #ececec;
 
@@ -97,10 +95,59 @@
       display: flex;
       justify-content: end;
       align-items: center;
+
+      button {
+        margin: 0 0.2em;
+      }
     }
   }
 
   .on {
     background-color: #efefef !important;
+  }
+
+  /*-- AUTH --*/
+  #auth-form {
+    margin-top: 2em;
+
+    #search-input-row {
+      border: 1px solid #fbfbfb;
+      background-color: #fbfbfb;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      border-radius: 10em;
+
+      .input-label {
+        margin-left: -1em;
+      }
+
+      .MuiFormHelperText-root.Mui-error {
+        margin-left: 0;
+        position: absolute;
+        top: 4em;
+      }
+
+      .MuiGrid2-direction-xs-row:nth-child(1) {
+        padding: 2em 0 2em 3em;
+      }
+
+      .MuiGrid2-direction-xs-row:nth-child(2) {
+        padding: 2em 0;
+      }
+
+      .MuiGrid2-direction-xs-row:nth-child(3) {
+        padding: 2em 1em 2em 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        overflow: hidden;
+        border-radius: 0 10em 10em 0;
+        background-color: #f6f6f6;
+      }
+
+      .MuiGrid2-direction-xs-row:nth-child(3):hover {
+        background-color: #ececec;
+      }
+    }
   }
 }

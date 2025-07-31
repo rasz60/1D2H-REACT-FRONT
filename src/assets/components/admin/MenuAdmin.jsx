@@ -36,6 +36,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import clsx from "clsx"; // 또는 classnames
 import { Add, IosShare } from "@mui/icons-material";
+import { commands } from "@uiw/react-md-editor";
 
 const MenuAdmin = () => {
   const [reordered, setReordered] = useState(false);
@@ -452,6 +453,24 @@ const MenuAdmin = () => {
     resetDetails();
   };
 
+  const handleMenuDelete = async () => {
+    let chk = await window.confirm("선택한 메뉴를 삭제할까요?");
+
+    if (chk) {
+      await axiosInstance
+        .delete("/menu/deleteMenu/" + menuDetails.menuId)
+        .then((res) => {
+          alert(res.data);
+          setSelected(null);
+          resetDetails();
+          getMenuList();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   return (
     <Box>
       <Grid2 container spacing={1}>
@@ -680,6 +699,18 @@ const MenuAdmin = () => {
                 >
                   저장하기
                 </Button>
+                {menuDetails.menuId > 0 ? (
+                  <Button
+                    size="small"
+                    variant="contained"
+                    color="error"
+                    onClick={handleMenuDelete}
+                  >
+                    삭제하기
+                  </Button>
+                ) : (
+                  <></>
+                )}
               </Grid2>
             </Grid2>
           ) : (

@@ -1,60 +1,37 @@
-import { AssignmentInd, ListTwoTone } from "@mui/icons-material";
-import {
-  Box,
-  Grid2,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+import { Box, Divider, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import MenuAdmin from "./MenuAdmin";
-import AuthAdmin from "./AuthAdmin";
+import UserAdmin from "./UserAdmin";
 
 const AdminMain = () => {
-  const [selected, setSelected] = useState(null);
-
-  const handleForm = (type) => {
-    setSelected(type);
+  const [selected, setSelected] = useState(0);
+  const handleForm = (event, value) => {
+    setSelected(value);
   };
 
   return (
     <Box id="admin">
-      <Grid2 container id="admin-row" spacing={1}>
-        <Grid2 size={2}>
-          <List id="admin-list">
-            <ListItemButton
-              className={selected === "menu" ? "on" : "off"}
-              onClick={() => handleForm("menu")}
-            >
-              <ListItemIcon>
-                <ListTwoTone />
-              </ListItemIcon>
-              <ListItemText>Menu</ListItemText>
-            </ListItemButton>
-            <ListItemButton
-              className={selected === "menu" ? "off" : "on"}
-              onClick={() => handleForm("auth")}
-            >
-              <ListItemIcon>
-                <AssignmentInd />
-              </ListItemIcon>
-              <ListItemText>Auth</ListItemText>
-            </ListItemButton>
-          </List>
-        </Grid2>
-        <Grid2 size={10}>
-          <Box id="admin-form">
-            {selected === null ? (
-              <></>
-            ) : selected === "menu" ? (
-              <MenuAdmin></MenuAdmin>
-            ) : (
-              <AuthAdmin></AuthAdmin>
-            )}
-          </Box>
-        </Grid2>
-      </Grid2>
+      <Tabs
+        value={selected}
+        onChange={handleForm}
+        variant="scrollable"
+        scrollButtons="auto"
+      >
+        <Tab label="메뉴관리" />
+        <Tab label="회원관리" />
+      </Tabs>
+
+      <Divider />
+
+      <Box id="admin-form">
+        {selected === null ? (
+          <></>
+        ) : selected === 0 ? (
+          <MenuAdmin></MenuAdmin>
+        ) : (
+          <UserAdmin></UserAdmin>
+        )}
+      </Box>
     </Box>
   );
 };
