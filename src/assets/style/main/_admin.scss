@@ -135,6 +135,16 @@
       }
 
       .MuiGrid2-direction-xs-row:nth-child(3) {
+        padding: 2em 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        label {
+          margin-left: 0;
+        }
+      }
+
+      .MuiGrid2-direction-xs-row:nth-child(4) {
         padding: 2em 1em 2em 0;
         display: flex;
         justify-content: center;
@@ -145,8 +155,59 @@
         background-color: #f6f6f6;
       }
 
-      .MuiGrid2-direction-xs-row:nth-child(3):hover {
+      .MuiGrid2-direction-xs-row:nth-child(4):hover {
         background-color: #ececec;
+      }
+    }
+
+    #search-result-list {
+      #search-result-top {
+        padding: 3em 0 1em 0;
+
+        #search-result-funcBtn {
+          display: flex;
+          justify-content: end;
+          align-items: center;
+
+          Button {
+            margin-left: 0.3em;
+          }
+        }
+      }
+
+      .search-result-header,
+      .search-result-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid #ececec;
+        border-right: 1px solid #ececec;
+
+        .sort {
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+        }
+
+        .MuiGrid2-direction-xs-row {
+          margin: 0.5em 0;
+          border-right: 1px solid #ececec;
+        }
+
+        .MuiGrid2-direction-xs-row:nth-child(8) {
+          border-right: none;
+        }
+      }
+
+      .search-result-row:hover {
+        cursor: pointer;
+        background-color: aliceblue;
+        font-weight: 500;
+      }
+
+      .search-result-row.so-y {
+        font-style: italic;
+        color: #555555;
       }
     }
   }
