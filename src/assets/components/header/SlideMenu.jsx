@@ -55,20 +55,14 @@ const SlideMenu = ({ isBackdrop, setBackdrop }) => {
               className="slide-menu-item"
               target={item.menuTarget}
             >
-              <Grid2 container className="slide-menu-item-row">
-                <Grid2 size={1} className="slide-menu-item-col icon">
-                  <IconButton>
-                    <LazyIcon iconName={item.menuIcon} />
-                  </IconButton>
-                </Grid2>
-                <Grid2 size={11} className="slide-menu-item-col name">
-                  <span>
-                    {item.menuName.split("").map((char) => (
-                      <Icon path={getMdiIcon(char)} size={1} />
-                    ))}
-                  </span>
-                </Grid2>
-              </Grid2>
+              <IconButton>
+                <LazyIcon iconName={item.menuIcon} />
+              </IconButton>
+              <span>
+                {item.menuName.split("").map((char) => (
+                  <Icon path={getMdiIcon(char)} size={1} />
+                ))}
+              </span>
             </ListItem>
           ))
         ) : (

@@ -29,39 +29,24 @@
       width: 50%;
       padding: 0;
       padding-top: 8em;
-      padding-left: 1em;
+      padding-left: 2.5em;
 
       .slide-menu-item {
-        display: block;
+        display: flex;
+        align-items: center;
         padding: 0;
         width: 100%;
         margin-top: 0.5em;
 
-        .slide-menu-item-row {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-top: 0.7em;
+        button {
+          background-color: white;
+          color: black;
+          margin-right: 0.5em;
+        }
 
-          .slide-menu-item-col {
-            color: black;
-          }
-          .slide-menu-item-col.icon {
-            text-align: center;
-
-            button {
-              background-color: white;
-              color: black;
-            }
-          }
-
-          .slide-menu-item-col.name {
-            padding: 4px;
-            span {
-              display: inline-block;
-              background-color: white;
-            }
-          }
+        span {
+          display: inline-block;
+          background-color: white;
         }
       }
     }

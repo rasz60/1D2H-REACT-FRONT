@@ -12,12 +12,14 @@ import {
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "@src/utils/axiosInstance";
 import { useState, useEffect } from "react";
+import { useResponsive } from "@context/ResponsiveContext";
 
 const FrontDoor = () => {
   const { getMdiIcon } = getIcon();
   const [groups, setGroups] = useState([]);
   const navigate = useNavigate();
-
+  const { cwidth } = useResponsive();
+  console.log(cwidth);
   useEffect(() => {
     getGroups();
   }, []);
@@ -107,30 +109,51 @@ const FrontDoor = () => {
         {/*-- FRONT DOOR::1st ROW-aboutMe::CONTENT --*/}
         <Grid2 container className="front-door-contents" spacing={1}>
           {/*-- aboutMe::1st COL-EXPERIENCE --*/}
-          <Grid2 size={4} className="front-door-contents-col">
+          <Grid2
+            size={cwidth < 1280 ? 12 : 4}
+            className="front-door-contents-col"
+          >
             <span className="sub-title about-me-exp-bg">
               {generateIconText("exprience", 1)}
             </span>
             <Divider></Divider>
             <Grid2 container spacing={1} className="sub-contents">
-              <Grid2 size={3} className="sub-content-title">
+              <Grid2
+                size={cwidth < 1280 ? 12 : 3}
+                className="sub-content-title"
+              >
                 포지션
               </Grid2>
-              <Grid2 size={9} className="sub-content-content">
+              <Grid2
+                size={cwidth < 1280 ? 12 : 9}
+                className="sub-content-content"
+              >
                 'A'사 JAVA 백엔드 개발자
               </Grid2>
 
-              <Grid2 size={3} className="sub-content-title">
+              <Grid2
+                size={cwidth < 1280 ? 12 : 3}
+                className="sub-content-title"
+              >
                 주요업무
               </Grid2>
-              <Grid2 size={9} className="sub-content-content">
+              <Grid2
+                size={cwidth < 1280 ? 12 : 9}
+                className="sub-content-content"
+              >
                 협력사 그룹웨어 개발 및 운영 업무
               </Grid2>
 
-              <Grid2 size={3} className="sub-content-title">
+              <Grid2
+                size={cwidth < 1280 ? 12 : 3}
+                className="sub-content-title"
+              >
                 근무기간
               </Grid2>
-              <Grid2 size={9} className="sub-content-content">
+              <Grid2
+                size={cwidth < 1280 ? 12 : 9}
+                className="sub-content-content"
+              >
                 {calculateDiffDate("2022-06-13", null)} (2022.06 ~ 재직 중)
               </Grid2>
 
@@ -150,24 +173,39 @@ const FrontDoor = () => {
           </Grid2>
 
           {/*-- aboutMe::2nd COL-PROJECT --*/}
-          <Grid2 size={4} className="front-door-contents-col">
+          <Grid2
+            size={cwidth < 1280 ? 12 : 4}
+            className="front-door-contents-col"
+          >
             <span className="sub-title about-me-prj-bg">
               {generateIconText("LASTEST", 1)}
             </span>
             <Divider></Divider>
 
             <Grid2 container spacing={1} className="sub-contents">
-              <Grid2 size={3} className="sub-content-title">
+              <Grid2
+                size={cwidth < 1280 ? 12 : 3}
+                className="sub-content-title"
+              >
                 프로젝트
               </Grid2>
-              <Grid2 size={9} className="sub-content-content">
+              <Grid2
+                size={cwidth < 1280 ? 12 : 9}
+                className="sub-content-content"
+              >
                 외부망 시스템 실시간 연동 기능 개발
               </Grid2>
 
-              <Grid2 size={3} className="sub-content-title">
+              <Grid2
+                size={cwidth < 1280 ? 12 : 3}
+                className="sub-content-title"
+              >
                 기간
               </Grid2>
-              <Grid2 size={9} className="sub-content-content">
+              <Grid2
+                size={cwidth < 1280 ? 12 : 9}
+                className="sub-content-content"
+              >
                 {calculateDiffDate("2025-01-01", "2025-07-07")} (2025.01 ~
                 2025.07)
               </Grid2>
@@ -196,7 +234,10 @@ const FrontDoor = () => {
           </Grid2>
 
           {/*-- aboutMe::3rd COL-SKILLS --*/}
-          <Grid2 size={4} className="front-door-contents-col">
+          <Grid2
+            size={cwidth < 1280 ? 12 : 4}
+            className="front-door-contents-col"
+          >
             <span className="sub-title about-me-skill-bg">
               {generateIconText("skills", 1)}
             </span>

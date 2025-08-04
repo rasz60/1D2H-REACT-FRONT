@@ -12,11 +12,13 @@ import axiosInstance from "@utils/axiosInstance";
 
 import { useAuth } from "@context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useResponsive } from "@src/context/ResponsiveContext";
 
 const Header = ({ isScroll }) => {
   const navigator = useNavigate();
   const { isBackdrop, setBackdrop } = BackdropMethods();
   const { getIsAuthentication, getAuthLv, logoutCallback } = useAuth();
+  const { cwidth } = useResponsive();
   const isAuthentication = getIsAuthentication();
   const authLv = getAuthLv();
 
@@ -58,11 +60,14 @@ const Header = ({ isScroll }) => {
           id="header-menu"
           className={isScroll ? "scrolled" : "notScrolled"}
         >
+          {/*-- 메뉴 Drop 버튼 --*/}
           <Grid2 size={4} id="col-menu">
             <IconButton size="large" onClick={() => handleBackdrop("menu")}>
               <Menu />
             </IconButton>
           </Grid2>
+
+          {/*-- 홈 버튼 --*/}
           <Grid2 size={4} id="col-logo">
             <Avatar
               onClick={(ev) => handleHeaderBtn("")}
@@ -71,6 +76,8 @@ const Header = ({ isScroll }) => {
               src="https://avatars.githubusercontent.com/u/96821067?v=4"
             />
           </Grid2>
+
+          {/*-- 유저 버튼 --*/}
           <Grid2 size={4} id="col-button">
             {isAuthentication && (
               <IconButton

@@ -9,7 +9,7 @@ import About from "@compo/menu/about/About";
 import DevLog from "@compo/menu/dlog/DevLog";
 import { Container } from "@mui/material";
 import SendMail from "../components/menu/sendmail/SendMail";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AdminMain from "../components/admin/AdminMain";
 
 const Main = () => {
