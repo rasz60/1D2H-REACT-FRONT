@@ -62,7 +62,10 @@ const Header = ({ isScroll }) => {
         >
           {/*-- 메뉴 Drop 버튼 --*/}
           <Grid2 size={4} id="col-menu">
-            <IconButton size="large" onClick={() => handleBackdrop("menu")}>
+            <IconButton
+              size={cwidth < 1280 ? "small" : "large"}
+              onClick={() => handleBackdrop("menu")}
+            >
               <Menu />
             </IconButton>
           </Grid2>
@@ -81,7 +84,7 @@ const Header = ({ isScroll }) => {
           <Grid2 size={4} id="col-button">
             {isAuthentication && (
               <IconButton
-                size="large"
+                size={cwidth < 1280 ? "small" : "large"}
                 onClick={(ev) => handleHeaderBtn("setUser")}
               >
                 <AccountCircle />
@@ -89,7 +92,7 @@ const Header = ({ isScroll }) => {
             )}
             {isAuthentication && authLv > 2 && (
               <IconButton
-                size="large"
+                size={cwidth < 1280 ? "small" : "large"}
                 onClick={(ev) => handleHeaderBtn("admin")}
               >
                 <Settings />
@@ -97,7 +100,7 @@ const Header = ({ isScroll }) => {
             )}
             {isAuthentication && (
               <IconButton
-                size="large"
+                size={cwidth < 1280 ? "small" : "large"}
                 onClick={(ev) => handleHeaderBtn("logout")}
               >
                 <Logout />
@@ -105,7 +108,7 @@ const Header = ({ isScroll }) => {
             )}
             {!isAuthentication && (
               <IconButton
-                size="large"
+                size={cwidth < 1280 ? "small" : "large"}
                 onClick={(ev) => handleBackdrop("login")}
               >
                 <Login />

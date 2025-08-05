@@ -102,6 +102,19 @@
     }
   }
 
+  .front-door-contents-col.S {
+    padding: 0.5em;
+
+    .sub-content-title {
+      display: none;
+      font-size: 14px;
+    }
+
+    .sub-content-content {
+      font-size: 14px;
+    }
+  }
+
   .dlog-row {
     cursor: pointer;
   }
@@ -109,4 +122,9 @@
   .dlog-row:hover {
     background-color: aliceblue;
   }
+}
+
+.front-door-contents.slide {
+  display: -webkit-inline-box;
+  overflow: hidden;
 }
