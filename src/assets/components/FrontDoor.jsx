@@ -41,24 +41,14 @@ const FrontDoor = () => {
         aboutSubTitleWidth: 3,
         aboutSubContentWidth: 9,
       }));
-    } else if (cwidth < 1280 && cwidth >= 800) {
-      setVmode((prev) => ({
-        ...prev,
-        size: "M",
-        aboutTitle: "about me",
-        aboutTitleSize: 1.2,
-        aboutColWidth: 10,
-        aboutSubTitleWidth: 12,
-        aboutSubContentWidth: 12,
-      }));
     } else {
       setVmode((prev) => ({
         ...prev,
-        size: "S",
-        aboutTitle: "about",
+        size: cwidth < 1280 && cwidth >= 800 ? "M" : "S",
+        aboutTitle: cwidth < 1280 && cwidth >= 800 ? "about me" : "about",
         aboutTitleSize: 1.2,
         aboutColWidth: 12,
-        aboutSubTitleWidth: 0,
+        aboutSubTitleWidth: 12,
         aboutSubContentWidth: 12,
       }));
     }
@@ -125,10 +115,8 @@ const FrontDoor = () => {
         {/*-- FRONT DOOR::1st ROW-aboutMe::CONTENT --*/}
         {vmode.size === "L" ? (
           <FixedAboutMe vmode={vmode} />
-        ) : vmode.size === "M" ? (
-          <SlideAboutMe vmode={vmode} />
         ) : (
-          <></>
+          <SlideAboutMe vmode={vmode} />
         )}
 
         {/*-- FRONT DOOR::2nd ROW-devLog::TITLE--*/}

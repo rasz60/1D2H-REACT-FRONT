@@ -122,9 +122,21 @@
   .dlog-row:hover {
     background-color: aliceblue;
   }
-}
 
-.front-door-contents.slide {
-  display: -webkit-inline-box;
-  overflow: hidden;
+  .slide-guide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: x-small;
+
+    svg {
+      font-size: 18px;
+      color: #cac8c8;
+    }
+  }
+
+  .slide {
+    display: -webkit-inline-box;
+    overflow: hidden;
+  }
 }
