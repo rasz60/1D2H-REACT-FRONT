@@ -53,6 +53,10 @@
 
         li {
           padding: 0.2em;
+
+          span {
+            display: none;
+          }
         }
       }
 
@@ -112,6 +116,14 @@
 
     .sub-content-content {
       font-size: 14px;
+
+      ul {
+        list-style: none;
+        padding-left: 0px;
+        li span {
+          display: inline;
+        }
+      }
     }
   }
 
@@ -136,7 +148,12 @@
   }
 
   .slide {
-    display: -webkit-inline-box;
     overflow: hidden;
+
+    .slide-wrapper {
+      display: -webkit-inline-box;
+      transition: transform 0.5s ease;
+      width: 100%;
+    }
   }
 }
