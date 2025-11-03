@@ -32,11 +32,14 @@
       padding-left: 2.5em;
 
       .slide-menu-item {
-        display: flex;
-        align-items: center;
         padding: 0;
         width: 100%;
         margin-top: 0.5em;
+
+        a {
+          display: flex;
+          align-items: center;
+        }
 
         button {
           background-color: white;
@@ -65,4 +68,43 @@
 
 #backdrop.full {
   z-index: 2002;
+}
+
+/* Tablet */
+@media (max-width: 1279px) {
+  #backdrop {
+    #slide-menu-box {
+      #slide-menu-list {
+        width: 70%;
+        min-width: 0;
+        padding-top: 6em;
+        padding-left: 1.5em;
+      }
+    }
+
+    #login-modal-box {
+      width: 26em;
+      height: auto;
+    }
+  }
+}
+
+/* Mobile */
+@media (max-width: 799px) {
+  #backdrop {
+    #slide-menu-box {
+      #slide-menu-list {
+        width: 100%;
+        min-width: 0;
+        padding-top: 5em;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+    }
+
+    #login-modal-box {
+      width: 90vw;
+      height: auto;
+    }
+  }
 }

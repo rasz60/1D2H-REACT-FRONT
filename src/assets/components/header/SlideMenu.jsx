@@ -47,22 +47,22 @@ const SlideMenu = ({ isBackdrop, setBackdrop }) => {
       <List id="slide-menu-list">
         {menu ? (
           menu.map((item) => (
-            <ListItem
-              key={item.menuName}
-              component={Link}
-              onClick={handleMoveMenu}
-              to={item.menuUrl}
-              className="slide-menu-item"
-              target={item.menuTarget}
-            >
-              <IconButton>
-                <LazyIcon iconName={item.menuIcon} />
-              </IconButton>
-              <span>
-                {item.menuName.split("").map((char) => (
-                  <Icon path={getMdiIcon(char)} size={1} />
-                ))}
-              </span>
+            <ListItem className="slide-menu-item">
+              <Link
+                key={item.menuName}
+                to={item.menuUrl}
+                onClick={handleMoveMenu}
+                target={item.menuTarget}
+              >
+                <IconButton>
+                  <LazyIcon iconName={item.menuIcon} />
+                </IconButton>
+                <span>
+                  {item.menuName.split("").map((char) => (
+                    <Icon path={getMdiIcon(char)} size={1} />
+                  ))}
+                </span>
+              </Link>
             </ListItem>
           ))
         ) : (

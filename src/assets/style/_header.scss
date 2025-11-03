@@ -77,3 +77,48 @@
 #header.scrolled {
   display: none;
 }
+
+/* Tablet */
+@media (max-width: 1279px) {
+  #header {
+    height: 5.5em;
+
+    #header-menu {
+      height: 5.5em;
+      padding-left: 1em;
+      padding-right: 1em;
+
+      #col-logo {
+        #logo {
+          width: 3em;
+          height: 3em;
+        }
+      }
+    }
+  }
+}
+
+/* Mobile */
+@media (max-width: 799px) {
+  #header {
+    height: 4.5em;
+
+    #header-menu {
+      height: 4.5em;
+      padding-left: 0.75em;
+      padding-right: 0.75em;
+
+      button {
+        margin-left: 0.1em;
+        margin-right: 0.1em;
+      }
+
+      #col-logo {
+        #logo {
+          width: 2.75em;
+          height: 2.75em;
+        }
+      }
+    }
+  }
+}

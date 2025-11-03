@@ -8,39 +8,39 @@ const SlideAboutMe = ({ vmode }) => {
     <Grid2 container className="front-door-contents" spacing={1}>
       {/*-- aboutMe::1st COL-EXPERIENCE --*/}
       <Grid2
-        size={vmode.aboutColWidth}
-        className={"front-door-contents-col" + " " + vmode.size}
+        size={vmode.row1ColWidth}
+        className={"front-door-contents-col " + vmode.size}
       >
         <span className="sub-title about-me-exp-bg">
           {generateIconText("exprience", 1)}
         </span>
         <Divider></Divider>
         <Grid2 container spacing={1} className="sub-contents">
-          <Grid2 size={vmode.aboutSubTitleWidth} className="sub-content-title">
+          <Grid2 size={vmode.row1SubTitleWidth} className="sub-content-title">
             포지션
           </Grid2>
           <Grid2
-            size={vmode.aboutSubContentWidth}
+            size={vmode.row1SubContentWidth}
             className="sub-content-content"
           >
             'A'사 JAVA 백엔드 개발자
           </Grid2>
 
-          <Grid2 size={vmode.aboutSubTitleWidth} className="sub-content-title">
+          <Grid2 size={vmode.row1SubTitleWidth} className="sub-content-title">
             주요업무
           </Grid2>
           <Grid2
-            size={vmode.aboutSubContentWidth}
+            size={vmode.row1SubContentWidth}
             className="sub-content-content"
           >
             그룹웨어 개발 및 운영 업무
           </Grid2>
 
-          <Grid2 size={vmode.aboutSubTitleWidth} className="sub-content-title">
+          <Grid2 size={vmode.row1SubTitleWidth} className="sub-content-title">
             근무기간
           </Grid2>
           <Grid2
-            size={vmode.aboutSubContentWidth}
+            size={vmode.row1SubContentWidth}
             className="sub-content-content"
           >
             {calculateDiffDate("2022-06-13", null)} (2022.06 ~ 재직 중)
@@ -50,7 +50,7 @@ const SlideAboutMe = ({ vmode }) => {
             사용기술
           </Grid2>
           <Grid2
-            size={vmode.aboutSubContentWidth}
+            size={vmode.row1SubContentWidth}
             className="sub-content-content skills"
           >
             {generateSkillChip("JAVA")}
@@ -66,8 +66,8 @@ const SlideAboutMe = ({ vmode }) => {
 
       {/* aboutMe::2nd COL-PROJECT */}
       <Grid2
-        size={vmode.aboutColWidth}
-        className={"front-door-contents-col" + " " + vmode}
+        size={vmode.row1ColWidth}
+        className={"front-door-contents-col " + vmode.size}
       >
         <span className="sub-title about-me-prj-bg">
           {generateIconText("LASTEST", 1)}
@@ -75,21 +75,21 @@ const SlideAboutMe = ({ vmode }) => {
         <Divider></Divider>
 
         <Grid2 container spacing={1} className="sub-contents">
-          <Grid2 size={vmode.aboutSubTitleWidth} className="sub-content-title">
+          <Grid2 size={vmode.row1SubTitleWidth} className="sub-content-title">
             프로젝트
           </Grid2>
           <Grid2
-            size={vmode.aboutSubContentWidth}
+            size={vmode.row1SubContentWidth}
             className="sub-content-content"
           >
             외부망 시스템 실시간 연동 기능 개발
           </Grid2>
 
-          <Grid2 size={vmode.aboutSubTitleWidth} className="sub-content-title">
+          <Grid2 size={vmode.row1SubTitleWidth} className="sub-content-title">
             기간
           </Grid2>
           <Grid2
-            size={vmode.aboutSubContentWidth}
+            size={vmode.row1SubContentWidth}
             className="sub-content-content"
           >
             {calculateDiffDate("2025-01-01", "2025-07-07")} (2025.01 ~ 2025.07)
@@ -119,8 +119,8 @@ const SlideAboutMe = ({ vmode }) => {
       </Grid2>
       {/* aboutMe::3rd COL-SKILLS */}
       <Grid2
-        size={vmode.aboutColWidth}
-        className={"front-door-contents-col" + " " + vmode}
+        size={vmode.row1ColWidth}
+        className={"front-door-contents-col " + vmode.size}
       >
         <span className="sub-title about-me-skill-bg">
           {generateIconText("skills", 1)}

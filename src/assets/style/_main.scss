@@ -4,13 +4,31 @@
   padding-right: 4em;
 }
 
-@import url(main/_frontDoor.scss);
+@import "main/_frontDoor.scss";
 
-@import url(main/_about.scss);
-@import url(main/_devlog.scss);
+@import "main/_about.scss";
+@import "main/_devlog.scss";
 
-@import url(main/_signup.scss);
-@import url(main/_setUser.scss);
-@import url(main/_findInfo.scss);
+@import "main/_signup.scss";
+@import "main/_setUser.scss";
+@import "main/_findInfo.scss";
 
-@import url(main/_admin.scss);
+@import "main/_admin.scss";
+
+/* Tablet */
+@media (max-width: 1279px) {
+  #main {
+    margin-top: 6em; /* 헤더 높이 축소에 맞춤 */
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+}
+
+/* Mobile */
+@media (max-width: 799px) {
+  #main {
+    margin-top: 5em; /* 모바일 헤더 높이 반영 */
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+}

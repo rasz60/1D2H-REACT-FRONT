@@ -104,6 +104,28 @@
       padding-left: 1.5em;
       justify-content: start;
     }
+
+    /* 메인 devlog 타이틀: 기본 한 줄 + 말줄임, hover 시 슬라이드 */
+    .dlog-col.title {
+      overflow: hidden;
+    }
+    .dlog-col.title h4 {
+      margin: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+    .dlog-col.title:hover h4 {
+      display: inline-block;
+      min-width: max-content;
+      text-overflow: clip;
+      animation: fd-title-marquee-loop 10s linear 0.3s infinite both;
+    }
+
+    .dlog-col:not(.title) {
+      white-space: nowrap;
+    }
   }
 
   .front-door-contents-col.S {
@@ -135,6 +157,11 @@
     background-color: aliceblue;
   }
 
+  /* 데스크탑: 한 줄 레이아웃 유지 */
+  .front-door-contents-col.dlog-row {
+    display: flex;
+  }
+
   .slide-guide {
     display: flex;
     justify-content: center;
@@ -151,9 +178,134 @@
     overflow: hidden;
 
     .slide-wrapper {
-      display: -webkit-inline-box;
+      display: flex; /* 연속 슬라이드 정렬 */
       transition: transform 0.5s ease;
       width: 100%;
+      gap: 0; /* 카드 간 간격 제거 */
+    }
+
+    /* 각 슬라이드 카드가 이동 거리(99.85%)와 정확히 일치하도록 고정 */
+    .slide-wrapper > .front-door-contents-col {
+      flex: 0 0 99.85% !important;
+      max-width: 99.85% !important;
+      box-sizing: border-box;
+    }
+  }
+}
+
+@keyframes fd-title-marquee-loop {
+  0% {
+    transform: translateX(0);
+  }
+  45% {
+    transform: translateX(-100%);
+  }
+  55% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Tablet */
+@media (max-width: 1279px) {
+  .front-door-contents {
+    padding: 0.5em;
+
+    .front-door-contents-col {
+      padding: 0.75em;
+
+      /* devlog 행: 2행 (row1: title / row2: likes|subs|cnt) */
+      .front-door-contents-col.dlog-row {
+        display: grid !important;
+        grid-template-columns: 1fr auto auto auto !important;
+        grid-auto-rows: auto !important;
+        column-gap: 8px !important;
+        row-gap: 6px !important;
+        align-items: center !important;
+      }
+      /* Grid2 자식이 가진 flex 기반 폭을 무력화 */
+      .front-door-contents-col.dlog-row > .dlog-col {
+        flex: 0 0 auto !important;
+        max-width: none !important;
+        width: auto !important;
+      }
+      .front-door-contents-col.dlog-row > .dlog-col.title {
+        grid-row: 1 !important;
+        grid-column: 1 / 5 !important;
+        /* 타이틀은 작은 화면에서 줄바꿈 허용 (슬라이드는 데스크탑 위주) */
+        white-space: normal !important;
+      }
+      .front-door-contents-col.dlog-row > .dlog-col:not(.title):nth-of-type(2) {
+        grid-row: 2 !important;
+        grid-column: 2 !important;
+        justify-content: end !important;
+      }
+      .front-door-contents-col.dlog-row > .dlog-col:not(.title):nth-of-type(3) {
+        grid-row: 2 !important;
+        grid-column: 3 !important;
+        justify-content: end !important;
+      }
+      .front-door-contents-col.dlog-row > .dlog-col:not(.title):nth-of-type(4) {
+        grid-row: 2 !important;
+        grid-column: 4 !important;
+        justify-content: end !important;
+      }
+
+      .sub-contents {
+        .sub-content-title,
+        .sub-content-content {
+          min-height: 1.8em;
+        }
+      }
+    }
+  }
+}
+
+/* Mobile */
+@media (max-width: 799px) {
+  .front-door-btn-more {
+    justify-content: end;
+    align-items: center;
+  }
+
+  .front-door-contents {
+    padding: 0.25em;
+
+    .front-door-contents-col {
+      padding: 0.5em;
+
+      .front-door-contents-col.dlog-row {
+        column-gap: 6px !important;
+        row-gap: 4px !important;
+      }
+      .front-door-contents-col.dlog-row > .dlog-col.title h4 {
+        font-size: 14px;
+      }
+
+      .sub-contents {
+        padding: 0.25em;
+
+        .sub-content-title {
+          font-size: 13px;
+        }
+
+        .sub-content-content {
+          font-size: 13px;
+        }
+      }
+
+      .dlog-col.title {
+        padding-left: 0.75em;
+      }
+    }
+
+    .slide-guide {
+      font-size: 11px;
+      svg {
+        font-size: 16px;
+      }
     }
   }
 }

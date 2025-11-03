@@ -1,4 +1,4 @@
-import { Box, Grid2, Button, Divider, Chip } from "@mui/material";
+import { Box, Grid2, Button } from "@mui/material";
 import Icon from "@mdi/react";
 import getIcon from "@js/menuIcon.js";
 import {
@@ -23,11 +23,12 @@ const FrontDoor = () => {
   const { cwidth } = useResponsive();
   const [vmode, setVmode] = useState({
     size: "L",
-    aboutTitle: "about me",
-    aboutTitleSize: 1.5,
-    aboutColWidth: 4,
-    aboutSubTitleWidth: 3,
-    aboutSubContentWidth: 9,
+    row1_title: "about me",
+    row2_title: "devlog",
+    titleSize: 1.5,
+    row1ColWidth: 4,
+    row1SubTitleWidth: 3,
+    row1SubContentWidth: 9,
   });
 
   useEffect(() => {
@@ -35,21 +36,20 @@ const FrontDoor = () => {
       setVmode((prev) => ({
         ...prev,
         size: "L",
-        aboutTitle: "about me",
-        aboutTitleSize: 1.5,
-        aboutColWidth: 4,
-        aboutSubTitleWidth: 3,
-        aboutSubContentWidth: 9,
+        titleSize: 1.5,
+        row1ColWidth: 4,
+        row1SubTitleWidth: 3,
+        row1SubContentWidth: 9,
       }));
     } else {
       setVmode((prev) => ({
         ...prev,
         size: cwidth < 1280 && cwidth >= 800 ? "M" : "S",
-        aboutTitle: cwidth < 1280 && cwidth >= 800 ? "about me" : "about",
-        aboutTitleSize: 1.2,
-        aboutColWidth: 12,
-        aboutSubTitleWidth: 12,
-        aboutSubContentWidth: 12,
+        row1_title: cwidth < 1280 && cwidth >= 800 ? "about me" : "about",
+        titleSize: 1.2,
+        row1ColWidth: 12,
+        row1SubTitleWidth: 12,
+        row1SubContentWidth: 12,
       }));
     }
   }, [cwidth]);
@@ -96,7 +96,7 @@ const FrontDoor = () => {
         <Grid2 size={11}>
           {/*-- FRONT DOOR::1st ROW-aboutMe::TITLE --*/}
           <h2 className="front-door-title">
-            {generateIconText(vmode.aboutTitle, vmode.aboutTitleSize)}❓
+            {generateIconText(vmode.row1_title, vmode.titleSize)}❓
           </h2>
         </Grid2>
         <Grid2 size={1} className="front-door-btn-more">
@@ -123,8 +123,7 @@ const FrontDoor = () => {
         <Grid2 size={11}>
           {/*-- FRONT DOOR::1st ROW-aboutMe::TITLE --*/}
           <h2 className="front-door-title">
-            {generateIconText("devlog", 1.5)}
-            &nbsp;&nbsp;❗
+            {generateIconText(vmode.row2_title, vmode.titleSize)}❗
           </h2>
         </Grid2>
         <Grid2 size={1} className="front-door-btn-more">
@@ -144,20 +143,23 @@ const FrontDoor = () => {
                   className="front-door-contents-col dlog-row"
                   onClick={() => handleDlogGroup(group.groupNo)}
                 >
-                  <Grid2 size={9} className="dlog-col title">
+                  <Grid2
+                    size={vmode.size === "L" ? 9 : 12}
+                    className="dlog-col title"
+                  >
                     <h4>#{group.groupNo + ". " + group.groupTitle}</h4>
                   </Grid2>
-                  <Grid2 size={1} className="dlog-col">
+                  <Grid2 size={vmode.size === "L" ? 1 : 4} className="dlog-col">
                     {group.likeYn ? <Favorite /> : <FavoriteBorderOutlined />}
                     &nbsp;
                     {group.likeCnt}
                   </Grid2>
-                  <Grid2 size={1} className="dlog-col">
+                  <Grid2 size={vmode.size === "L" ? 1 : 4} className="dlog-col">
                     {group.subsYn ? <TurnedIn /> : <TurnedInNot />}
                     &nbsp;
                     {group.subsCnt}
                   </Grid2>
-                  <Grid2 size={1} className="dlog-col">
+                  <Grid2 size={vmode.size === "L" ? 1 : 4} className="dlog-col">
                     <FormatListBulleted />
                     &nbsp;
                     {group.itemCnt}
