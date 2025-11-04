@@ -24,6 +24,7 @@ import {
   Grid2,
   IconButton,
   Typography,
+  Tooltip,
 } from "@mui/material";
 import axiosInstance from "@src/utils/axiosInstance";
 import { useEffect, useState } from "react";
@@ -31,6 +32,7 @@ import { useEffect, useState } from "react";
 /*-- AuthContext --*/
 import { useAuth } from "@context/AuthContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useResponsive } from "@context/ResponsiveContext";
 
 import DevLogGroupAddPopup from "@compo/menu/dlog/DevLogGroupAddPopup";
 
@@ -42,6 +44,7 @@ const DevLogList = () => {
   const location = useLocation();
   const { isAuthenticated, getAuthLv } = useAuth();
   const authLv = getAuthLv();
+  const { cwidth } = useResponsive();
 
   useEffect(() => {
     getGroups();
@@ -260,9 +263,17 @@ const DevLogList = () => {
                   )}
                 </Grid2>
                 <Grid2 size={8} className="dlog-pannel-header-text">
-                  <Typography component="span">
-                    {"#" + (groups.length - idx) + ". " + group.groupTitle}
-                  </Typography>
+                  {cwidth >= 1280 ? (
+                    <Tooltip title={`#${groups.length - idx}. ${group.groupTitle}`} arrow placement="bottom">
+                      <Typography component="span">
+                        {"#" + (groups.length - idx) + ". " + group.groupTitle}
+                      </Typography>
+                    </Tooltip>
+                  ) : (
+                    <Typography component="span">
+                      {"#" + (groups.length - idx) + ". " + group.groupTitle}
+                    </Typography>
+                  )}
                 </Grid2>
                 <Grid2 size={1} className="dlog-pannel-header-likes">
                   <IconButton

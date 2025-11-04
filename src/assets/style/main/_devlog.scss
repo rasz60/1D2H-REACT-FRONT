@@ -33,16 +33,8 @@
           white-space: nowrap; /* 한 줄 유지 */
           text-overflow: ellipsis;
           max-width: 100%;
-          min-width: max-content; /* 콘텐츠 길이만큼 확장 */
           line-height: 1.3;
           text-align: left;
-          will-change: transform; /* 슬라이드 성능 향상 */
-        }
-
-        /* hover 시 텍스트 슬라이드 */
-        &:hover span {
-          text-overflow: clip;
-          animation: dlog-title-marquee-loop 10s linear 0.3s infinite both;
         }
       }
 
@@ -327,20 +319,6 @@
   }
 }
 
-@keyframes dlog-title-marquee-loop {
-  0% {
-    transform: translateX(0);
-  }
-  45% {
-    transform: translateX(-100%);
-  }
-  55% {
-    transform: translateX(100%);
-  } /* 오른쪽 밖으로 즉시 이동 */
-  100% {
-    transform: translateX(0);
-  }
-}
 
 /* Tablet: 아이템 카드 2열 */
 @media (max-width: 1279px) {

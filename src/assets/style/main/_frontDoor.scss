@@ -105,7 +105,7 @@
       justify-content: start;
     }
 
-    /* 메인 devlog 타이틀: 기본 한 줄 + 말줄임, hover 시 슬라이드 */
+    /* 메인 devlog 타이틀: 기본 한 줄 + 말줄임 */
     .dlog-col.title {
       overflow: hidden;
     }
@@ -115,12 +115,6 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       width: 100%;
-    }
-    .dlog-col.title:hover h4 {
-      display: inline-block;
-      min-width: max-content;
-      text-overflow: clip;
-      animation: fd-title-marquee-loop 10s linear 0.3s infinite both;
     }
 
     .dlog-col:not(.title) {
@@ -190,21 +184,6 @@
       max-width: 99.85% !important;
       box-sizing: border-box;
     }
-  }
-}
-
-@keyframes fd-title-marquee-loop {
-  0% {
-    transform: translateX(0);
-  }
-  45% {
-    transform: translateX(-100%);
-  }
-  55% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(0);
   }
 }
 

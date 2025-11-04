@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "@context/AuthContext";
@@ -38,6 +38,9 @@ const App = () => {
 
   // 전역 백드롭 상태 (SpeedDial과 공유)
   const { isBackdrop, setBackdrop } = BackdropMethods();
+  
+  // 이전 백드랍 상태를 추적하기 위한 ref
+  const prevBackdropRef = useRef({ open: false, layout: "" });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,6 +54,23 @@ const App = () => {
     };
   }, []);
 
+  // 백드랍과 메뉴가 닫힐 때 현재 스크롤 상태를 확인하여 헤더 표시/숨김 처리
+  useEffect(() => {
+    // 메뉴 백드랍이 닫혔을 때 (이전에 열려있었고 지금 닫혔을 때)
+    const prevBackdrop = prevBackdropRef.current;
+    if (prevBackdrop.open && prevBackdrop.layout === "menu" && !isBackdrop.open) {
+      // 현재 스크롤 위치를 확인하여 헤더 표시/숨김 결정
+      const currentScrollTop = document.scrollingElement.scrollTop;
+      setIsScroll(currentScrollTop > 0);
+    }
+    
+    // 현재 상태를 이전 상태로 저장
+    prevBackdropRef.current = {
+      open: isBackdrop.open,
+      layout: isBackdrop.layout || "",
+    };
+  }, [isBackdrop.open, isBackdrop.layout]);
+
   // 유틸 액션 생성 (SpeedDial 내부 전용 컴포넌트)
   const UtilitySpeedDial = ({ visible, onBackdrop }) => {
     const navigator = useNavigate();
@@ -60,6 +80,10 @@ const App = () => {
     const authLv = getAuthLv();
 
     const handleBackdrop = (layout) => {
+      // 메뉴 버튼 클릭 시 Header를 표시하기 위해 isScroll을 false로 설정
+      if (layout === "menu") {
+        setIsScroll(false);
+      }
       onBackdrop({ type: true, layout });
     };
 
@@ -157,7 +181,7 @@ const App = () => {
     <BrowserRouter>
       <ResponsiveProvider>
         <AuthProvider>
-          <Header isScroll={isScroll} />
+          <Header isScroll={isScroll && !(isBackdrop.open && isBackdrop.layout === "menu")} />
           <Main />
           <Footer />
 

@@ -1,4 +1,4 @@
-import { Box, Grid2, Button } from "@mui/material";
+import { Box, Grid2, Button, Tooltip } from "@mui/material";
 import Icon from "@mdi/react";
 import getIcon from "@js/menuIcon.js";
 import {
@@ -147,7 +147,13 @@ const FrontDoor = () => {
                     size={vmode.size === "L" ? 9 : 12}
                     className="dlog-col title"
                   >
-                    <h4>#{group.groupNo + ". " + group.groupTitle}</h4>
+                    {cwidth >= 1280 ? (
+                      <Tooltip title={`#${group.groupNo}. ${group.groupTitle}`} arrow placement="bottom">
+                        <h4>#{group.groupNo + ". " + group.groupTitle}</h4>
+                      </Tooltip>
+                    ) : (
+                      <h4>#{group.groupNo + ". " + group.groupTitle}</h4>
+                    )}
                   </Grid2>
                   <Grid2 size={vmode.size === "L" ? 1 : 4} className="dlog-col">
                     {group.likeYn ? <Favorite /> : <FavoriteBorderOutlined />}
